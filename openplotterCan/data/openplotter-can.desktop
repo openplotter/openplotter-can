@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=OpenPlotter My App
-Exec=openplotter-myapp
-Icon=openplotter-myapp
+Name=OpenPlotter CAN
+Exec=openplotter-can
+Icon=openplotter-can
 StartupNotify=true
 Terminal=false
 Type=Application

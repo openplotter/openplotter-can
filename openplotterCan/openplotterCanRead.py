@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # This file is part of Openplotter.
-# Copyright (C) 2019 by xxxx <https://github.com/xxxx/openplotter-myapp>
-# 
+# Copyright (C) 2019 by Sailoog <https://github.com/openplotter/openplotter-can>
+#                     
 # Openplotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -14,11 +14,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
+
 import socket, time, random
 from openplotterSettings import conf
 
-# this file runs as a service in the background
 def main():
+	pass
+	'''
 	try:
 		conf2 = conf.Conf()
 		value = conf2.get('MYAPP', 'sending')
@@ -35,6 +37,7 @@ def main():
 				sock.sendto(SignalK.encode('utf-8'), ('127.0.0.1', int(port)))
 				time.sleep(1)
 	except Exception as e: print (str(e))
+	'''
 
 if __name__ == '__main__':
 	main()

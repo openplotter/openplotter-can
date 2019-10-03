@@ -1,0 +1,88 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: openplotter-can\n"
+"POT-Creation-Date: 2019-10-01 17:45+0200\n"
+"PO-Revision-Date: 2019-10-01 17:45+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: canPostInstall.py:29
+msgid "Adding openplotter-read-myapp service..."
+msgstr ""
+
+#: canPostInstall.py:35 canPreUninstall.py:35
+msgid "DONE"
+msgstr ""
+
+#: canPostInstall.py:36 canPreUninstall.py:36
+msgid "FAILED: "
+msgstr ""
+
+#: canPreUninstall.py:29
+msgid "Removing openplotter-read-myapp service..."
+msgstr ""
+
+#: openplotterCan.py:33
+msgid "OpenPlotter CAN"
+msgstr ""
+
+#: openplotterCan.py:43
+msgid "Help"
+msgstr ""
+
+#: openplotterCan.py:46
+msgid "Settings"
+msgstr ""
+
+#: openplotterCan.py:49
+msgid "Apply Changes"
+msgstr ""
+
+#: openplotterCan.py:51
+msgid "Cancel Changes"
+msgstr ""
+
+#: openplotterCan.py:59
+msgid "Managed by Signl K"
+msgstr ""
+
+#: openplotterCan.py:60
+msgid "Managed by OpenPlotter"
+msgstr ""
+
+#: openplotterCan.py:61
+msgid "MCP2515"
+msgstr ""
+
+#: openplotterCan.py:117
+msgid "alias"
+msgstr ""
+
+#: openplotterCan.py:118
+msgid "bauds"
+msgstr ""
+
+#: openplotterCan.py:123
+msgid "Add SK connection"
+msgstr ""
+
+#: openplotterCan.py:125
+msgid "Refresh"
+msgstr ""
+
+#: openplotterCan.py:128
+msgid "Open TX PGNs"
+msgstr ""
+
+#: openplotterCan.py:130
+msgid "SK to N2K"
+msgstr ""
