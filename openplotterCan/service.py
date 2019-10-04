@@ -17,6 +17,14 @@
 
 import sys, subprocess
 
+if sys.argv[1]=='start':
+	subprocess.call(['systemctl', 'start', 'signalk.socket'])
+	subprocess.call(['systemctl', 'start', 'signalk.service'])
+
+if sys.argv[1]=='stop':
+	subprocess.call(['systemctl', 'stop', 'signalk.service'])
+	subprocess.call(['systemctl', 'stop', 'signalk.socket'])
+	
 if sys.argv[1]=='enable':
 	subprocess.call(['systemctl', 'enable', 'openplotter-can-read'])
 	subprocess.call(['systemctl', 'restart', 'openplotter-can-read'])
