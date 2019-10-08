@@ -31,6 +31,6 @@ setup (
 	'Operating System :: POSIX :: Linux',
 	'Programming Language :: Python :: 3'],
 	include_package_data=True,
-	entry_points={'console_scripts': ['openplotter-can=openplotterCan.openplotterCan:main','openplotter-can-read=openplotterCan.openplotterCanRead:main','canPostInstall=openplotterCan.canPostInstall:main','canPreUninstall=openplotterCan.canPreUninstall:main','CAN-USB-firmware=openplotterCan.canUsbFirmware:main']},
+	entry_points={'console_scripts': ['openplotter-can=openplotterCan.openplotterCan:main','CAN-USB-firmware=openplotterCan.canUsbFirmware:main']},
 	data_files=[('share/applications', ['openplotterCan/data/openplotter-can.desktop']),('share/pixmaps', ['openplotterCan/data/openplotter-can.png']),],
 	)

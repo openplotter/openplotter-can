@@ -33,7 +33,7 @@ class MyFrame(wx.Frame):
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
 		self.language = language.Language(self.currentdir,'openplotter-can',self.currentLanguage)
 
-		wx.Frame.__init__(self, None, title=_('OpenPlotter CAN'), size=(800,444))
+		wx.Frame.__init__(self, None, title=_('OpenPlotter CAN Bus'), size=(800,444))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		icon = wx.Icon(self.currentdir+"/data/openplotter-can.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
@@ -52,15 +52,15 @@ class MyFrame(wx.Frame):
 		self.canUsbSetup = self.toolbar1.AddTool(103, _('CAN-USB Setup'), wx.Bitmap(self.currentdir+"/data/openplotter-24.png"))
 		self.Bind(wx.EVT_TOOL, self.onCanUsbSetup, self.canUsbSetup)
 		self.toolbar1.AddSeparator()
-		self.AddSkCon = self.toolbar1.AddTool(104, _('SK connections'), wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.AddSkCon = self.toolbar1.AddTool(104, _('Add SK Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
 		self.Bind(wx.EVT_TOOL, self.onAddSkCon, self.AddSkCon)
 		self.SKtoN2K = self.toolbar1.AddTool(105, _('SK Output'), wx.Bitmap(self.currentdir+"/data/sk.png"))
 		self.Bind(wx.EVT_TOOL, self.onSKtoN2K, self.SKtoN2K)
-		self.toolbar1.AddSeparator()
-		toolApply = self.toolbar1.AddTool(106, _('Apply'), wx.Bitmap(self.currentdir+"/data/apply.png"))
-		self.Bind(wx.EVT_TOOL, self.OnToolApply, toolApply)
-		toolCancel = self.toolbar1.AddTool(107, _('Cancel'), wx.Bitmap(self.currentdir+"/data/cancel.png"))
-		self.Bind(wx.EVT_TOOL, self.OnToolCancel, toolCancel)
+		#self.toolbar1.AddSeparator()
+		#toolApply = self.toolbar1.AddTool(106, _('Apply'), wx.Bitmap(self.currentdir+"/data/apply.png"))
+		#self.Bind(wx.EVT_TOOL, self.OnToolApply, toolApply)
+		#toolCancel = self.toolbar1.AddTool(107, _('Cancel'), wx.Bitmap(self.currentdir+"/data/cancel.png"))
+		#self.Bind(wx.EVT_TOOL, self.OnToolCancel, toolCancel)
 
 		self.notebook = wx.Notebook(self)
 		self.notebook.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.onTabChange)
@@ -126,20 +126,17 @@ class MyFrame(wx.Frame):
 		subprocess.call(['pkill', '-f', 'openplotter-settings'])
 		subprocess.Popen('openplotter-settings')
 
-	def pageMcp2515(self):
-		pass
-
 	def pageSk(self):
 		skLabel = wx.StaticText(self.sk, label='Actinsense NGT-1 (canboatjs)')
 		self.listSKcan = wx.ListCtrl(self.sk, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
-		self.listSKcan.InsertColumn(0, _('ID'), width=200)
-		self.listSKcan.InsertColumn(1, _('Serial Port'), width=200)
-		self.listSKcan.InsertColumn(2, _('Baud Rate'), width=200)
+		self.listSKcan.InsertColumn(0, _('Serial Port'), width=200)
+		self.listSKcan.InsertColumn(1, _('Baud Rate'), width=200)
+		self.listSKcan.InsertColumn(2, _('SK connection ID'), width=200)
 		self.listSKcan.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSKcanSelected)
 		self.listSKcan.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSKcanDeselected)
 
 		self.toolbar2 = wx.ToolBar(self.sk, style=wx.TB_TEXT | wx.TB_VERTICAL)
-		self.editSkCon = self.toolbar2.AddTool(201, _('Edit Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.editSkCon = self.toolbar2.AddTool(201, _('Edit SK Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
 		self.Bind(wx.EVT_TOOL, self.onEditSkCon, self.editSkCon)
 		self.RefreshSk = self.toolbar2.AddTool(202, _('Refresh'), wx.Bitmap(self.currentdir+"/data/refresh.png"))
 		self.Bind(wx.EVT_TOOL, self.onRefreshSk, self.RefreshSk)
@@ -170,7 +167,7 @@ class MyFrame(wx.Frame):
 			if 'pipedProviders' in data:
 				for i in data['pipedProviders']:
 					if i['pipeElements'][0]['options']['subOptions']['type']=='ngt-1-canboatjs':
-						self.sklist.append([i['id'],i['pipeElements'][0]['options']['subOptions']['device'],i['pipeElements'][0]['options']['subOptions']['baudrate'],i['enabled']])
+						self.sklist.append([i['pipeElements'][0]['options']['subOptions']['device'],i['pipeElements'][0]['options']['subOptions']['baudrate'],i['id'],i['enabled']])
 		except:pass
 
 		self.listSKcan.DeleteAllItems()
@@ -213,7 +210,7 @@ class MyFrame(wx.Frame):
 	def onEditSkCon(self,e):
 		selected = self.listSKcan.GetFirstSelected()
 		if selected == -1: return
-		skId = self.listSKcan.GetItemText(selected, 0)
+		skId = self.listSKcan.GetItemText(selected, 2)
 		url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/connections/'+skId
 		webbrowser.open(url, new=2)
 
@@ -223,9 +220,9 @@ class MyFrame(wx.Frame):
 	def onSKcanTX(self,e):
 		selected = self.listSKcan.GetFirstSelected()
 		if selected == -1: return
-		skId = self.listSKcan.GetItemText(selected, 0)
-		device = self.listSKcan.GetItemText(selected, 1)
-		bauds = self.listSKcan.GetItemText(selected, 2)
+		skId = self.listSKcan.GetItemText(selected, 2)
+		device = self.listSKcan.GetItemText(selected, 0)
+		bauds = self.listSKcan.GetItemText(selected, 1)
 		if self.enable_disable_device(skId,0): self.restart_SK(_('Disabling device and restarting Signal K server... '))
 		dlg = openPGNs(self,device,bauds)
 		res = dlg.ShowModal()
@@ -263,8 +260,8 @@ class MyFrame(wx.Frame):
 	def restart_SK(self, msg):
 		if msg == 0: msg = _('Restarting Signal K server... ')
 		seconds = 12
-		subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'stop'])
-		subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'start'])
+		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'stop'])
+		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'start'])
 		for i in range(seconds, 0, -1):
 			self.ShowStatusBarYELLOW(msg+str(i))
 			time.sleep(1)
@@ -283,8 +280,185 @@ class MyFrame(wx.Frame):
 		self.toolbar2.EnableTool(201,False)
 		self.toolbar2.EnableTool(203,False)
 
+	def onListlistMcp2515Selected(self,e):
+		selected = self.listMcp2515.GetFirstSelected()
+		if selected == -1: return
+		self.toolbar3.EnableTool(304,True)
+		skId = self.listMcp2515.GetItemText(selected, 4)
+		if skId: self.toolbar3.EnableTool(301,True)
+		else: self.toolbar3.EnableTool(301,False)
+
+	def onListlistMcp2515Deselected(self,e):
+		self.toolbar3.EnableTool(301,False)
+		self.toolbar3.EnableTool(304,False)
+
 	def pageOp(self):
 		pass
+
+	def pageMcp2515(self):
+		mcp2515Label = wx.StaticText(self.mcp2515, label='Canbus (canboatjs)')
+		self.listMcp2515 = wx.ListCtrl(self.mcp2515, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
+		self.listMcp2515.InsertColumn(0, _('Connection'), width=110)
+		self.listMcp2515.InsertColumn(1, _('Oscillator'), width=110)
+		self.listMcp2515.InsertColumn(2, _('Interrupt'), width=110)
+		self.listMcp2515.InsertColumn(3, _('Interface'), width=110)
+		self.listMcp2515.InsertColumn(4, _('SK connection ID'), width=150)
+		self.listMcp2515.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListlistMcp2515Selected)
+		self.listMcp2515.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListlistMcp2515Deselected)
+
+		self.toolbar3 = wx.ToolBar(self.mcp2515, style=wx.TB_TEXT | wx.TB_VERTICAL)
+		self.editMcp2515SkCon = self.toolbar3.AddTool(301, _('Edit SK Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.Bind(wx.EVT_TOOL, self.onEditMcp2515SkCon, self.editMcp2515SkCon)
+		self.refreshMcp2515 = self.toolbar3.AddTool(302, _('Refresh'), wx.Bitmap(self.currentdir+"/data/refresh.png"))
+		self.Bind(wx.EVT_TOOL, self.onRefreshMcp2515, self.refreshMcp2515)
+		self.toolbar3.AddSeparator()
+		self.addMcp2515 = self.toolbar3.AddTool(303, _('Add device'), wx.Bitmap(self.currentdir+"/data/openplotter-24.png"))
+		self.Bind(wx.EVT_TOOL, self.onAddMcp2515, self.addMcp2515)
+		self.removeMcp2515 = self.toolbar3.AddTool(304, _('Remove device'), wx.Bitmap(self.currentdir+"/data/openplotter-24.png"))
+		self.Bind(wx.EVT_TOOL, self.onRemoveMcp2515, self.removeMcp2515)
+
+		h1 = wx.BoxSizer(wx.VERTICAL)
+		h1.AddSpacer(5)
+		h1.Add(mcp2515Label, 0, wx.LEFT, 10)
+		h1.AddSpacer(5)
+		h1.Add(self.listMcp2515, 1, wx.EXPAND, 0)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer.Add(h1, 1, wx.EXPAND, 0)
+		sizer.Add(self.toolbar3, 0)
+		self.mcp2515.SetSizer(sizer)
+
+		self.readMcp2515()
+
+	def readMcp2515(self):
+		self.listMcp2515.DeleteAllItems()
+		try:
+			setting_file = self.platform.skDir+'/settings.json'
+			with open(setting_file) as data_file:
+				data = ujson.load(data_file)
+		except: data = {}
+		file = open('/boot/config.txt', 'r')
+		while True:
+			line = file.readline()
+			if not line: break
+			if 'dtoverlay=mcp2515' in line:
+				connection = ''
+				oscillator = ''
+				interrupt = ''
+				skId = ''
+				enabled = False
+				line = line.rstrip()
+				lList = line.split(',')
+				for i in lList:
+					if 'dtoverlay=mcp2515-can0' in i: connection = 'SPI0'
+					elif 'dtoverlay=mcp2515-can1' in i: connection = 'SPI1'
+					if 'oscillator' in i:
+						oList = i.split('=')
+						oscillator = oList[1]
+					if 'interrupt' in i:
+						iList = i.split('=')
+						interrupt = iList[1]
+				interface = self.getInterface(connection)
+				if 'pipedProviders' in data:
+					for i in data['pipedProviders']:
+						if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
+							if interface == i['pipeElements'][0]['options']['subOptions']['interface']: 
+								skId = i['id']
+								enabled = i['enabled']
+				self.listMcp2515.Append([connection,oscillator,interrupt,interface,skId])
+				if skId and enabled: self.listMcp2515.SetItemBackgroundColour(self.listMcp2515.GetItemCount()-1,(0,191,255))
+		file.close()
+
+		if 'pipedProviders' in data:
+			for i in data['pipedProviders']:
+				if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
+					interface = i['pipeElements'][0]['options']['subOptions']['interface']
+					skId = i['id']
+					exists = False
+					for ii in range(self.listMcp2515.GetItemCount()):
+						if interface == self.listMcp2515.GetItemText(ii, 3): exists = True
+					if not exists: self.listMcp2515.Append(['','','',interface,skId])
+
+		selected = self.listMcp2515.GetFirstSelected()
+		if selected == -1:
+			self.toolbar3.EnableTool(301,False)
+			self.toolbar3.EnableTool(304,False)
+		else:
+			self.toolbar3.EnableTool(301,True)
+			self.toolbar3.EnableTool(304,True)
+
+	def getInterface(self,connection):
+		output = ''
+		result = ''
+		try:
+			if connection == 'SPI0':
+				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.0"', shell=True).decode()
+			elif connection == 'SPI1':
+				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.1"', shell=True).decode()
+		except:pass
+		if output:
+			output = output.split(':')
+			output = output[0].split(' ')
+			for ii in output:
+				if 'can' in ii: result = ii
+		return result
+
+	def onEditMcp2515SkCon(self,e):
+		selected = self.listMcp2515.GetFirstSelected()
+		if selected == -1: return
+		skId = self.listMcp2515.GetItemText(selected, 4)
+		url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/connections/'+skId
+		webbrowser.open(url, new=2)
+
+	def onRefreshMcp2515(self,e):
+		self.readMcp2515()
+
+	def onRemoveMcp2515(self,e):
+		selected = self.listMcp2515.GetFirstSelected()
+		if selected == -1: return
+		canConnection = self.listMcp2515.GetItemText(selected, 0)
+		canOscillator = self.listMcp2515.GetItemText(selected, 1)
+		canInterrupt = self.listMcp2515.GetItemText(selected, 2)
+		interfaces = 0
+		for i in range(self.listMcp2515.GetItemCount()):
+			if self.listMcp2515.GetItemText(i, 0): interfaces = interfaces + 1
+		interfaces = interfaces - 1
+		if interfaces < 1: interfaces = ''
+		else: interfaces = str(interfaces)
+		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp2515.py', 'disable', canConnection, canOscillator, canInterrupt, interfaces])
+		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
+		self.readMcp2515()
+
+	def onAddMcp2515(self,e):
+		dlg = addMcp2515()
+		res = dlg.ShowModal()
+		if res == wx.ID_OK:
+			canConnection = dlg.canConnection.GetStringSelection()
+			canOscillator = dlg.canOscillator.GetStringSelection()
+			canInterrupt = dlg.canInterrupt.GetValue()
+			if not canConnection or not canOscillator or not canInterrupt:
+				self.ShowStatusBarRED(_('Fill in all fields'))
+				dlg.Destroy()
+				return
+			interfaces = 0
+			for i in range(self.listMcp2515.GetItemCount()):
+				if self.listMcp2515.GetItemText(i, 0): interfaces = interfaces +1
+				if self.listMcp2515.GetItemText(i, 0) == canConnection:
+					self.ShowStatusBarRED(_('This connection already exists'))
+					dlg.Destroy()
+					return
+				if self.listMcp2515.GetItemText(i, 2) == canInterrupt:
+					self.ShowStatusBarRED(_('This interrupt GPIO already exists'))
+					dlg.Destroy()
+					return
+			interfaces = interfaces + 1
+			if interfaces < 1: interfaces = ''
+			else: interfaces = str(interfaces)
+			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp2515.py', 'enable', canConnection, canOscillator, canInterrupt, interfaces])
+			self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
+		dlg.Destroy()
+		self.readMcp2515()
+		
 
 	def OnToolApply(self,e):
 		pass
@@ -574,6 +748,65 @@ class openPGNs(wx.Dialog):
 					self.list_N2K.CheckItem(counter)
 			counter+=1
 		self.list_N2K.Update()
+
+################################################################################
+
+class addMcp2515(wx.Dialog):
+	def __init__(self):
+		title = _('Add MCP2515 device')
+
+		wx.Dialog.__init__(self, None, title=title, size=(300, 260))
+		panel = wx.Panel(self)
+
+		canConnectionLabel = wx.StaticText(panel, label=_('Connection'))
+		self.canConnection = wx.Choice(panel, choices=('SPI0', 'SPI1'), style=wx.CB_READONLY)
+
+
+		canOscillatorLabel = wx.StaticText(panel, label=_('Oscillator'))
+		self.canOscillator = wx.Choice(panel, choices=('8000000', '16000000'), style=wx.CB_READONLY)
+
+
+		canInterruptLabel = wx.StaticText(panel, label=_('Interrupt GPIO'))
+		self.canInterrupt = wx.TextCtrl(panel)
+
+		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
+		okBtn = wx.Button(panel, wx.ID_OK)
+
+		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox1.Add(canConnectionLabel, 0, wx.LEFT | wx.EXPAND, 10)
+		hbox1.Add(self.canConnection, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
+
+		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox2.Add(canOscillatorLabel, 0, wx.LEFT | wx.EXPAND, 10)
+		hbox2.Add(self.canOscillator, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
+
+		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox3.Add(canInterruptLabel, 0, wx.LEFT | wx.EXPAND, 10)
+		hbox3.Add(self.canInterrupt, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
+
+		hbox = wx.BoxSizer(wx.HORIZONTAL)
+		hbox.AddStretchSpacer(1)
+		hbox.Add(cancelBtn, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+		hbox.Add(okBtn, 0, wx.RIGHT | wx.EXPAND, 10)
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.AddSpacer(10)
+		vbox.Add(hbox1, 0, wx.EXPAND, 0)
+		vbox.AddSpacer(10)
+		vbox.Add(hbox2, 0, wx.EXPAND, 0)
+		vbox.AddSpacer(10)
+		vbox.Add(hbox3, 0, wx.EXPAND, 0)
+		vbox.AddStretchSpacer(1)
+		vbox.Add(hbox, 0, wx.EXPAND, 0)
+		vbox.AddSpacer(10)
+
+		panel.SetSizer(vbox)
+		self.panel = panel
+
+		self.Centre() 
+
+	def OnDelete(self,e):
+		self.EndModal(wx.ID_DELETE)
 
 ################################################################################
 

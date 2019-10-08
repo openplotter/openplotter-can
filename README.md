@@ -14,16 +14,19 @@ Install [openplotter-settings](https://github.com/openplotter/openplotter-settin
 
 Install openplotter-can dependencies:
 
-`sudo apt install canboat`
+`sudo apt install canboat python3-pyudev can-utils`
 
-Clone openplotter-can:
+Clone the repository:
 
 `git clone https://github.com/openplotter/openplotter-can`
 
-Make your changes and test them installing the app:
+Make your changes and install:
 
-`cd openplotter-can`
 `sudo python3 setup.py install`
+
+Run:
+
+`openplotter-can`
 
 Pull request your changes to github and we will check and add them to the next version of the [Debian package](https://launchpad.net/~openplotter/+archive/ubuntu/openplotter/).
 
