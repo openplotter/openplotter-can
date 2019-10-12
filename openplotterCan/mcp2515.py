@@ -38,7 +38,6 @@ file1.close()
 if os.system('diff config.txt /boot/config.txt > /dev/null'): os.system('mv config.txt /boot')
 else: os.system('rm -f config.txt')
 
-
 os.system('rm -f /etc/network/interfaces.d/can*')
 if sys.argv[5]:
 	for i in range(int(sys.argv[5])):

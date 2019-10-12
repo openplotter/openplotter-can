@@ -17,6 +17,7 @@
 
 import wx, os, webbrowser, subprocess, socket, ujson
 import wx.richtext as rt
+import serial.tools.list_ports
 from openplotterSettings import conf
 from openplotterSettings import language
 from openplotterSettings import platform
@@ -56,23 +57,18 @@ class MyFrame(wx.Frame):
 		self.Bind(wx.EVT_TOOL, self.onAddSkCon, self.AddSkCon)
 		self.SKtoN2K = self.toolbar1.AddTool(105, _('SK Output'), wx.Bitmap(self.currentdir+"/data/sk.png"))
 		self.Bind(wx.EVT_TOOL, self.onSKtoN2K, self.SKtoN2K)
-		#self.toolbar1.AddSeparator()
-		#toolApply = self.toolbar1.AddTool(106, _('Apply'), wx.Bitmap(self.currentdir+"/data/apply.png"))
-		#self.Bind(wx.EVT_TOOL, self.OnToolApply, toolApply)
-		#toolCancel = self.toolbar1.AddTool(107, _('Cancel'), wx.Bitmap(self.currentdir+"/data/cancel.png"))
-		#self.Bind(wx.EVT_TOOL, self.OnToolCancel, toolCancel)
 
 		self.notebook = wx.Notebook(self)
 		self.notebook.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.onTabChange)
 		self.sk = wx.Panel(self.notebook)
-		self.op = wx.Panel(self.notebook)
+		self.canable = wx.Panel(self.notebook)
 		self.mcp2515 = wx.Panel(self.notebook)
 		self.notebook.AddPage(self.sk, _('CAN-USB'))
-		self.notebook.AddPage(self.op, _('CAN-USB / CANable'))
+		self.notebook.AddPage(self.canable, _('CAN-USB / CANable'))
 		self.notebook.AddPage(self.mcp2515, _('MCP2515'))
 		self.il = wx.ImageList(24, 24)
 		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-24.png", wx.BITMAP_TYPE_PNG))
-		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-24.png", wx.BITMAP_TYPE_PNG))
+		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/usb.png", wx.BITMAP_TYPE_PNG))
 		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/chip.png", wx.BITMAP_TYPE_PNG))
 		self.notebook.AssignImageList(self.il)
 		self.notebook.SetPageImage(0, img0)
@@ -85,7 +81,7 @@ class MyFrame(wx.Frame):
 		self.SetSizer(vbox)
 
 		self.pageSk()
-		self.pageOp()
+		self.pageCanable()
 		self.pageMcp2515()
 
 		maxi = self.conf.get('GENERAL', 'maximize')
@@ -175,13 +171,9 @@ class MyFrame(wx.Frame):
 			self.listSKcan.Append([ii[0],ii[1],str(ii[2])])
 			if ii[3]: self.listSKcan.SetItemBackgroundColour(self.listSKcan.GetItemCount()-1,(0,191,255))
 
-		selected = self.listSKcan.GetFirstSelected()
-		if selected == -1:
-			self.toolbar2.EnableTool(201,False)
-			self.toolbar2.EnableTool(203,False)
-		else:
-			self.toolbar2.EnableTool(201,True)
-			self.toolbar2.EnableTool(203,True)
+		self.toolbar2.EnableTool(201,False)
+		self.toolbar2.EnableTool(203,False)
+		self.SetStatusText('')
 
 	def onCanUsbSetup(self,e):
 		subprocess.call(['pkill', '-15', 'CAN-USB-firmware'])
@@ -265,9 +257,8 @@ class MyFrame(wx.Frame):
 		for i in range(seconds, 0, -1):
 			self.ShowStatusBarYELLOW(msg+str(i))
 			time.sleep(1)
-		self.ShowStatusBarGREEN(_('Signal K server restarted'))
 		self.readSk()
-
+		self.ShowStatusBarGREEN(_('Signal K server restarted'))
 
 	def onListSKcanSelected(self,e):
 		i = e.GetIndex()
@@ -280,20 +271,158 @@ class MyFrame(wx.Frame):
 		self.toolbar2.EnableTool(201,False)
 		self.toolbar2.EnableTool(203,False)
 
-	def onListlistMcp2515Selected(self,e):
-		selected = self.listMcp2515.GetFirstSelected()
+		#####################################################
+
+	def pageCanable(self):
+		canableLabel = wx.StaticText(self.canable, label='Canbus (canboatjs)')
+		self.listCanable = wx.ListCtrl(self.canable, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
+		self.listCanable.InsertColumn(0, _('Serial Port'), width=200)
+		self.listCanable.InsertColumn(1, _('Interface'), width=150)
+		self.listCanable.InsertColumn(2, _('SK connection ID'), width=200)
+		self.listCanable.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListCanableSelected)
+		self.listCanable.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListCanableDeselected)
+
+		self.toolbar4 = wx.ToolBar(self.canable, style=wx.TB_TEXT | wx.TB_VERTICAL)
+		self.editCanableCon = self.toolbar4.AddTool(401, _('Edit SK Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.Bind(wx.EVT_TOOL, self.onEditCanableCon, self.editCanableCon)
+		self.refreshCanable = self.toolbar4.AddTool(402, _('Refresh'), wx.Bitmap(self.currentdir+"/data/refresh.png"))
+		self.Bind(wx.EVT_TOOL, self.onRefreshCanable, self.refreshCanable)
+		self.toolbar4.AddSeparator()
+		self.addCanable = self.toolbar4.AddTool(403, _('Add device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.Bind(wx.EVT_TOOL, self.onAddCanable, self.addCanable)
+		self.removeCanable = self.toolbar4.AddTool(404, _('Remove device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.Bind(wx.EVT_TOOL, self.onRemoveCanable, self.removeCanable)
+
+		h1 = wx.BoxSizer(wx.VERTICAL)
+		h1.AddSpacer(5)
+		h1.Add(canableLabel, 0, wx.LEFT, 10)
+		h1.AddSpacer(5)
+		h1.Add(self.listCanable, 1, wx.EXPAND, 0)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer.Add(h1, 1, wx.EXPAND, 0)
+		sizer.Add(self.toolbar4, 0)
+		self.canable.SetSizer(sizer)
+
+		self.readCanable()
+
+	def readCanable(self):
+		self.listCanable.DeleteAllItems()
+		try:
+			setting_file = self.platform.skDir+'/settings.json'
+			with open(setting_file) as data_file:
+				data = ujson.load(data_file)
+		except: data = {}
+		file = open('/boot/config.txt', 'r')
+
+		items = self.conf.get('CAN', 'canable')
+		try: devices = eval(items)
+		except: devices = []
+
+		for ii in devices:
+			device = ii[0]
+			interface = ii[1]
+			skId = ''
+			enabled = False
+			if 'pipedProviders' in data:
+				for i in data['pipedProviders']:
+					if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
+						if interface == i['pipeElements'][0]['options']['subOptions']['interface']: 
+							skId = i['id']
+							enabled = i['enabled']
+			self.listCanable.Append([device,interface,skId])
+			if skId and enabled: self.listCanable.SetItemBackgroundColour(self.listCanable.GetItemCount()-1,(0,191,255))
+
+		if 'pipedProviders' in data:
+			for i in data['pipedProviders']:
+				if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
+					if not 'can' in i['pipeElements'][0]['options']['subOptions']['interface'] or 'canable' in i['pipeElements'][0]['options']['subOptions']['interface']:
+						interface = i['pipeElements'][0]['options']['subOptions']['interface']
+						skId = i['id']
+						exists = False
+						for ii in range(self.listCanable.GetItemCount()):
+							if interface == self.listCanable.GetItemText(ii, 1): exists = True
+						if not exists: self.listCanable.Append(['',interface,skId])
+
+		self.toolbar4.EnableTool(401,False)
+		self.toolbar4.EnableTool(404,False)
+		self.SetStatusText('')
+
+	def onEditCanableCon(self,e):
+		selected = self.listCanable.GetFirstSelected()
 		if selected == -1: return
-		self.toolbar3.EnableTool(304,True)
-		skId = self.listMcp2515.GetItemText(selected, 4)
-		if skId: self.toolbar3.EnableTool(301,True)
-		else: self.toolbar3.EnableTool(301,False)
+		skId = self.listCanable.GetItemText(selected, 2)
+		url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/connections/'+skId
+		webbrowser.open(url, new=2)
 
-	def onListlistMcp2515Deselected(self,e):
-		self.toolbar3.EnableTool(301,False)
-		self.toolbar3.EnableTool(304,False)
+	def onRefreshCanable(self,e):
+		self.readCanable()
 
-	def pageOp(self):
-		pass
+	def onRemoveCanable(self,e):
+		selected = self.listCanable.GetFirstSelected()
+		if selected == -1: return
+		devicesNew = []
+		device = self.listCanable.GetItemText(selected, 0)
+		interface = self.listCanable.GetItemText(selected, 1)
+		items = self.conf.get('CAN', 'canable')
+		try: devices = eval(items)
+		except: devices = []
+		for i in devices:
+			if device != i[0]: devicesNew.append(i)
+		self.ShowStatusBarYELLOW(_('Restarting CANable interfaces...'))
+		self.conf.set('CAN', 'canable', str(devicesNew))
+		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'removeCanable', device, interface])
+		self.readCanable()
+		self.restart_SK(0)
+
+	def onAddCanable(self,e):
+		dlg = AddPort()
+		res = dlg.ShowModal()
+		restart = False
+		if res == wx.ID_OK:
+			device = dlg.port.GetStringSelection()
+			items = self.conf.get('CAN', 'canable')
+			try: devices = eval(items)
+			except: devices = []
+			for i in devices:
+				if device == i[0]:
+					self.ShowStatusBarRED(_('This serial port already exists'))
+					dlg.Destroy()
+					return
+			c = 0
+			while True:
+				interface = 'canable'+str(c)
+				exists = False
+				for i in devices:
+					if interface == i[1]: exists = True
+				if not exists: break
+				else: c = c +1
+			interface = 'canable'+str(c)
+			devices.append([device,interface])
+			self.ShowStatusBarYELLOW(_('Restarting CANable interfaces...'))
+			self.conf.set('CAN', 'canable', str(devices))
+			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'addCanable', device, interface])
+			restart = True
+		dlg.Destroy()
+		self.readCanable()
+		if restart: self.restart_SK(0)
+
+	def onListCanableSelected(self,e):
+		selected = self.listCanable.GetFirstSelected()
+		if selected == -1: return
+		self.toolbar4.EnableTool(404,True)
+		skId = self.listCanable.GetItemText(selected, 2)
+		device = self.listCanable.GetItemText(selected, 0)
+		if skId: self.toolbar4.EnableTool(401,True)
+		else: self.toolbar4.EnableTool(401,False)
+		if device: self.toolbar4.EnableTool(404,True)
+		else: self.toolbar4.EnableTool(404,False)
+
+	def onListCanableDeselected(self,e):
+		self.toolbar4.EnableTool(401,False)
+		self.toolbar4.EnableTool(404,False)
+
+		#####################################################
 
 	def pageMcp2515(self):
 		mcp2515Label = wx.StaticText(self.mcp2515, label='Canbus (canboatjs)')
@@ -312,9 +441,9 @@ class MyFrame(wx.Frame):
 		self.refreshMcp2515 = self.toolbar3.AddTool(302, _('Refresh'), wx.Bitmap(self.currentdir+"/data/refresh.png"))
 		self.Bind(wx.EVT_TOOL, self.onRefreshMcp2515, self.refreshMcp2515)
 		self.toolbar3.AddSeparator()
-		self.addMcp2515 = self.toolbar3.AddTool(303, _('Add device'), wx.Bitmap(self.currentdir+"/data/openplotter-24.png"))
+		self.addMcp2515 = self.toolbar3.AddTool(303, _('Add device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
 		self.Bind(wx.EVT_TOOL, self.onAddMcp2515, self.addMcp2515)
-		self.removeMcp2515 = self.toolbar3.AddTool(304, _('Remove device'), wx.Bitmap(self.currentdir+"/data/openplotter-24.png"))
+		self.removeMcp2515 = self.toolbar3.AddTool(304, _('Remove device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
 		self.Bind(wx.EVT_TOOL, self.onRemoveMcp2515, self.removeMcp2515)
 
 		h1 = wx.BoxSizer(wx.VERTICAL)
@@ -327,6 +456,9 @@ class MyFrame(wx.Frame):
 		sizer.Add(h1, 1, wx.EXPAND, 0)
 		sizer.Add(self.toolbar3, 0)
 		self.mcp2515.SetSizer(sizer)
+
+		if platform.isRPI: self.toolbar3.EnableTool(303,True)
+		else: self.toolbar3.EnableTool(303,False)
 
 		self.readMcp2515()
 
@@ -371,7 +503,7 @@ class MyFrame(wx.Frame):
 
 		if 'pipedProviders' in data:
 			for i in data['pipedProviders']:
-				if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
+				if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs' and not 'canable' in i['pipeElements'][0]['options']['subOptions']['interface']:
 					interface = i['pipeElements'][0]['options']['subOptions']['interface']
 					skId = i['id']
 					exists = False
@@ -379,13 +511,9 @@ class MyFrame(wx.Frame):
 						if interface == self.listMcp2515.GetItemText(ii, 3): exists = True
 					if not exists: self.listMcp2515.Append(['','','',interface,skId])
 
-		selected = self.listMcp2515.GetFirstSelected()
-		if selected == -1:
-			self.toolbar3.EnableTool(301,False)
-			self.toolbar3.EnableTool(304,False)
-		else:
-			self.toolbar3.EnableTool(301,True)
-			self.toolbar3.EnableTool(304,True)
+		self.toolbar3.EnableTool(301,False)
+		self.toolbar3.EnableTool(304,False)
+		self.SetStatusText('')
 
 	def getInterface(self,connection):
 		output = ''
@@ -402,6 +530,21 @@ class MyFrame(wx.Frame):
 			for ii in output:
 				if 'can' in ii: result = ii
 		return result
+
+	def onListlistMcp2515Selected(self,e):
+		selected = self.listMcp2515.GetFirstSelected()
+		if selected == -1: return
+		self.toolbar3.EnableTool(304,True)
+		skId = self.listMcp2515.GetItemText(selected, 4)
+		connection = self.listMcp2515.GetItemText(selected, 0)
+		if skId: self.toolbar3.EnableTool(301,True)
+		else: self.toolbar3.EnableTool(301,False)
+		if connection: self.toolbar3.EnableTool(304,True)
+		else: self.toolbar3.EnableTool(304,False)
+
+	def onListlistMcp2515Deselected(self,e):
+		self.toolbar3.EnableTool(301,False)
+		self.toolbar3.EnableTool(304,False)
 
 	def onEditMcp2515SkCon(self,e):
 		selected = self.listMcp2515.GetFirstSelected()
@@ -426,8 +569,8 @@ class MyFrame(wx.Frame):
 		if interfaces < 1: interfaces = ''
 		else: interfaces = str(interfaces)
 		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp2515.py', 'disable', canConnection, canOscillator, canInterrupt, interfaces])
-		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
 		self.readMcp2515()
+		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
 
 	def onAddMcp2515(self,e):
 		dlg = addMcp2515()
@@ -455,16 +598,9 @@ class MyFrame(wx.Frame):
 			if interfaces < 1: interfaces = ''
 			else: interfaces = str(interfaces)
 			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp2515.py', 'enable', canConnection, canOscillator, canInterrupt, interfaces])
-			self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
 		dlg.Destroy()
 		self.readMcp2515()
-		
-
-	def OnToolApply(self,e):
-		pass
-		
-	def OnToolCancel(self,e):
-		pass
+		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
 
 ################################################################################
 
@@ -807,6 +943,34 @@ class addMcp2515(wx.Dialog):
 
 	def OnDelete(self,e):
 		self.EndModal(wx.ID_DELETE)
+
+################################################################################
+
+class AddPort(wx.Dialog):
+	def __init__(self):
+		wx.Dialog.__init__(self, None, title=_('Add Serial Port'), size=(200,150))
+		panel = wx.Panel(self)
+
+		ports = serial.tools.list_ports.comports()
+		listDevices = []
+		for port in ports:
+			listDevices.append(port.device)
+		self.port = wx.Choice(panel, choices=listDevices)
+
+		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
+		okBtn = wx.Button(panel, wx.ID_OK)
+
+		hbox = wx.BoxSizer(wx.HORIZONTAL)
+		hbox.Add(cancelBtn, 1, wx.ALL | wx.EXPAND, 10)
+		hbox.Add(okBtn, 1, wx.ALL | wx.EXPAND, 10)
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.Add(self.port, 0, wx.ALL | wx.EXPAND, 10)
+		vbox.AddStretchSpacer(1)
+		vbox.Add(hbox, 0, wx.EXPAND, 0)
+
+		panel.SetSizer(vbox)
+		self.Centre() 
 
 ################################################################################
 

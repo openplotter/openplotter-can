@@ -15,24 +15,19 @@
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
 
-import time, os, subprocess
+import time, os, subprocess, ujson
 from openplotterSettings import language
+from openplotterSettings import platform
 
 class Start():
 	def __init__(self, conf, currentLanguage):
-		self.conf = conf
-		currentdir = os.path.dirname(__file__)
-		language.Language(currentdir,'openplotter-can',currentLanguage)
-
 		self.initialMessage = ''
 
 	def start(self):
 		green = '' 
-		black = '' 
+		black = ''
 		red = ''
 
-
-		time.sleep(2) 
 		return {'green': green,'black': black,'red': red}
 
 class Check():
@@ -40,14 +35,38 @@ class Check():
 		self.conf = conf
 		currentdir = os.path.dirname(__file__)
 		language.Language(currentdir,'openplotter-can',currentLanguage)
-
-		self.initialMessage = ''
+		output = subprocess.check_output('ip -j a', shell=True).decode()
+		data = ujson.loads(output)
+		self.canList = []
+		for i in data:
+			if 'canable' in i['ifname']: self.canList.append(i['ifname'])
+			elif 'can' in i['ifname']: self.canList.append(i['ifname'])
+		if self.canList: self.initialMessage = _('Checking CAN devices...')
+		else: self.initialMessage = ''
 
 	def check(self):
+		platform2 = platform.Platform()
 		green = ''
 		black = '' 
 		red = '' 
 
+		try:
+			setting_file = platform2.skDir+'/settings.json'
+			with open(setting_file) as data_file:
+				data = ujson.load(data_file)
+		except: data = {}
+
+		for i in self.canList:
+			exists = False
+			if 'pipedProviders' in data:
+				for ii in data['pipedProviders']:
+					if ii['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
+						if i == ii['pipeElements'][0]['options']['subOptions']['interface']: exists = True
+			if not exists: 
+				if not red: red = _('There is not Signal K connection for interface: ')+ i
+				else: red += '\n'+_('There is not Signal K connection for interface: ')+ i
+			else:
+				if not green: green = i
+				else: green += ' | ' + i
 
 		return {'green': green,'black': black,'red': red}
-
