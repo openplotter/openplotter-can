@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
 
-import time, os, subprocess, ujson
+import time, os, subprocess, ujson, sys
 from openplotterSettings import language
 from openplotterSettings import platform
 
@@ -35,7 +35,7 @@ class Check():
 		self.conf = conf
 		currentdir = os.path.dirname(__file__)
 		language.Language(currentdir,'openplotter-can',currentLanguage)
-		output = subprocess.check_output('ip -j a', shell=True).decode()
+		output = subprocess.check_output('ip -j a', shell=True).decode(sys.stdin.encoding)
 		data = ujson.loads(output)
 		self.canList = []
 		for i in data:

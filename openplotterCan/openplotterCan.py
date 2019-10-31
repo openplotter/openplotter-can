@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
 
-import wx, os, webbrowser, subprocess, socket, ujson
+import wx, os, webbrowser, subprocess, socket, ujson, sys
 import wx.richtext as rt
 import serial.tools.list_ports
 from openplotterSettings import conf
@@ -63,17 +63,21 @@ class MyFrame(wx.Frame):
 		self.sk = wx.Panel(self.notebook)
 		self.canable = wx.Panel(self.notebook)
 		self.mcp2515 = wx.Panel(self.notebook)
+		self.nmea0183 = wx.Panel(self.notebook)
 		self.notebook.AddPage(self.sk, _('CAN-USB'))
 		self.notebook.AddPage(self.canable, _('CAN-USB / CANable'))
 		self.notebook.AddPage(self.mcp2515, _('MCP2515'))
+		self.notebook.AddPage(self.nmea0183, _('NMEA 0183'))
 		self.il = wx.ImageList(24, 24)
 		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-24.png", wx.BITMAP_TYPE_PNG))
 		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/usb.png", wx.BITMAP_TYPE_PNG))
 		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/chip.png", wx.BITMAP_TYPE_PNG))
+		img3 = self.il.Add(wx.Bitmap(self.currentdir+"/data/sk.png", wx.BITMAP_TYPE_PNG))
 		self.notebook.AssignImageList(self.il)
 		self.notebook.SetPageImage(0, img0)
 		self.notebook.SetPageImage(1, img1)
 		self.notebook.SetPageImage(2, img2)
+		self.notebook.SetPageImage(3, img3)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(self.toolbar1, 0, wx.EXPAND)
@@ -83,6 +87,7 @@ class MyFrame(wx.Frame):
 		self.pageSk()
 		self.pageCanable()
 		self.pageMcp2515()
+		self.pageNmea0183()
 
 		maxi = self.conf.get('GENERAL', 'maximize')
 		if maxi == '1': self.Maximize()
@@ -106,13 +111,11 @@ class MyFrame(wx.Frame):
 		self.ShowStatusBar(w_msg,(255,140,0)) 
 
 	def onTabChange(self, event):
-		self.SetStatusText('')
-		if self.notebook.GetSelection() == 1 or self.notebook.GetSelection() == 2:
-			self.toolbar1.EnableTool(106,True)
-			self.toolbar1.EnableTool(107,True)
-		else:
-			self.toolbar1.EnableTool(106,False)
-			self.toolbar1.EnableTool(107,False)
+		try:
+			if self.notebook.GetSelection() == 2 and not self.platform.isRPI:
+				self.ShowStatusBarRED(_('This feature is only for Raspberry Pi'))
+			else: self.SetStatusText('')
+		except:pass
 
 	def OnToolHelp(self, event): 
 		url = "/usr/share/openplotter-doc/can/can_app.html"
@@ -192,7 +195,7 @@ class MyFrame(wx.Frame):
 			if self.platform.isSKpluginInstalled('signalk-to-nmea2000'):
 				url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/plugins/sk-to-nmea2000'
 			else: 
-				self.ShowStatusBarRED(_('Please install "signalk-to-nmea2000" signal K app'))
+				self.ShowStatusBarRED(_('Please install "signalk-to-nmea2000" Signal K app'))
 				url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/appstore/apps'
 			webbrowser.open(url, new=2)
 		else: 
@@ -457,8 +460,12 @@ class MyFrame(wx.Frame):
 		sizer.Add(self.toolbar3, 0)
 		self.mcp2515.SetSizer(sizer)
 
-		if platform.isRPI: self.toolbar3.EnableTool(303,True)
-		else: self.toolbar3.EnableTool(303,False)
+		if self.platform.isRPI:
+			self.toolbar3.EnableTool(302,True)
+			self.toolbar3.EnableTool(303,True)
+		else:
+			self.toolbar3.EnableTool(302,False)
+			self.toolbar3.EnableTool(303,False)
 
 		self.readMcp2515()
 
@@ -520,9 +527,9 @@ class MyFrame(wx.Frame):
 		result = ''
 		try:
 			if connection == 'SPI0':
-				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.0"', shell=True).decode()
+				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.0"', shell=True).decode(sys.stdin.encoding)
 			elif connection == 'SPI1':
-				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.1"', shell=True).decode()
+				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.1"', shell=True).decode(sys.stdin.encoding)
 		except:pass
 		if output:
 			output = output.split(':')
@@ -601,6 +608,42 @@ class MyFrame(wx.Frame):
 		dlg.Destroy()
 		self.readMcp2515()
 		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
+
+		#####################################################
+
+	def pageNmea0183(self):
+		self.toolbar5 = wx.ToolBar(self.nmea0183, style=wx.TB_TEXT | wx.TB_HORIZONTAL)
+		self.skToNmea0183 = self.toolbar5.AddTool(501, 'SK → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.Bind(wx.EVT_TOOL, self.onSkToNmea0183, self.skToNmea0183)
+		self.toolbar5.AddSeparator()
+		self.skAisToNmea0183 = self.toolbar5.AddTool(502, 'SK AIS → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.Bind(wx.EVT_TOOL, self.onSkAisToNmea0183, self.skAisToNmea0183)
+
+		sizer = wx.BoxSizer(wx.VERTICAL)
+		sizer.Add(self.toolbar5, 0, wx.EXPAND, 0)
+		sizer.AddStretchSpacer(1)
+		self.nmea0183.SetSizer(sizer)
+
+	def onSkToNmea0183(self,e):
+		if self.platform.skPort: 
+			url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/plugins/sk-to-nmea0183'
+			webbrowser.open(url, new=2)
+		else: 
+			self.ShowStatusBarRED(_('Please install "Signal K Installer" OpenPlotter app'))
+			self.OnToolSettings()
+
+	def onSkAisToNmea0183(self,e):
+		if self.platform.skPort: 
+			if self.platform.isSKpluginInstalled('signalk-n2kais-to-nmea0183'):
+				url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/plugins/signalk-n2kais-to-nmea0183'
+			else: 
+				self.ShowStatusBarRED(_('Please install "signalk-n2kais-to-nmea0183" Signal K app'))
+				url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/appstore/apps'
+			webbrowser.open(url, new=2)
+		else: 
+			self.ShowStatusBarRED(_('Please install "Signal K Installer" OpenPlotter app'))
+			self.OnToolSettings()
+
 
 ################################################################################
 
