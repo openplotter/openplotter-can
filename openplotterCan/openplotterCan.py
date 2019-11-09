@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
 
-import wx, os, webbrowser, subprocess, socket, ujson, sys
+import wx, os, webbrowser, subprocess, socket, ujson
 import wx.richtext as rt
 import serial.tools.list_ports
 from openplotterSettings import conf
 from openplotterSettings import language
 from openplotterSettings import platform
 
-import wx, time, serial, codecs
+import time, serial, codecs
 from wx.lib.mixins.listctrl import CheckListCtrlMixin, ListCtrlAutoWidthMixin
 
 class MyFrame(wx.Frame):
@@ -63,21 +63,17 @@ class MyFrame(wx.Frame):
 		self.sk = wx.Panel(self.notebook)
 		self.canable = wx.Panel(self.notebook)
 		self.mcp2515 = wx.Panel(self.notebook)
-		self.nmea0183 = wx.Panel(self.notebook)
 		self.notebook.AddPage(self.sk, _('CAN-USB'))
 		self.notebook.AddPage(self.canable, _('CAN-USB / CANable'))
 		self.notebook.AddPage(self.mcp2515, _('MCP2515'))
-		self.notebook.AddPage(self.nmea0183, _('NMEA 0183'))
 		self.il = wx.ImageList(24, 24)
 		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-24.png", wx.BITMAP_TYPE_PNG))
 		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/usb.png", wx.BITMAP_TYPE_PNG))
 		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/chip.png", wx.BITMAP_TYPE_PNG))
-		img3 = self.il.Add(wx.Bitmap(self.currentdir+"/data/sk.png", wx.BITMAP_TYPE_PNG))
 		self.notebook.AssignImageList(self.il)
 		self.notebook.SetPageImage(0, img0)
 		self.notebook.SetPageImage(1, img1)
 		self.notebook.SetPageImage(2, img2)
-		self.notebook.SetPageImage(3, img3)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(self.toolbar1, 0, wx.EXPAND)
@@ -87,7 +83,6 @@ class MyFrame(wx.Frame):
 		self.pageSk()
 		self.pageCanable()
 		self.pageMcp2515()
-		self.pageNmea0183()
 
 		maxi = self.conf.get('GENERAL', 'maximize')
 		if maxi == '1': self.Maximize()
@@ -112,10 +107,15 @@ class MyFrame(wx.Frame):
 
 	def onTabChange(self, event):
 		try:
-			if self.notebook.GetSelection() == 2 and not self.platform.isRPI:
-				self.ShowStatusBarRED(_('This feature is only for Raspberry Pi'))
-			else: self.SetStatusText('')
-		except:pass
+			self.SetStatusText('')
+		except:
+			return
+		if self.notebook.GetSelection() == 2 and not self.platform.isRPI:
+			self.toolbar1.EnableTool(106,True)
+			self.toolbar1.EnableTool(107,True)
+		else:
+			self.toolbar1.EnableTool(106,False)
+			self.toolbar1.EnableTool(107,False)
 
 	def OnToolHelp(self, event): 
 		url = "/usr/share/openplotter-doc/can/can_app.html"
@@ -170,9 +170,13 @@ class MyFrame(wx.Frame):
 		except:pass
 
 		self.listSKcan.DeleteAllItems()
+		isEmpty = True
 		for ii in self.sklist:
 			self.listSKcan.Append([ii[0],ii[1],str(ii[2])])
+			isEmpty = False
 			if ii[3]: self.listSKcan.SetItemBackgroundColour(self.listSKcan.GetItemCount()-1,(0,191,255))
+		if isEmpty:
+			self.listSKcan.Append(['','','!' + _('Add SK Connection')])
 
 		self.toolbar2.EnableTool(201,False)
 		self.toolbar2.EnableTool(203,False)
@@ -291,9 +295,9 @@ class MyFrame(wx.Frame):
 		self.refreshCanable = self.toolbar4.AddTool(402, _('Refresh'), wx.Bitmap(self.currentdir+"/data/refresh.png"))
 		self.Bind(wx.EVT_TOOL, self.onRefreshCanable, self.refreshCanable)
 		self.toolbar4.AddSeparator()
-		self.addCanable = self.toolbar4.AddTool(403, _('Add device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.addCanable = self.toolbar4.AddTool(403, _('Add SocketCAN device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
 		self.Bind(wx.EVT_TOOL, self.onAddCanable, self.addCanable)
-		self.removeCanable = self.toolbar4.AddTool(404, _('Remove device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.removeCanable = self.toolbar4.AddTool(404, _('Remove SocketCAN device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
 		self.Bind(wx.EVT_TOOL, self.onRemoveCanable, self.removeCanable)
 
 		h1 = wx.BoxSizer(wx.VERTICAL)
@@ -316,7 +320,6 @@ class MyFrame(wx.Frame):
 			with open(setting_file) as data_file:
 				data = ujson.load(data_file)
 		except: data = {}
-		file = open('/boot/config.txt', 'r')
 
 		items = self.conf.get('CAN', 'canable')
 		try: devices = eval(items)
@@ -325,7 +328,7 @@ class MyFrame(wx.Frame):
 		for ii in devices:
 			device = ii[0]
 			interface = ii[1]
-			skId = ''
+			skId = '!' + _('Add SK Connection')
 			enabled = False
 			if 'pipedProviders' in data:
 				for i in data['pipedProviders']:
@@ -428,46 +431,40 @@ class MyFrame(wx.Frame):
 		#####################################################
 
 	def pageMcp2515(self):
-		mcp2515Label = wx.StaticText(self.mcp2515, label='Canbus (canboatjs)')
-		self.listMcp2515 = wx.ListCtrl(self.mcp2515, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
-		self.listMcp2515.InsertColumn(0, _('Connection'), width=110)
-		self.listMcp2515.InsertColumn(1, _('Oscillator'), width=110)
-		self.listMcp2515.InsertColumn(2, _('Interrupt'), width=110)
-		self.listMcp2515.InsertColumn(3, _('Interface'), width=110)
-		self.listMcp2515.InsertColumn(4, _('SK connection ID'), width=150)
-		self.listMcp2515.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListlistMcp2515Selected)
-		self.listMcp2515.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListlistMcp2515Deselected)
-
-		self.toolbar3 = wx.ToolBar(self.mcp2515, style=wx.TB_TEXT | wx.TB_VERTICAL)
-		self.editMcp2515SkCon = self.toolbar3.AddTool(301, _('Edit SK Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
-		self.Bind(wx.EVT_TOOL, self.onEditMcp2515SkCon, self.editMcp2515SkCon)
-		self.refreshMcp2515 = self.toolbar3.AddTool(302, _('Refresh'), wx.Bitmap(self.currentdir+"/data/refresh.png"))
-		self.Bind(wx.EVT_TOOL, self.onRefreshMcp2515, self.refreshMcp2515)
-		self.toolbar3.AddSeparator()
-		self.addMcp2515 = self.toolbar3.AddTool(303, _('Add device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
-		self.Bind(wx.EVT_TOOL, self.onAddMcp2515, self.addMcp2515)
-		self.removeMcp2515 = self.toolbar3.AddTool(304, _('Remove device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
-		self.Bind(wx.EVT_TOOL, self.onRemoveMcp2515, self.removeMcp2515)
-
-		h1 = wx.BoxSizer(wx.VERTICAL)
-		h1.AddSpacer(5)
-		h1.Add(mcp2515Label, 0, wx.LEFT, 10)
-		h1.AddSpacer(5)
-		h1.Add(self.listMcp2515, 1, wx.EXPAND, 0)
-
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		sizer.Add(h1, 1, wx.EXPAND, 0)
-		sizer.Add(self.toolbar3, 0)
-		self.mcp2515.SetSizer(sizer)
-
 		if self.platform.isRPI:
-			self.toolbar3.EnableTool(302,True)
-			self.toolbar3.EnableTool(303,True)
-		else:
-			self.toolbar3.EnableTool(302,False)
-			self.toolbar3.EnableTool(303,False)
+			mcp2515Label = wx.StaticText(self.mcp2515, label='Canbus (canboatjs)')
+			self.listMcp2515 = wx.ListCtrl(self.mcp2515, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
+			self.listMcp2515.InsertColumn(0, _('Connection'), width=110)
+			self.listMcp2515.InsertColumn(1, _('Oscillator'), width=110)
+			self.listMcp2515.InsertColumn(2, _('Interrupt'), width=110)
+			self.listMcp2515.InsertColumn(3, _('Interface'), width=110)
+			self.listMcp2515.InsertColumn(4, _('SK connection ID'), width=150)
+			self.listMcp2515.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListlistMcp2515Selected)
+			self.listMcp2515.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListlistMcp2515Deselected)
 
-		self.readMcp2515()
+			self.toolbar3 = wx.ToolBar(self.mcp2515, style=wx.TB_TEXT | wx.TB_VERTICAL)
+			self.editMcp2515SkCon = self.toolbar3.AddTool(301, _('Edit SK Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
+			self.Bind(wx.EVT_TOOL, self.onEditMcp2515SkCon, self.editMcp2515SkCon)
+			self.refreshMcp2515 = self.toolbar3.AddTool(302, _('Refresh'), wx.Bitmap(self.currentdir+"/data/refresh.png"))
+			self.Bind(wx.EVT_TOOL, self.onRefreshMcp2515, self.refreshMcp2515)
+			self.toolbar3.AddSeparator()
+			self.addMcp2515 = self.toolbar3.AddTool(303, _('Add device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
+			self.Bind(wx.EVT_TOOL, self.onAddMcp2515, self.addMcp2515)
+			self.removeMcp2515 = self.toolbar3.AddTool(304, _('Remove device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
+			self.Bind(wx.EVT_TOOL, self.onRemoveMcp2515, self.removeMcp2515)
+
+			h1 = wx.BoxSizer(wx.VERTICAL)
+			h1.AddSpacer(5)
+			h1.Add(mcp2515Label, 0, wx.LEFT, 10)
+			h1.AddSpacer(5)
+			h1.Add(self.listMcp2515, 1, wx.EXPAND, 0)
+
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
+			sizer.Add(h1, 1, wx.EXPAND, 0)
+			sizer.Add(self.toolbar3, 0)
+			self.mcp2515.SetSizer(sizer)
+
+			self.readMcp2515()
 
 	def readMcp2515(self):
 		self.listMcp2515.DeleteAllItems()
@@ -484,7 +481,7 @@ class MyFrame(wx.Frame):
 				connection = ''
 				oscillator = ''
 				interrupt = ''
-				skId = ''
+				skId = '!' + _('Add SK Connection')
 				enabled = False
 				line = line.rstrip()
 				lList = line.split(',')
@@ -527,9 +524,9 @@ class MyFrame(wx.Frame):
 		result = ''
 		try:
 			if connection == 'SPI0':
-				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.0"', shell=True).decode(sys.stdin.encoding)
+				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.0"', shell=True).decode()
 			elif connection == 'SPI1':
-				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.1"', shell=True).decode(sys.stdin.encoding)
+				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.1"', shell=True).decode()
 		except:pass
 		if output:
 			output = output.split(':')
@@ -608,42 +605,6 @@ class MyFrame(wx.Frame):
 		dlg.Destroy()
 		self.readMcp2515()
 		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
-
-		#####################################################
-
-	def pageNmea0183(self):
-		self.toolbar5 = wx.ToolBar(self.nmea0183, style=wx.TB_TEXT | wx.TB_HORIZONTAL)
-		self.skToNmea0183 = self.toolbar5.AddTool(501, 'SK → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
-		self.Bind(wx.EVT_TOOL, self.onSkToNmea0183, self.skToNmea0183)
-		self.toolbar5.AddSeparator()
-		self.skAisToNmea0183 = self.toolbar5.AddTool(502, 'SK AIS → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
-		self.Bind(wx.EVT_TOOL, self.onSkAisToNmea0183, self.skAisToNmea0183)
-
-		sizer = wx.BoxSizer(wx.VERTICAL)
-		sizer.Add(self.toolbar5, 0, wx.EXPAND, 0)
-		sizer.AddStretchSpacer(1)
-		self.nmea0183.SetSizer(sizer)
-
-	def onSkToNmea0183(self,e):
-		if self.platform.skPort: 
-			url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/plugins/sk-to-nmea0183'
-			webbrowser.open(url, new=2)
-		else: 
-			self.ShowStatusBarRED(_('Please install "Signal K Installer" OpenPlotter app'))
-			self.OnToolSettings()
-
-	def onSkAisToNmea0183(self,e):
-		if self.platform.skPort: 
-			if self.platform.isSKpluginInstalled('signalk-n2kais-to-nmea0183'):
-				url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/plugins/signalk-n2kais-to-nmea0183'
-			else: 
-				self.ShowStatusBarRED(_('Please install "signalk-n2kais-to-nmea0183" Signal K app'))
-				url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/appstore/apps'
-			webbrowser.open(url, new=2)
-		else: 
-			self.ShowStatusBarRED(_('Please install "Signal K Installer" OpenPlotter app'))
-			self.OnToolSettings()
-
 
 ################################################################################
 
@@ -991,15 +952,30 @@ class addMcp2515(wx.Dialog):
 
 class AddPort(wx.Dialog):
 	def __init__(self):
-		wx.Dialog.__init__(self, None, title=_('Add Serial Port'), size=(200,150))
+		wx.Dialog.__init__(self, None, title=_('Add Serial Port'), size=(-1,200))
 		panel = wx.Panel(self)
 
-		ports = serial.tools.list_ports.comports()
-		listDevices = []
+		ports = serial.tools.list_ports.comports(True)
+		self.listDevices = []
 		for port in ports:
-			listDevices.append(port.device)
-		self.port = wx.Choice(panel, choices=listDevices)
+			self.listDevices.append(port.device)
 
+		OPserial = False
+		self.listDevicesOP = []
+		
+		for device in self.listDevices:
+			if 'ttyOP' in device:
+				self.listDevicesOP.append(device)
+				OPserial = True
+
+		if OPserial:
+			self.port = wx.Choice(panel, choices=self.listDevicesOP)
+			self.OPserialTrue = wx.CheckBox(panel, label=_('Show only Openplotter-Serial managed ports'))
+			self.OPserialTrue.Bind(wx.EVT_CHECKBOX, self.on_OPserialTrue)
+			self.OPserialTrue.SetValue(True)
+		else:
+			self.port = wx.Choice(panel, choices=self.listDevices)
+		
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK)
 
@@ -1009,11 +985,20 @@ class AddPort(wx.Dialog):
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(self.port, 0, wx.ALL | wx.EXPAND, 10)
+		if OPserial:
+			vbox.Add(self.OPserialTrue, 0, wx.ALL | wx.EXPAND, 10)
 		vbox.AddStretchSpacer(1)
 		vbox.Add(hbox, 0, wx.EXPAND, 0)
-
+		
 		panel.SetSizer(vbox)
-		self.Centre() 
+		self.Centre()
+		
+	def on_OPserialTrue(self,e):
+		self.port.Clear()
+		if self.OPserialTrue.GetValue():
+			self.port.AppendItems(self.listDevicesOP)
+		else:
+			self.port.AppendItems(self.listDevices)			
 
 ################################################################################
 
