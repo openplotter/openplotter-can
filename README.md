@@ -14,7 +14,7 @@ Install [openplotter-settings](https://github.com/openplotter/openplotter-settin
 
 Install openplotter-can dependencies:
 
-`sudo apt install canboat python3-pyudev can-utils`
+`sudo apt install canboat python3-pyudev can-utils python3-serial`
 
 Clone the repository:
 
