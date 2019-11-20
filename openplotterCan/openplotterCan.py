@@ -15,15 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
 
-import wx, os, webbrowser, subprocess, socket, ujson, sys
+import wx, os, webbrowser, subprocess, socket, ujson, sys, time, serial, codecs
 import wx.richtext as rt
 import serial.tools.list_ports
+from wx.lib.mixins.listctrl import CheckListCtrlMixin, ListCtrlAutoWidthMixin
 from openplotterSettings import conf
 from openplotterSettings import language
 from openplotterSettings import platform
-
-import wx, time, serial, codecs
-from wx.lib.mixins.listctrl import CheckListCtrlMixin, ListCtrlAutoWidthMixin
 
 class MyFrame(wx.Frame):
 	def __init__(self):
@@ -170,9 +168,13 @@ class MyFrame(wx.Frame):
 		except:pass
 
 		self.listSKcan.DeleteAllItems()
+		isEmpty = True
 		for ii in self.sklist:
 			self.listSKcan.Append([ii[0],ii[1],str(ii[2])])
+			isEmpty = False
 			if ii[3]: self.listSKcan.SetItemBackgroundColour(self.listSKcan.GetItemCount()-1,(0,191,255))
+		if isEmpty:
+			self.listSKcan.Append(['','','!' + _('Add SK Connection')])
 
 		self.toolbar2.EnableTool(201,False)
 		self.toolbar2.EnableTool(203,False)
@@ -291,9 +293,9 @@ class MyFrame(wx.Frame):
 		self.refreshCanable = self.toolbar4.AddTool(402, _('Refresh'), wx.Bitmap(self.currentdir+"/data/refresh.png"))
 		self.Bind(wx.EVT_TOOL, self.onRefreshCanable, self.refreshCanable)
 		self.toolbar4.AddSeparator()
-		self.addCanable = self.toolbar4.AddTool(403, _('Add device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.addCanable = self.toolbar4.AddTool(403, _('Add SocketCAN device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
 		self.Bind(wx.EVT_TOOL, self.onAddCanable, self.addCanable)
-		self.removeCanable = self.toolbar4.AddTool(404, _('Remove device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.removeCanable = self.toolbar4.AddTool(404, _('Remove SocketCAN device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
 		self.Bind(wx.EVT_TOOL, self.onRemoveCanable, self.removeCanable)
 
 		h1 = wx.BoxSizer(wx.VERTICAL)
@@ -316,7 +318,6 @@ class MyFrame(wx.Frame):
 			with open(setting_file) as data_file:
 				data = ujson.load(data_file)
 		except: data = {}
-		file = open('/boot/config.txt', 'r')
 
 		items = self.conf.get('CAN', 'canable')
 		try: devices = eval(items)
@@ -325,7 +326,7 @@ class MyFrame(wx.Frame):
 		for ii in devices:
 			device = ii[0]
 			interface = ii[1]
-			skId = ''
+			skId = '!' + _('Add SK Connection')
 			enabled = False
 			if 'pipedProviders' in data:
 				for i in data['pipedProviders']:
@@ -463,11 +464,12 @@ class MyFrame(wx.Frame):
 		if self.platform.isRPI:
 			self.toolbar3.EnableTool(302,True)
 			self.toolbar3.EnableTool(303,True)
+			self.readMcp2515()
 		else:
+			self.toolbar3.EnableTool(301,False)
 			self.toolbar3.EnableTool(302,False)
 			self.toolbar3.EnableTool(303,False)
-
-		self.readMcp2515()
+			self.toolbar3.EnableTool(304,False)
 
 	def readMcp2515(self):
 		self.listMcp2515.DeleteAllItems()
@@ -484,7 +486,7 @@ class MyFrame(wx.Frame):
 				connection = ''
 				oscillator = ''
 				interrupt = ''
-				skId = ''
+				skId = '!' + _('Add SK Connection')
 				enabled = False
 				line = line.rstrip()
 				lList = line.split(',')
@@ -991,14 +993,29 @@ class addMcp2515(wx.Dialog):
 
 class AddPort(wx.Dialog):
 	def __init__(self):
-		wx.Dialog.__init__(self, None, title=_('Add Serial Port'), size=(200,150))
+		wx.Dialog.__init__(self, None, title=_('Add Serial Port'), size=(-1,200))
 		panel = wx.Panel(self)
 
-		ports = serial.tools.list_ports.comports()
-		listDevices = []
+		ports = serial.tools.list_ports.comports(True)
+		self.listDevices = []
 		for port in ports:
-			listDevices.append(port.device)
-		self.port = wx.Choice(panel, choices=listDevices)
+			self.listDevices.append(port.device)
+
+		OPserial = False
+		self.listDevicesOP = []
+
+		for device in self.listDevices:
+			if 'ttyOP' in device:
+				self.listDevicesOP.append(device)
+				OPserial = True
+
+		if OPserial:
+			self.port = wx.Choice(panel, choices=self.listDevicesOP)
+			self.OPserialTrue = wx.CheckBox(panel, label=_('Show only Openplotter-Serial managed ports'))
+			self.OPserialTrue.Bind(wx.EVT_CHECKBOX, self.on_OPserialTrue)
+			self.OPserialTrue.SetValue(True)
+		else:
+			self.port = wx.Choice(panel, choices=self.listDevices)
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK)
@@ -1009,12 +1026,20 @@ class AddPort(wx.Dialog):
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(self.port, 0, wx.ALL | wx.EXPAND, 10)
+		if OPserial:
+			vbox.Add(self.OPserialTrue, 0, wx.ALL | wx.EXPAND, 10)
 		vbox.AddStretchSpacer(1)
 		vbox.Add(hbox, 0, wx.EXPAND, 0)
 
 		panel.SetSizer(vbox)
 		self.Centre() 
 
+	def on_OPserialTrue(self,e):
+		self.port.Clear()
+		if self.OPserialTrue.GetValue():
+			self.port.AppendItems(self.listDevicesOP)
+		else:
+			self.port.AppendItems(self.listDevices)	
 ################################################################################
 
 def main():
