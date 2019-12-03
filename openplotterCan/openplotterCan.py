@@ -17,11 +17,11 @@
 
 import wx, os, webbrowser, subprocess, socket, ujson, sys, time, serial, codecs
 import wx.richtext as rt
-import serial.tools.list_ports
 from wx.lib.mixins.listctrl import CheckListCtrlMixin, ListCtrlAutoWidthMixin
 from openplotterSettings import conf
 from openplotterSettings import language
 from openplotterSettings import platform
+from openplotterSettings import serialSettings
 
 class MyFrame(wx.Frame):
 	def __init__(self):
@@ -380,7 +380,7 @@ class MyFrame(wx.Frame):
 		self.restart_SK(0)
 
 	def onAddCanable(self,e):
-		dlg = AddPort()
+		dlg = serialSettings.AddPort()
 		res = dlg.ShowModal()
 		restart = False
 		if res == wx.ID_OK:
@@ -989,57 +989,6 @@ class addMcp2515(wx.Dialog):
 	def OnDelete(self,e):
 		self.EndModal(wx.ID_DELETE)
 
-################################################################################
-
-class AddPort(wx.Dialog):
-	def __init__(self):
-		wx.Dialog.__init__(self, None, title=_('Add Serial Port'), size=(-1,200))
-		panel = wx.Panel(self)
-
-		ports = serial.tools.list_ports.comports(True)
-		self.listDevices = []
-		for port in ports:
-			self.listDevices.append(port.device)
-
-		OPserial = False
-		self.listDevicesOP = []
-
-		for device in self.listDevices:
-			if 'ttyOP' in device:
-				self.listDevicesOP.append(device)
-				OPserial = True
-
-		if OPserial:
-			self.port = wx.Choice(panel, choices=self.listDevicesOP)
-			self.OPserialTrue = wx.CheckBox(panel, label=_('Show only Openplotter-Serial managed ports'))
-			self.OPserialTrue.Bind(wx.EVT_CHECKBOX, self.on_OPserialTrue)
-			self.OPserialTrue.SetValue(True)
-		else:
-			self.port = wx.Choice(panel, choices=self.listDevices)
-
-		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
-		okBtn = wx.Button(panel, wx.ID_OK)
-
-		hbox = wx.BoxSizer(wx.HORIZONTAL)
-		hbox.Add(cancelBtn, 1, wx.ALL | wx.EXPAND, 10)
-		hbox.Add(okBtn, 1, wx.ALL | wx.EXPAND, 10)
-
-		vbox = wx.BoxSizer(wx.VERTICAL)
-		vbox.Add(self.port, 0, wx.ALL | wx.EXPAND, 10)
-		if OPserial:
-			vbox.Add(self.OPserialTrue, 0, wx.ALL | wx.EXPAND, 10)
-		vbox.AddStretchSpacer(1)
-		vbox.Add(hbox, 0, wx.EXPAND, 0)
-
-		panel.SetSizer(vbox)
-		self.Centre() 
-
-	def on_OPserialTrue(self,e):
-		self.port.Clear()
-		if self.OPserialTrue.GetValue():
-			self.port.AppendItems(self.listDevicesOP)
-		else:
-			self.port.AppendItems(self.listDevices)	
 ################################################################################
 
 def main():
