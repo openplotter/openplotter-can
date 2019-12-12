@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=OpenPlotter CAN Bus
+Name=CAN Bus
 Exec=openplotter-can
 Icon=openplotter-can
 StartupNotify=true
