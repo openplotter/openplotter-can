@@ -305,8 +305,7 @@ class MyFrame(wx.Frame):
 	def restart_SK(self, msg):
 		if msg == 0: msg = _('Restarting Signal K server... ')
 		seconds = 12
-		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'stop'])
-		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'start'])
+		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'restart'])
 		for i in range(seconds, 0, -1):
 			self.ShowStatusBarYELLOW(msg+str(i))
 			time.sleep(1)

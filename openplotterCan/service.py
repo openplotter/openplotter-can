@@ -23,6 +23,11 @@ if sys.argv[1]=='start':
 if sys.argv[1]=='stop':
 	subprocess.call(['systemctl', 'stop', 'signalk.service'])
 	subprocess.call(['systemctl', 'stop', 'signalk.socket'])
+if sys.argv[1]=='restart':
+	subprocess.call(['systemctl', 'stop', 'signalk.service'])
+	subprocess.call(['systemctl', 'stop', 'signalk.socket'])
+	subprocess.call(['systemctl', 'start', 'signalk.socket'])
+	subprocess.call(['systemctl', 'start', 'signalk.service'])
 if sys.argv[1]=='removeCanable':
 	subprocess.Popen(['ip', 'link', 'set', sys.argv[3], 'down'])
 	time.sleep(1)
