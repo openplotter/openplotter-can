@@ -1,0 +1,284 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: openplotter\n"
+"POT-Creation-Date: 2019-12-13 19:43+0100\n"
+"PO-Revision-Date: 2019-12-16 12:39+0100\n"
+"Last-Translator: \n"
+"Language-Team: Basque\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Crowdin-Project: openplotter\n"
+"X-Crowdin-Language: eu\n"
+"X-Crowdin-File: openplotter-can.po\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: canPostInstall.py:27
+msgid "Adding openplotter-can-read service..."
+msgstr "Openplotter-can-read zerbitzua gehitzen..."
+
+#: canPostInstall.py:34 canPreUninstall.py:33
+msgid "DONE"
+msgstr "EGINA"
+
+#: canPostInstall.py:35 canPreUninstall.py:34
+msgid "FAILED: "
+msgstr "HUTS EGIN DA: "
+
+#: canPreUninstall.py:27
+msgid "Removing openplotter-can-read service..."
+msgstr "Openplotter-can-read zerbitzua kentzen..."
+
+#: canUsbFirmware.py:51
+msgid "Please connect (or disconnect and reconnect) the CAN-USB adapter"
+msgstr "Mesedez, konekta ezazu (edo deskonektatu eta konektatu berriro) CAN-USB egokitzailea"
+
+#: canUsbFirmware.py:63
+msgid "Can not open serial device (CAN-USB) connected on: "
+msgstr "Ezin izan da konektatutako serie gailua (CAN-USB) zabaldu: "
+
+#: openplotterCan.py:35
+msgid "OpenPlotter CAN Bus"
+msgstr "OpenPlotter CAN Bus"
+
+#: openplotterCan.py:45
+msgid "Help"
+msgstr "Laguntza"
+
+#: openplotterCan.py:48
+msgid "Settings"
+msgstr "Ezarpenak"
+
+#: openplotterCan.py:51
+msgid "CAN-USB Setup"
+msgstr "CAN-USB instalazioa egin"
+
+#: openplotterCan.py:54
+msgid "SK → NMEA 2000"
+msgstr ""
+
+#: openplotterCan.py:57
+msgid "Refresh"
+msgstr "Freskatu"
+
+#: openplotterCan.py:66
+msgid "CAN-USB"
+msgstr "CAN-USB"
+
+#: openplotterCan.py:67
+msgid "CAN-USB / CANable"
+msgstr "CAN-USB / CANable"
+
+#: openplotterCan.py:68
+msgid "MCP2515"
+msgstr "MCP2515"
+
+#: openplotterCan.py:69
+msgid "NMEA 0183"
+msgstr "NMEA 0183"
+
+#: openplotterCan.py:119
+msgid "This feature is only for Raspberry Pi"
+msgstr "Ezaugarri hau Raspberry Pi-rako bakarrik dago eskuragarri"
+
+#: openplotterCan.py:142 openplotterCan.py:336
+msgid "Serial Port"
+msgstr "Portu seriea"
+
+#: openplotterCan.py:143
+msgid "Baud Rate"
+msgstr "Baudio abiadura"
+
+#: openplotterCan.py:144 openplotterCan.py:338 openplotterCan.py:527
+msgid "SK connection ID"
+msgstr "SK konexio IDa"
+
+#: openplotterCan.py:149
+msgid "Open device TX PGNs"
+msgstr "TX PGN gailua ireki"
+
+#: openplotterCan.py:153 openplotterCan.py:349 openplotterCan.py:538
+msgid "Add Connection"
+msgstr ""
+
+#: openplotterCan.py:155 openplotterCan.py:351 openplotterCan.py:540
+msgid "Edit Connection"
+msgstr ""
+
+#: openplotterCan.py:157 openplotterCan.py:353 openplotterCan.py:542
+msgid "Remove Connection"
+msgstr ""
+
+#: openplotterCan.py:204 openplotterCan.py:490
+msgid "You have to select a device"
+msgstr ""
+
+#: openplotterCan.py:208
+msgid "You have to select a baud rate"
+msgstr ""
+
+#: openplotterCan.py:213 openplotterCan.py:498
+msgid "This device already exists"
+msgstr ""
+
+#: openplotterCan.py:229 openplotterCan.py:442 openplotterCan.py:665
+msgid "Failed. Error creating connection in Signal K"
+msgstr ""
+
+#: openplotterCan.py:232 openplotterCan.py:262 openplotterCan.py:445
+#: openplotterCan.py:667 openplotterCan.py:754 openplotterCan.py:766
+msgid "Please install \"Signal K Installer\" OpenPlotter app"
+msgstr "Mesedez, \"Signal K Installer\" OpenPlotter aplikazioa instalatu"
+
+#: openplotterCan.py:251 openplotterCan.py:464 openplotterCan.py:686
+msgid "Failed. Error removing connection in Signal K"
+msgstr ""
+
+#: openplotterCan.py:258
+msgid "Please install \"signalk-to-nmea2000\" Signal K app"
+msgstr "Mesedez, \"signalk-to-nmea2000\" Singal K aplikazioa instalatu"
+
+#: openplotterCan.py:271
+msgid "Disabling device and restarting Signal K server... "
+msgstr "Gailua ezintzen eta Signal K serbidorea berrebiarazten... "
+
+#: openplotterCan.py:275
+msgid "Enabling device and restarting Signal K server... "
+msgstr "Gailua gaitzen eta Signal K serbidorea berrebiarazten... "
+
+#: openplotterCan.py:306
+msgid "Restarting Signal K server... "
+msgstr "Signal K serbidorea berrebiarazten... "
+
+#: openplotterCan.py:312
+msgid "Signal K server restarted"
+msgstr "Signal K serbidorea berrebiarazia"
+
+#: openplotterCan.py:337 openplotterCan.py:526
+msgid "Interface"
+msgstr "Interfazea"
+
+#: openplotterCan.py:343
+msgid "Add SocketCAN device"
+msgstr ""
+
+#: openplotterCan.py:345
+msgid "Remove SocketCAN device"
+msgstr ""
+
+#: openplotterCan.py:469 openplotterCan.py:501
+msgid "Restarting CANable interfaces..."
+msgstr "CANable interfazeak berrebiarazten..."
+
+#: openplotterCan.py:482 openplotterCan.py:516
+msgid "CANable interfaces restarted"
+msgstr ""
+
+#: openplotterCan.py:523 openplotterCan.py:1062
+msgid "Connection"
+msgstr "Konexioa"
+
+#: openplotterCan.py:524 openplotterCan.py:1066
+msgid "Oscillator"
+msgstr "Osziladorea"
+
+#: openplotterCan.py:525
+msgid "Interrupt"
+msgstr "Geldiarazi"
+
+#: openplotterCan.py:532
+msgid "Add device"
+msgstr "Gailua gehitu"
+
+#: openplotterCan.py:534
+msgid "Remove device"
+msgstr "Gailua kendu"
+
+#: openplotterCan.py:702 openplotterCan.py:732
+msgid "Changes will be applied after restarting"
+msgstr "Aldaketak ezarriak izango dira berrebiarazi ondoren"
+
+#: openplotterCan.py:712
+msgid "Fill in all fields"
+msgstr "Bete ezazu hutsune guztiak"
+
+#: openplotterCan.py:719
+msgid "This connection already exists"
+msgstr "Konexio hau jadanik existitzen da"
+
+#: openplotterCan.py:723
+msgid "This interrupt GPIO already exists"
+msgstr "GPIO interruptore hau jadanik existitzen da"
+
+#: openplotterCan.py:762
+msgid "Please install \"signalk-n2kais-to-nmea0183\" Signal K app"
+msgstr "Mesedez, \"signalk-n2kais-to-nmea0183\" Signal K aplikazioa instalatu"
+
+#: openplotterCan.py:797
+msgid "Open device PGNs"
+msgstr "Gailu PGNak ireki"
+
+#: openplotterCan.py:807
+msgid "TX PGN"
+msgstr "TX PGN"
+
+#: openplotterCan.py:808
+msgid "info"
+msgstr "info"
+
+#: openplotterCan.py:813
+msgid "Apply"
+msgstr "Aplikatu"
+
+#: openplotterCan.py:815
+msgid "Close"
+msgstr "Itxi"
+
+#: openplotterCan.py:835
+msgid "Error connecting with device "
+msgstr "Gailuarekin konektatzean arazoa "
+
+#: openplotterCan.py:873
+msgid "The list of enabled PGNs is empty, you may need to try a different baudrate or reset your device to 115200 bauds"
+msgstr "Gaitutako PGNen zerrenda hutsik dago, beste baudio abiadura batekin saiatu beharko zara, edo reseteatu zure gailua 115200 baudioetara"
+
+#: openplotterCan.py:876
+msgid "open PGNs: "
+msgstr "zabalik dauden PGNak: "
+
+#: openplotterCan.py:877
+msgid "close PGNs: "
+msgstr "itxi PGNak: "
+
+#: openplotterCan.py:914
+msgid ""
+"You can not activate more than 30 PGNs\n"
+"\n"
+msgstr ""
+"Ezin duzu 30 PGN baino gehiago gaitu\n"
+"\n"
+
+#: openplotterCan.py:1027
+msgid " enabled transmission PGNs (max. 30):"
+msgstr " gaitutako transmisio PGNak (Gehienez 30):"
+
+#: openplotterCan.py:1057
+msgid "Add MCP2515 device"
+msgstr "MCP2515 gailua gehitu"
+
+#: openplotterCan.py:1070
+msgid "Interrupt GPIO"
+msgstr "GPIO geldiarazi"
+
+#: startup.py:44
+msgid "Checking CAN devices..."
+msgstr "CAN gailuak ikuskatzen..."
+
+#: startup.py:66 startup.py:67
+msgid "There is not Signal K connection for interface: "
+msgstr "Ez dago Signal K-rik konektatua interfazera: "
