@@ -303,13 +303,14 @@ class MyFrame(wx.Frame):
 		return write
 		
 	def restart_SK(self, msg):
-		if msg == 0: msg = _('Restarting Signal K server... ')
-		seconds = 12
-		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'restart'])
-		for i in range(seconds, 0, -1):
-			self.ShowStatusBarYELLOW(msg+str(i))
-			time.sleep(1)
-		self.ShowStatusBarGREEN(_('Signal K server restarted'))
+		if self.platform.skDir:
+			if msg == 0: msg = _('Restarting Signal K server... ')
+			seconds = 12
+			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'restart'])
+			for i in range(seconds, 0, -1):
+				self.ShowStatusBarYELLOW(msg+str(i))
+				time.sleep(1)
+			self.ShowStatusBarGREEN(_('Signal K server restarted'))
 
 	def onListSKcanSelected(self,e):
 		i = e.GetIndex()
@@ -342,7 +343,7 @@ class MyFrame(wx.Frame):
 		self.toolbar44 = wx.ToolBar(self.canable, style=wx.TB_TEXT)
 		self.addCanable = self.toolbar44.AddTool(4403, _('Add SocketCAN device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
 		self.Bind(wx.EVT_TOOL, self.onAddCanable, self.addCanable)
-		self.removeCanable = self.toolbar44.AddTool(4404, _('Remove SocketCAN device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.removeCanable = self.toolbar44.AddTool(4404, _('Remove SocketCAN device'), wx.Bitmap(self.currentdir+"/data/cancel.png"))
 		self.Bind(wx.EVT_TOOL, self.onRemoveCanable, self.removeCanable)
 
 		self.toolbar4 = wx.ToolBar(self.canable, style=wx.TB_TEXT | wx.TB_VERTICAL)

@@ -20,15 +20,21 @@ Clone the repository:
 
 `git clone https://github.com/openplotter/openplotter-can`
 
-Make your changes and install:
+Install:
 
-`sudo python3 setup.py install`
+```
+cd openplotter-can
+sudo python3 setup.py install
+```
+Run post-installation script:
+
+`sudo canPostInstall`
 
 Run:
 
 `openplotter-can`
 
-Pull request your changes to github and we will check and add them to the next version of the [Debian package](https://launchpad.net/~openplotter/+archive/ubuntu/openplotter/).
+Make your changes and repeat installation and post-installation steps to test. Pull request your changes to github and we will check and add them to the next version of the [Debian package](https://launchpad.net/~openplotter/+archive/ubuntu/openplotter/).
 
 ### Documentation
 
