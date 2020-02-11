@@ -33,7 +33,7 @@ class MyFrame(wx.Frame):
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
 		self.language = language.Language(self.currentdir,'openplotter-can',self.currentLanguage)
 
-		wx.Frame.__init__(self, None, title=_('OpenPlotter CAN Bus'+' '+version), size=(800,444))
+		wx.Frame.__init__(self, None, title=_('OpenPlotter CAN Bus')+' '+version, size=(800,444))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		icon = wx.Icon(self.currentdir+"/data/openplotter-can.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
@@ -1123,6 +1123,7 @@ def main():
 
 	app = wx.App()
 	MyFrame().Show()
+	time.sleep(1)
 	app.MainLoop()
 
 if __name__ == '__main__':
