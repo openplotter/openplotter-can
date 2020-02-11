@@ -342,10 +342,12 @@ class MyFrame(wx.Frame):
 		self.listCanable.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListCanableDeselected)
 
 		self.toolbar44 = wx.ToolBar(self.canable, style=wx.TB_TEXT)
-		self.addCanable = self.toolbar44.AddTool(4403, _('Add SocketCAN device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.addCanable = self.toolbar44.AddTool(4403, _('Add slcand device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
 		self.Bind(wx.EVT_TOOL, self.onAddCanable, self.addCanable)
-		self.removeCanable = self.toolbar44.AddTool(4404, _('Remove SocketCAN device'), wx.Bitmap(self.currentdir+"/data/cancel.png"))
+		self.removeCanable = self.toolbar44.AddTool(4404, _('Remove slcand device'), wx.Bitmap(self.currentdir+"/data/cancel.png"))
 		self.Bind(wx.EVT_TOOL, self.onRemoveCanable, self.removeCanable)
+		self.checkCanable = self.toolbar44.AddTool(4405, _('Check device traffic'), wx.Bitmap(self.currentdir+"/data/check.png"))
+		self.Bind(wx.EVT_TOOL, self.onCheckCanable, self.checkCanable)
 
 		self.toolbar4 = wx.ToolBar(self.canable, style=wx.TB_TEXT | wx.TB_VERTICAL)
 		self.addCanableCon = self.toolbar4.AddTool(402, _('Add Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
@@ -373,16 +375,20 @@ class MyFrame(wx.Frame):
 		self.onListCanableDeselected()
 		skId = self.listCanable.GetItemText(selected, 2)
 		device = self.listCanable.GetItemText(selected, 0)
+		interface = self.listCanable.GetItemText(selected, 1)
 		if skId:
 			self.toolbar4.EnableTool(401,True)
 			self.toolbar4.EnableTool(405,True)
 		else: self.toolbar4.EnableTool(402,True)
-		if device: self.toolbar44.EnableTool(4404,True)
+		if device: 
+			self.toolbar44.EnableTool(4404,True)
+			if interface: self.toolbar44.EnableTool(4405,True)
 
 	def onListCanableDeselected(self,e=0):
 		self.toolbar4.EnableTool(401,False)
 		self.toolbar4.EnableTool(402,False)
 		self.toolbar44.EnableTool(4404,False)
+		self.toolbar44.EnableTool(4405,False)
 		self.toolbar4.EnableTool(405,False)
 
 	def readCanable(self):
@@ -465,6 +471,12 @@ class MyFrame(wx.Frame):
 			self.onRefresh()
 		else: self.ShowStatusBarRED(_('Failed. Error removing connection in Signal K'))
 
+	def onCheckCanable(self,e):
+		selected = self.listCanable.GetFirstSelected()
+		if selected == -1: return
+		interface = self.listCanable.GetItemText(selected, 1)
+		if interface: subprocess.Popen(['x-terminal-emulator','-e', 'candump', interface])
+
 	def onRemoveCanable(self,e):
 		selected = self.listCanable.GetFirstSelected()
 		if selected == -1: return
@@ -531,10 +543,12 @@ class MyFrame(wx.Frame):
 		self.listMcp2515.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListlistMcp2515Deselected)
 
 		self.toolbar33 = wx.ToolBar(self.mcp2515, style=wx.TB_TEXT)
-		self.addMcp2515 = self.toolbar33.AddTool(3303, _('Add device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
+		self.addMcp2515 = self.toolbar33.AddTool(3303, _('Add MCP2515 device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
 		self.Bind(wx.EVT_TOOL, self.onAddMcp2515, self.addMcp2515)
-		self.removeMcp2515 = self.toolbar33.AddTool(3304, _('Remove device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
+		self.removeMcp2515 = self.toolbar33.AddTool(3304, _('Remove MCP2515 device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
 		self.Bind(wx.EVT_TOOL, self.onRemoveMcp2515, self.removeMcp2515)
+		self.checkMcp2515 = self.toolbar33.AddTool(3305, _('Check device traffic'), wx.Bitmap(self.currentdir+"/data/check.png"))
+		self.Bind(wx.EVT_TOOL, self.onCheckMcp2515, self.checkMcp2515)
 
 		self.toolbar3 = wx.ToolBar(self.mcp2515, style=wx.TB_TEXT | wx.TB_VERTICAL)
 		self.addMcp2515SkCon = self.toolbar3.AddTool(302, _('Add Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
@@ -571,13 +585,16 @@ class MyFrame(wx.Frame):
 			self.toolbar3.EnableTool(305,True)
 		else: 
 			if interface: self.toolbar3.EnableTool(302,True)
-		if connection: self.toolbar33.EnableTool(3304,True)
+		if connection: 
+			self.toolbar33.EnableTool(3304,True)
+			if interface: self.toolbar33.EnableTool(3305,True)
 		
 	def onListlistMcp2515Deselected(self,e=0):
 		self.toolbar3.EnableTool(301,False)
 		self.toolbar3.EnableTool(302,False)
 		self.toolbar3.EnableTool(305,False)
 		self.toolbar33.EnableTool(3304,False)
+		self.toolbar33.EnableTool(3305,False)
 
 	def readMcp2515(self):
 		self.listMcp2515.DeleteAllItems()
@@ -675,6 +692,12 @@ class MyFrame(wx.Frame):
 		skId = self.listMcp2515.GetItemText(selected, 4)
 		url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/connections/'+skId
 		webbrowser.open(url, new=2)
+
+	def onCheckMcp2515(self,e):
+		selected = self.listMcp2515.GetFirstSelected()
+		if selected == -1: return
+		interface = self.listMcp2515.GetItemText(selected, 3)
+		if interface: subprocess.Popen(['x-terminal-emulator','-e', 'candump', interface])
 
 	def onRemoveMcp2515SkCon(self,e):
 		selected = self.listMcp2515.GetFirstSelected()
