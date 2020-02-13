@@ -1139,8 +1139,8 @@ class addMcp2515(wx.Dialog):
 def main():
 	try:
 		platform2 = platform.Platform()
-		if not platform2.postInstall(version,'can'): 
-			subprocess.call(['x-terminal-emulator','-e', platform2.admin, 'canPostInstall'])
+		if not platform2.postInstall(version,'can'):
+			subprocess.Popen(['openplotterPostInstall', platform2.admin+' canPostInstall'])
 			return
 	except: pass
 
