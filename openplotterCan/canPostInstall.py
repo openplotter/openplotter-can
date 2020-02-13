@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
-import os, subprocess, time
+import os, subprocess
 from openplotterSettings import conf
 from openplotterSettings import language
 from .version import version
@@ -24,7 +24,6 @@ def main():
 	currentdir = os.path.dirname(os.path.abspath(__file__))
 	currentLanguage = conf2.get('GENERAL', 'lang')
 	language.Language(currentdir,'openplotter-can',currentLanguage)
-	error = False
 
 	print(_('Adding openplotter-can-read service...'))
 	try:
@@ -34,20 +33,13 @@ def main():
 		subprocess.call(['systemctl', 'daemon-reload'])
 		subprocess.call(['systemctl', 'enable', 'openplotter-can-read.service'])
 		print(_('DONE'))
-	except Exception as e:
-		print(_('FAILED: ')+str(e))
-		error = True
+	except Exception as e: print(_('FAILED: ')+str(e))
 
 	print(_('Setting version...'))
 	try:
 		conf2.set('APPS', 'can', version)
 		print(_('DONE'))
-	except Exception as e: 
-		print(_('FAILED: ')+str(e))
-		error = True
-
-	if error: time.sleep(10)
-	else: time.sleep(2)
+	except Exception as e: print(_('FAILED: ')+str(e))
 
 if __name__ == '__main__':
 	main()
