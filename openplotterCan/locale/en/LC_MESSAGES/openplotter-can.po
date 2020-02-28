@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter-can\n"
-"POT-Creation-Date: 2020-02-11 20:09+0100\n"
-"PO-Revision-Date: 2020-02-11 20:09+0100\n"
+"POT-Creation-Date: 2020-02-28 17:30+0100\n"
+"PO-Revision-Date: 2020-02-28 17:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -15,21 +15,21 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: canPostInstall.py:29
+#: canPostInstall.py:28
 msgid "Adding openplotter-can-read service..."
 msgstr ""
 
-#: canPostInstall.py:36 canPostInstall.py:44 canPreUninstall.py:34
-#: canPreUninstall.py:42
+#: canPostInstall.py:35 canPostInstall.py:41 canPreUninstall.py:34
+#: canPreUninstall.py:40
 msgid "DONE"
 msgstr ""
 
-#: canPostInstall.py:38 canPostInstall.py:46 canPreUninstall.py:36
-#: canPreUninstall.py:44
+#: canPostInstall.py:36 canPostInstall.py:42 canPreUninstall.py:35
+#: canPreUninstall.py:41
 msgid "FAILED: "
 msgstr ""
 
-#: canPostInstall.py:41
+#: canPostInstall.py:38
 msgid "Setting version..."
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Removing openplotter-can-read service..."
 msgstr ""
 
-#: canPreUninstall.py:39
+#: canPreUninstall.py:37
 msgid "Removing version..."
 msgstr ""
 
@@ -47,10 +47,6 @@ msgstr ""
 
 #: canUsbFirmware.py:63
 msgid "Can not open serial device (CAN-USB) connected on: "
-msgstr ""
-
-#: openplotterCan.py:36
-msgid "OpenPlotter CAN Bus"
 msgstr ""
 
 #: openplotterCan.py:46

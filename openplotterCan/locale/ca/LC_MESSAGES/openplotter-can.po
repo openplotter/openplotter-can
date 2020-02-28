@@ -4,8 +4,8 @@ msgstr ""
 "POT-Creation-Date: 2020-02-11 20:09+0100\n"
 "PO-Revision-Date: 2020-02-28 18:26+0100\n"
 "Last-Translator: \n"
-"Language-Team: German\n"
-"Language: de\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,281 +14,279 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Crowdin-Project: openplotter\n"
-"X-Crowdin-Language: de\n"
+"X-Crowdin-Language: ca\n"
 "X-Crowdin-File: openplotter-can.po\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:29
 msgid "Adding openplotter-can-read service..."
-msgstr "Openplotter-can-read Service hinzufügen..."
+msgstr ""
 
 #: canPostInstall.py:36 canPostInstall.py:44 canPreUninstall.py:34
 #: canPreUninstall.py:42
 msgid "DONE"
-msgstr "FERTIG"
+msgstr ""
 
 #: canPostInstall.py:38 canPostInstall.py:46 canPreUninstall.py:36
 #: canPreUninstall.py:44
 msgid "FAILED: "
-msgstr "FEHLGESCHLAGEN: "
+msgstr ""
 
 #: canPostInstall.py:41
 msgid "Setting version..."
-msgstr "Setze Version..."
+msgstr ""
 
 #: canPreUninstall.py:28
 msgid "Removing openplotter-can-read service..."
-msgstr "Entferne openplotter-can-read Dienst..."
+msgstr ""
 
 #: canPreUninstall.py:39
 msgid "Removing version..."
-msgstr "Entferne Version..."
+msgstr ""
 
 #: canUsbFirmware.py:51
 msgid "Please connect (or disconnect and reconnect) the CAN-USB adapter"
-msgstr "Bitte verbinde (oder trennen und neu verbinden) den CAN-USB-Adapter"
+msgstr ""
 
 #: canUsbFirmware.py:63
 msgid "Can not open serial device (CAN-USB) connected on: "
-msgstr "Kann serielles Gerät (CAN-USB) nicht öffnen auf: "
+msgstr ""
 
 #: openplotterCan.py:36
 msgid "OpenPlotter CAN Bus"
-msgstr "OpenPlotter CAN-Bus"
+msgstr ""
 
 #: openplotterCan.py:46
 msgid "Help"
-msgstr "Hilfe"
+msgstr ""
 
 #: openplotterCan.py:49
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr ""
 
 #: openplotterCan.py:52
 msgid "CAN-USB Setup"
-msgstr "CAN-USB Setup"
+msgstr ""
 
 #: openplotterCan.py:55
 msgid "SK → NMEA 2000"
-msgstr "SK → NMEA 2000"
+msgstr ""
 
 #: openplotterCan.py:58
 msgid "Refresh"
-msgstr "Aktualisieren"
+msgstr ""
 
 #: openplotterCan.py:67
 msgid "CAN-USB"
-msgstr "CAN-USB"
+msgstr ""
 
 #: openplotterCan.py:68
 msgid "CAN-USB / CANable"
-msgstr "CAN-USB / CANable"
+msgstr ""
 
 #: openplotterCan.py:69
 msgid "MCP2515"
-msgstr "MCP2515"
+msgstr ""
 
 #: openplotterCan.py:70
 msgid "NMEA 0183"
-msgstr "NMEA 0183"
+msgstr ""
 
 #: openplotterCan.py:120
 msgid "This feature is only for Raspberry Pi"
-msgstr "Diese Funktion ist nur für Raspberry Pi"
+msgstr ""
 
 #: openplotterCan.py:143 openplotterCan.py:338
 msgid "Serial Port"
-msgstr "serielle Schnittstelle"
+msgstr ""
 
 #: openplotterCan.py:144
 msgid "Baud Rate"
-msgstr "Baudrate"
+msgstr ""
 
 #: openplotterCan.py:145 openplotterCan.py:340 openplotterCan.py:541
 msgid "SK connection ID"
-msgstr "SK-Verbindungs-ID"
+msgstr ""
 
 #: openplotterCan.py:150
 msgid "Open device TX PGNs"
-msgstr "Öffne Geräte TX-PGNs"
+msgstr ""
 
 #: openplotterCan.py:154 openplotterCan.py:353 openplotterCan.py:554
 msgid "Add Connection"
-msgstr "Verbindung hinzufügen"
+msgstr ""
 
 #: openplotterCan.py:156 openplotterCan.py:355 openplotterCan.py:556
 msgid "Edit Connection"
-msgstr "Verbindung bearbeiten"
+msgstr ""
 
 #: openplotterCan.py:158 openplotterCan.py:357 openplotterCan.py:558
 msgid "Remove Connection"
-msgstr "Verbindung entfernen"
+msgstr ""
 
 #: openplotterCan.py:205 openplotterCan.py:504
 msgid "You have to select a device"
-msgstr "Sie müssen ein Gerät auswählen"
+msgstr ""
 
 #: openplotterCan.py:209
 msgid "You have to select a baud rate"
-msgstr "Sie müssen eine Baudrate auswählen"
+msgstr ""
 
 #: openplotterCan.py:214 openplotterCan.py:512
 msgid "This device already exists"
-msgstr "Dieses Gerät existiert bereits"
+msgstr ""
 
 #: openplotterCan.py:230 openplotterCan.py:450 openplotterCan.py:684
 msgid "Failed. Error creating connection in Signal K"
-msgstr "Fehlgeschlagen. Fehler beim Erstellen der Verbindung in Signal K"
+msgstr ""
 
 #: openplotterCan.py:233 openplotterCan.py:263 openplotterCan.py:453
 #: openplotterCan.py:686 openplotterCan.py:779 openplotterCan.py:791
 msgid "Please install \"Signal K Installer\" OpenPlotter app"
-msgstr "Bitte installieren Sie \"Signal K Installer\" in der OpenPlotter App"
+msgstr ""
 
 #: openplotterCan.py:252 openplotterCan.py:472 openplotterCan.py:711
 msgid "Failed. Error removing connection in Signal K"
-msgstr "Fehlgeschlagen. Fehler beim Entfernen der Verbindung in Signal K"
+msgstr ""
 
 #: openplotterCan.py:259
 msgid "Please install \"signalk-to-nmea2000\" Signal K app"
-msgstr "Bitte installieren Sie \"signalk-to-nmea2000\" in der Signal K App"
+msgstr ""
 
 #: openplotterCan.py:272
 msgid "Disabling device and restarting Signal K server... "
-msgstr "Deaktiviere Gerät und starte Signal K Server... "
+msgstr ""
 
 #: openplotterCan.py:276
 msgid "Enabling device and restarting Signal K server... "
-msgstr "Aktiviere Gerät und starte Signal K Server... "
+msgstr ""
 
 #: openplotterCan.py:308
 msgid "Restarting Signal K server... "
-msgstr "Starte Signal K Server neu... "
+msgstr ""
 
 #: openplotterCan.py:314
 msgid "Signal K server restarted"
-msgstr "Signal K Server neu gestartet"
+msgstr ""
 
 #: openplotterCan.py:339 openplotterCan.py:540
 msgid "Interface"
-msgstr "Benutzeroberfläche"
+msgstr ""
 
 #: openplotterCan.py:345
 msgid "Add slcand device"
-msgstr "slcand-Gerät hinzufügen"
+msgstr ""
 
 #: openplotterCan.py:347
 msgid "Remove slcand device"
-msgstr "slcand-Gerät entfernen"
+msgstr ""
 
 #: openplotterCan.py:349 openplotterCan.py:550
 msgid "Check device traffic"
-msgstr "Geräteverkehr überprüfen"
+msgstr ""
 
 #: openplotterCan.py:483 openplotterCan.py:515
 msgid "Restarting CANable interfaces..."
-msgstr "CANable Schnittstellen werden neu gestartet..."
+msgstr ""
 
 #: openplotterCan.py:496 openplotterCan.py:530
 msgid "CANable interfaces restarted"
-msgstr "CAN-fähige Schnittstelle neu gestartet"
+msgstr ""
 
 #: openplotterCan.py:537 openplotterCan.py:1087
 msgid "Connection"
-msgstr "Verbindung"
+msgstr ""
 
 #: openplotterCan.py:538 openplotterCan.py:1091
 msgid "Oscillator"
-msgstr "Oszillator"
+msgstr ""
 
 #: openplotterCan.py:539
 msgid "Interrupt"
-msgstr "Unterbrechung"
+msgstr ""
 
 #: openplotterCan.py:546 openplotterCan.py:1082
 msgid "Add MCP2515 device"
-msgstr "MCP2515 Gerät hinzufügen"
+msgstr ""
 
 #: openplotterCan.py:548
 msgid "Remove MCP2515 device"
-msgstr "MCP2515-Gerät entfernen"
+msgstr ""
 
 #: openplotterCan.py:727 openplotterCan.py:757
 msgid "Changes will be applied after restarting"
-msgstr "Änderungen werden nach dem Neustart angewendet"
+msgstr ""
 
 #: openplotterCan.py:737
 msgid "Fill in all fields"
-msgstr "Alle Felder ausfüllen"
+msgstr ""
 
 #: openplotterCan.py:744
 msgid "This connection already exists"
-msgstr "Diese Verbindung existiert bereits"
+msgstr ""
 
 #: openplotterCan.py:748
 msgid "This interrupt GPIO already exists"
-msgstr "Diese Interrupt GPIO existiert bereits"
+msgstr ""
 
 #: openplotterCan.py:787
 msgid "Please install \"signalk-n2kais-to-nmea0183\" Signal K app"
-msgstr "Bitte installieren Sie \"signalk-n2kais-to-nmea0183\" in der Signal K App"
+msgstr ""
 
 #: openplotterCan.py:822
 msgid "Open device PGNs"
-msgstr "Öffne Geräte TX-PGNs"
+msgstr ""
 
 #: openplotterCan.py:832
 msgid "TX PGN"
-msgstr "TX-PGN"
+msgstr ""
 
 #: openplotterCan.py:833
 msgid "info"
-msgstr "Info"
+msgstr ""
 
 #: openplotterCan.py:838
 msgid "Apply"
-msgstr "Übernehmen"
+msgstr ""
 
 #: openplotterCan.py:840
 msgid "Close"
-msgstr "Schließen"
+msgstr ""
 
 #: openplotterCan.py:860
 msgid "Error connecting with device "
-msgstr "Fehler beim Verbinden mit dem Gerät "
+msgstr ""
 
 #: openplotterCan.py:898
 msgid "The list of enabled PGNs is empty, you may need to try a different baudrate or reset your device to 115200 bauds"
-msgstr "Die Liste der aktivierten PGNs ist leer. Möglicherweise musst du eine andere Baudrate ausprobieren oder dein Gerät auf 115200 Bauds zurücksetzen"
+msgstr ""
 
 #: openplotterCan.py:901
 msgid "open PGNs: "
-msgstr "geöffnete PGNs:"
+msgstr ""
 
 #: openplotterCan.py:902
 msgid "close PGNs: "
-msgstr "geschlossene PGNs"
+msgstr ""
 
 #: openplotterCan.py:939
 msgid ""
 "You can not activate more than 30 PGNs\n"
 "\n"
 msgstr ""
-"Sie können nicht mehr als 30 PGNs aktivieren\n"
-"\n"
 
 #: openplotterCan.py:1052
 msgid " enabled transmission PGNs (max. 30):"
-msgstr " aktivierte Übertragungs-PGNs (max. 30):"
+msgstr ""
 
 #: openplotterCan.py:1095
 msgid "Interrupt GPIO"
-msgstr "GPIO unterbrechen"
+msgstr ""
 
 #: startup.py:44
 msgid "Checking CAN devices..."
-msgstr "Prüfe CAN-Geräte..."
+msgstr ""
 
 #: startup.py:66 startup.py:67
 msgid "There is not Signal K connection for interface: "
-msgstr "Es gibt keine Signal-K-Verbindung für die Schnittstelle: "
+msgstr ""

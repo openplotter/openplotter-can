@@ -33,7 +33,7 @@ class MyFrame(wx.Frame):
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
 		self.language = language.Language(self.currentdir,'openplotter-can',self.currentLanguage)
 
-		wx.Frame.__init__(self, None, title=_('OpenPlotter CAN Bus')+' '+version, size=(800,444))
+		wx.Frame.__init__(self, None, title='CAN Bus '+version, size=(800,444))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		icon = wx.Icon(self.currentdir+"/data/openplotter-can.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
@@ -763,7 +763,7 @@ class MyFrame(wx.Frame):
 		self.skToNmea0183 = self.toolbar5.AddTool(501, 'SK → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
 		self.Bind(wx.EVT_TOOL, self.onSkToNmea0183, self.skToNmea0183)
 		self.toolbar5.AddSeparator()
-		self.skAisToNmea0183 = self.toolbar5.AddTool(502, 'SK AIS → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.skAisToNmea0183 = self.toolbar5.AddTool(502, 'NMEA 2000 AIS → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
 		self.Bind(wx.EVT_TOOL, self.onSkAisToNmea0183, self.skAisToNmea0183)
 
 		sizer = wx.BoxSizer(wx.VERTICAL)
