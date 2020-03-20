@@ -63,8 +63,8 @@ class Check():
 					if ii['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
 						if i == ii['pipeElements'][0]['options']['subOptions']['interface']: exists = True
 			if not exists: 
-				if not red: red = _('There is not Signal K connection for interface: ')+ i
-				else: red += '\n'+_('There is not Signal K connection for interface: ')+ i
+				if not red: red = _('There is no Signal K connection for interface: ')+ i
+				else: red += '\n'+_('There is no Signal K connection for interface: ')+ i
 			else:
 				if not green: green = i
 				else: green += ' | ' + i

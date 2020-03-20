@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2020-02-11 20:09+0100\n"
-"PO-Revision-Date: 2020-02-28 18:27+0100\n"
+"PO-Revision-Date: 2020-03-20 11:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -102,7 +102,7 @@ msgstr "Port série"
 
 #: openplotterCan.py:144
 msgid "Baud Rate"
-msgstr "Vitesse de transmission (débit en bauds)"
+msgstr "Débit en bauds"
 
 #: openplotterCan.py:145 openplotterCan.py:340 openplotterCan.py:541
 msgid "SK connection ID"
@@ -138,7 +138,7 @@ msgstr "Ce périphérique existe déjà"
 
 #: openplotterCan.py:230 openplotterCan.py:450 openplotterCan.py:684
 msgid "Failed. Error creating connection in Signal K"
-msgstr "Échec. Erreur lors de la création de la connection sur Signal K"
+msgstr "Échec. Erreur lors de la création de la connection en Signal K"
 
 #: openplotterCan.py:233 openplotterCan.py:263 openplotterCan.py:453
 #: openplotterCan.py:686 openplotterCan.py:779 openplotterCan.py:791
@@ -147,7 +147,7 @@ msgstr "Veuillez installer l'appli d'OpenPlotter \"Signal K Installer\""
 
 #: openplotterCan.py:252 openplotterCan.py:472 openplotterCan.py:711
 msgid "Failed. Error removing connection in Signal K"
-msgstr "Échec. Erreur lors de la suppression de la connexion sur Signal K"
+msgstr "Échec. Erreur lors de la suppression de la connexion en Signal K"
 
 #: openplotterCan.py:259
 msgid "Please install \"signalk-to-nmea2000\" Signal K app"

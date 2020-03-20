@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2020-02-11 20:09+0100\n"
-"PO-Revision-Date: 2020-02-28 18:27+0100\n"
+"PO-Revision-Date: 2020-03-20 11:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -34,7 +34,7 @@ msgstr "FALLITO: "
 
 #: canPostInstall.py:41
 msgid "Setting version..."
-msgstr ""
+msgstr "Impostazione versione..."
 
 #: canPreUninstall.py:28
 msgid "Removing openplotter-can-read service..."
@@ -42,7 +42,7 @@ msgstr "Rimozione del servizio openplotter-can-read..."
 
 #: canPreUninstall.py:39
 msgid "Removing version..."
-msgstr ""
+msgstr "Rimozione versione..."
 
 #: canUsbFirmware.py:51
 msgid "Please connect (or disconnect and reconnect) the CAN-USB adapter"
@@ -175,15 +175,15 @@ msgstr "Interfaccia"
 
 #: openplotterCan.py:345
 msgid "Add slcand device"
-msgstr ""
+msgstr "Aggiungi dispositivo slcand"
 
 #: openplotterCan.py:347
 msgid "Remove slcand device"
-msgstr ""
+msgstr "Rimuovi dispositivo slcand"
 
 #: openplotterCan.py:349 openplotterCan.py:550
 msgid "Check device traffic"
-msgstr ""
+msgstr "Controlla traffico dispositivo"
 
 #: openplotterCan.py:483 openplotterCan.py:515
 msgid "Restarting CANable interfaces..."
@@ -211,7 +211,7 @@ msgstr "Aggiungi dispositivo MCP2515"
 
 #: openplotterCan.py:548
 msgid "Remove MCP2515 device"
-msgstr ""
+msgstr "Rimuovi dispositivo MCP2515"
 
 #: openplotterCan.py:727 openplotterCan.py:757
 msgid "Changes will be applied after restarting"

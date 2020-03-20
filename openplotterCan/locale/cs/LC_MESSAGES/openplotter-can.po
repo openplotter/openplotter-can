@@ -4,69 +4,69 @@ msgstr ""
 "POT-Creation-Date: 2020-02-11 20:09+0100\n"
 "PO-Revision-Date: 2020-03-20 11:06+0100\n"
 "Last-Translator: \n"
-"Language-Team: Spanish\n"
-"Language: es\n"
+"Language-Team: Czech\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-Basepath: ../../..\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Crowdin-Project: openplotter\n"
-"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-Language: cs\n"
 "X-Crowdin-File: openplotter-can.po\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:29
 msgid "Adding openplotter-can-read service..."
-msgstr "Añadiendo servicio openplotter-can-read..."
+msgstr "Přidávání služby openplotter-i2c-read..."
 
 #: canPostInstall.py:36 canPostInstall.py:44 canPreUninstall.py:34
 #: canPreUninstall.py:42
 msgid "DONE"
-msgstr "HECHO"
+msgstr "Hotovo"
 
 #: canPostInstall.py:38 canPostInstall.py:46 canPreUninstall.py:36
 #: canPreUninstall.py:44
 msgid "FAILED: "
-msgstr "ERROR: "
+msgstr "Chyba: "
 
 #: canPostInstall.py:41
 msgid "Setting version..."
-msgstr "Ajustando versión..."
+msgstr "Nastavuji verzi..."
 
 #: canPreUninstall.py:28
 msgid "Removing openplotter-can-read service..."
-msgstr "Eliminando servicio openplotter-can-read..."
+msgstr "Odstraňuji službu openplotter-i2c-read..."
 
 #: canPreUninstall.py:39
 msgid "Removing version..."
-msgstr "Eliminando versión..."
+msgstr "Odstraňuji verzi..."
 
 #: canUsbFirmware.py:51
 msgid "Please connect (or disconnect and reconnect) the CAN-USB adapter"
-msgstr "Por favor conecte (o desconecte y vuelva a conectar) el adaptador CAN-USB"
+msgstr "Připojte (nebo odpojte a znovu připojte) CAN-USB adaptér"
 
 #: canUsbFirmware.py:63
 msgid "Can not open serial device (CAN-USB) connected on: "
-msgstr "No se puede abrir el dispositivo serie (CAN-USB) conectado en: "
+msgstr "Nelze otevřít sériové zařízení (CAN-USB) připojené pomocí: "
 
 #: openplotterCan.py:36
 msgid "OpenPlotter CAN Bus"
-msgstr "OpenPlotter CAN Bus"
+msgstr "OpenPlotter CAN sběrnice"
 
 #: openplotterCan.py:46
 msgid "Help"
-msgstr "Ayuda"
+msgstr "Nápověda"
 
 #: openplotterCan.py:49
 msgid "Settings"
-msgstr "Ajustes"
+msgstr "Nastavení"
 
 #: openplotterCan.py:52
 msgid "CAN-USB Setup"
-msgstr "Configuración CAN-USB"
+msgstr "Nastavení CAN-USB"
 
 #: openplotterCan.py:55
 msgid "SK → NMEA 2000"
@@ -74,7 +74,7 @@ msgstr "SK → NMEA 2000"
 
 #: openplotterCan.py:58
 msgid "Refresh"
-msgstr "Actualizar"
+msgstr "Aktualizovat"
 
 #: openplotterCan.py:67
 msgid "CAN-USB"
@@ -94,152 +94,152 @@ msgstr "NMEA 0183"
 
 #: openplotterCan.py:120
 msgid "This feature is only for Raspberry Pi"
-msgstr "Esta característica es sólo para Raspberry Pi"
+msgstr "Tato funkce je pouze pro Raspberry Pi"
 
 #: openplotterCan.py:143 openplotterCan.py:338
 msgid "Serial Port"
-msgstr "Puerto Serie"
+msgstr "Sériový port"
 
 #: openplotterCan.py:144
 msgid "Baud Rate"
-msgstr "Baudios"
+msgstr "Rychlost baud"
 
 #: openplotterCan.py:145 openplotterCan.py:340 openplotterCan.py:541
 msgid "SK connection ID"
-msgstr "ID de conexión SK"
+msgstr "ID spojení SK"
 
 #: openplotterCan.py:150
 msgid "Open device TX PGNs"
-msgstr "Abrir dispositivo TX PGNs"
+msgstr "Otevřít TX PGN zařízení"
 
 #: openplotterCan.py:154 openplotterCan.py:353 openplotterCan.py:554
 msgid "Add Connection"
-msgstr "Añadir conexión"
+msgstr "Přidat spojení"
 
 #: openplotterCan.py:156 openplotterCan.py:355 openplotterCan.py:556
 msgid "Edit Connection"
-msgstr "Editar conexión"
+msgstr "Upravit spojení"
 
 #: openplotterCan.py:158 openplotterCan.py:357 openplotterCan.py:558
 msgid "Remove Connection"
-msgstr "Eliminar conexión"
+msgstr "Odstranit spojení"
 
 #: openplotterCan.py:205 openplotterCan.py:504
 msgid "You have to select a device"
-msgstr "Tienes que seleccionar un dispositivo"
+msgstr "Musíte vybrat zařízení"
 
 #: openplotterCan.py:209
 msgid "You have to select a baud rate"
-msgstr "Tienes que seleccionar los baudios"
+msgstr "Musíte vybrat rychlost baud"
 
 #: openplotterCan.py:214 openplotterCan.py:512
 msgid "This device already exists"
-msgstr "Este dispositivo ya existe"
+msgstr "Toto zařízení již existuje"
 
 #: openplotterCan.py:230 openplotterCan.py:450 openplotterCan.py:684
 msgid "Failed. Error creating connection in Signal K"
-msgstr "Error. Error al crear conexión en Signal K"
+msgstr "Chyba při vytváření připojení k Signal K serveru"
 
 #: openplotterCan.py:233 openplotterCan.py:263 openplotterCan.py:453
 #: openplotterCan.py:686 openplotterCan.py:779 openplotterCan.py:791
 msgid "Please install \"Signal K Installer\" OpenPlotter app"
-msgstr "Por favor, instale la aplicación OpenPlotter \"Signal K Installer\""
+msgstr "Prosím, nainstalujte OpenPlotter aplikaci \"Instalátor Signal K\""
 
 #: openplotterCan.py:252 openplotterCan.py:472 openplotterCan.py:711
 msgid "Failed. Error removing connection in Signal K"
-msgstr "Error. Error al eliminar la conexión en Signal K"
+msgstr "Chyba. Chyba při odstraňování připojení k Signal K serveru"
 
 #: openplotterCan.py:259
 msgid "Please install \"signalk-to-nmea2000\" Signal K app"
-msgstr "Por favor, instale la aplicación Signalk-to-nmea2000 de Signal K"
+msgstr "Prosím, nainstalujte aplikaci \"signalk-to-nmea2000\""
 
 #: openplotterCan.py:272
 msgid "Disabling device and restarting Signal K server... "
-msgstr "Deshabilitando dispositivo y reiniciando servidor Signal K... "
+msgstr "Vypínání zařízení a restartování serveru Signal K... "
 
 #: openplotterCan.py:276
 msgid "Enabling device and restarting Signal K server... "
-msgstr "Activando el dispositivo y reiniciando el servidor Signal K... "
+msgstr "Zapnutí zařízení a restartování serveru Signal K... "
 
 #: openplotterCan.py:308
 msgid "Restarting Signal K server... "
-msgstr "Reiniciando servidor Signal K... "
+msgstr "Restartuji Signal K server... "
 
 #: openplotterCan.py:314
 msgid "Signal K server restarted"
-msgstr "Servidor Signal K reiniciado"
+msgstr "Signal K server byl restartován"
 
 #: openplotterCan.py:339 openplotterCan.py:540
 msgid "Interface"
-msgstr "Interfaz"
+msgstr "Rozhraní"
 
 #: openplotterCan.py:345
 msgid "Add slcand device"
-msgstr "Añadir dispositivo slcand"
+msgstr "Přidat slcand zařízení"
 
 #: openplotterCan.py:347
 msgid "Remove slcand device"
-msgstr "Eliminar dispositivo slcand"
+msgstr "Odebrat zařízení slcand"
 
 #: openplotterCan.py:349 openplotterCan.py:550
 msgid "Check device traffic"
-msgstr "Comprobar tráfico del dispositivo"
+msgstr "Zkontrolovat provoz zařízení"
 
 #: openplotterCan.py:483 openplotterCan.py:515
 msgid "Restarting CANable interfaces..."
-msgstr "Reiniciando interfaces CANable..."
+msgstr "Restartování CAN rozhraní..."
 
 #: openplotterCan.py:496 openplotterCan.py:530
 msgid "CANable interfaces restarted"
-msgstr "Interfaces canibles reiniciadas"
+msgstr "CAN rozhraní restartováno"
 
 #: openplotterCan.py:537 openplotterCan.py:1087
 msgid "Connection"
-msgstr "Conexión"
+msgstr "Připojení"
 
 #: openplotterCan.py:538 openplotterCan.py:1091
 msgid "Oscillator"
-msgstr "Oscilador"
+msgstr "Oscillator"
 
 #: openplotterCan.py:539
 msgid "Interrupt"
-msgstr "Interrumpir"
+msgstr "Přerušení"
 
 #: openplotterCan.py:546 openplotterCan.py:1082
 msgid "Add MCP2515 device"
-msgstr "Añadir dispositivo MCP2515"
+msgstr "Přidat MCP2515 zařízení"
 
 #: openplotterCan.py:548
 msgid "Remove MCP2515 device"
-msgstr "Eliminar dispositivo MCP2515"
+msgstr "Odstranit MCP2515 zařízení"
 
 #: openplotterCan.py:727 openplotterCan.py:757
 msgid "Changes will be applied after restarting"
-msgstr "Los cambios se aplicarán después de reiniciar"
+msgstr "Změny budou aplikovány po restartování"
 
 #: openplotterCan.py:737
 msgid "Fill in all fields"
-msgstr "Completa todos los campos"
+msgstr "Vyplňte všechna pole"
 
 #: openplotterCan.py:744
 msgid "This connection already exists"
-msgstr "Esta conexión ya existe"
+msgstr "Toto připojení již existuje"
 
 #: openplotterCan.py:748
 msgid "This interrupt GPIO already exists"
-msgstr "Esta interrupción ya existe en GPIO"
+msgstr "Toto GPIO přerušení již existuje"
 
 #: openplotterCan.py:787
 msgid "Please install \"signalk-n2kais-to-nmea0183\" Signal K app"
-msgstr "Por favor, instale la aplicación \"signalk-n2kais-to-nmea0183\" Signal K"
+msgstr "Prosím, nainstalujte aplikaci \"signalk-to-nmea2000\""
 
 #: openplotterCan.py:822
 msgid "Open device PGNs"
-msgstr "Abrir PGNs del dispositivo"
+msgstr "Otevřít PGN zařízení"
 
 #: openplotterCan.py:832
 msgid "TX PGN"
-msgstr "PGN TX"
+msgstr "TX PGN"
 
 #: openplotterCan.py:833
 msgid "info"
@@ -247,48 +247,48 @@ msgstr "info"
 
 #: openplotterCan.py:838
 msgid "Apply"
-msgstr "Aplicar"
+msgstr "Použít"
 
 #: openplotterCan.py:840
 msgid "Close"
-msgstr "Cerrar"
+msgstr "Zavřít"
 
 #: openplotterCan.py:860
 msgid "Error connecting with device "
-msgstr "Error al conectar con el dispositivo "
+msgstr "Chyba při připojování k zařízením "
 
 #: openplotterCan.py:898
 msgid "The list of enabled PGNs is empty, you may need to try a different baudrate or reset your device to 115200 bauds"
-msgstr "La lista de PGNs habilitados está vacía, puede que necesite probar un baudrate diferente o restablecer su dispositivo a 115200 bauds"
+msgstr "Seznam povolených PGNs je prázdný, možná budete muset zkusit jiný baudrate nebo resetovat zařízení na 115200 bauds"
 
 #: openplotterCan.py:901
 msgid "open PGNs: "
-msgstr "abrir PGNs: "
+msgstr "otevřené PGN: "
 
 #: openplotterCan.py:902
 msgid "close PGNs: "
-msgstr "cerrar PGNs: "
+msgstr "zavřené PGN: "
 
 #: openplotterCan.py:939
 msgid ""
 "You can not activate more than 30 PGNs\n"
 "\n"
 msgstr ""
-"No puede activar más de 30 PGNs\n"
+"Nelze aktivovat více než 30 PGN\n"
 "\n"
 
 #: openplotterCan.py:1052
 msgid " enabled transmission PGNs (max. 30):"
-msgstr " habilitada la transmision de PGNs (máx. 30):"
+msgstr " povolené přenosové hodnoty PGN (max. 30):"
 
 #: openplotterCan.py:1095
 msgid "Interrupt GPIO"
-msgstr "Interrupcion GPIO"
+msgstr "Přerušení GPIO"
 
 #: startup.py:44
 msgid "Checking CAN devices..."
-msgstr "Comprobando dispositivos CAN..."
+msgstr "Kontrola CAN zařízení..."
 
 #: startup.py:66 startup.py:67
 msgid "There is not Signal K connection for interface: "
-msgstr "No hay conexión Signal K para la interfaz: "
+msgstr "Pro následující rozhraní neexistuje připojení signálu K: "
