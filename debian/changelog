@@ -1,3 +1,9 @@
+openplotter-can (2.1.1-stable) bionic; urgency=medium
+
+  * Fix error when using Signal K connection type FileStream
+
+ -- e-sailing  Fri, 20 Mar 2020 08:46:00 +0100
+
 openplotter-can (2.1.0-stable) bionic; urgency=medium
 
   * Initial release

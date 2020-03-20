@@ -21,8 +21,11 @@ from wx.lib.mixins.listctrl import CheckListCtrlMixin, ListCtrlAutoWidthMixin
 from openplotterSettings import conf
 from openplotterSettings import language
 from openplotterSettings import platform
-from .version import version
 from openplotterSettings import selectConnections
+if os.path.dirname(os.path.abspath(__file__))[0:4] == '/usr':
+	from .version import version
+else:
+	import version
 
 class MyFrame(wx.Frame):
 	def __init__(self):
@@ -33,7 +36,11 @@ class MyFrame(wx.Frame):
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
 		self.language = language.Language(self.currentdir,'openplotter-can',self.currentLanguage)
 
-		wx.Frame.__init__(self, None, title='CAN Bus '+version, size=(800,444))
+		if os.path.dirname(os.path.abspath(__file__))[0:4] == '/usr': 
+			v = version
+		else: v = version.version
+
+		wx.Frame.__init__(self, None, title='CAN Bus '+v, size=(800,444))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		icon = wx.Icon(self.currentdir+"/data/openplotter-can.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
@@ -177,11 +184,13 @@ class MyFrame(wx.Frame):
 			data = ''
 			with open(setting_file) as data_file:
 				data = ujson.load(data_file)
-			if 'pipedProviders' in data:
-				for i in data['pipedProviders']:
+		except:pass
+		if 'pipedProviders' in data:
+			for i in data['pipedProviders']:
+				try:
 					if i['pipeElements'][0]['options']['subOptions']['type']=='ngt-1-canboatjs':
 						self.sklist.append([i['pipeElements'][0]['options']['subOptions']['device'],i['pipeElements'][0]['options']['subOptions']['baudrate'],i['id'],i['enabled']])
-		except:pass
+				except:pass
 
 		self.listSKcan.DeleteAllItems()
 		for ii in self.sklist:
@@ -401,6 +410,11 @@ class MyFrame(wx.Frame):
 				data = ujson.load(data_file)
 		except: data = {}
 
+		if 'pipedProviders' in data:
+			data = data['pipedProviders']
+		else:
+			data = []
+		
 		items = self.conf.get('CAN', 'canable')
 		try: devices = eval(items)
 		except: devices = []
@@ -410,25 +424,40 @@ class MyFrame(wx.Frame):
 			interface = ii[1]
 			skId = ''
 			enabled = False
-			if 'pipedProviders' in data:
-				for i in data['pipedProviders']:
-					if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
-						if interface == i['pipeElements'][0]['options']['subOptions']['interface']: 
-							skId = i['id']
-							enabled = i['enabled']
+			for i in data:
+				dataSubOptions = ''
+				dataType = ''
+				dataInterface = ''
+				try:
+					dataSubOptions = i['pipeElements'][0]['options']['subOptions']
+					dataInterface = dataSubOptions['interface']
+					dataType = dataSubOptions['type']
+				except: pass
+
+				if dataType=='canbus-canboatjs':
+					if interface == dataInterface: 
+						skId = i['id']
+						enabled = i['enabled']
 			self.listCanable.Append([device,interface,skId])
 			if skId and enabled: self.listCanable.SetItemBackgroundColour(self.listCanable.GetItemCount()-1,(0,191,255))
 
-		if 'pipedProviders' in data:
-			for i in data['pipedProviders']:
-				if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
-					if not 'can' in i['pipeElements'][0]['options']['subOptions']['interface'] or 'canable' in i['pipeElements'][0]['options']['subOptions']['interface']:
-						interface = i['pipeElements'][0]['options']['subOptions']['interface']
-						skId = i['id']
-						exists = False
-						for ii in range(self.listCanable.GetItemCount()):
-							if interface == self.listCanable.GetItemText(ii, 1): exists = True
-						if not exists: self.listCanable.Append(['',interface,skId])
+		for i in data:
+			dataSubOptions = ''
+			dataType = ''
+			dataInterface = ''
+			try:
+				dataSubOptions = i['pipeElements'][0]['options']['subOptions']
+				dataInterface = dataSubOptions['interface']
+				dataType = dataSubOptions['type']
+			except: pass
+			if dataType == 'canbus-canboatjs':
+				if not 'can' in dataInterface or 'canable' in dataInterface:
+					interface = dataInterface
+					skId = i['id']
+					exists = False
+					for ii in range(self.listCanable.GetItemCount()):
+						if interface == self.listCanable.GetItemText(ii, 1): exists = True
+					if not exists: self.listCanable.Append(['',interface,skId])
 
 	def onAddCanableCon(self,e):
 		if self.platform.skPort: 
@@ -606,6 +635,12 @@ class MyFrame(wx.Frame):
 				with open(setting_file) as data_file:
 					data = ujson.load(data_file)
 			except: data = {}
+
+			if 'pipedProviders' in data:
+				data = data['pipedProviders']
+			else:
+				data = []
+				
 			file = open('/boot/config.txt', 'r')
 			while True:
 				line = file.readline()
@@ -628,25 +663,42 @@ class MyFrame(wx.Frame):
 							iList = i.split('=')
 							interrupt = iList[1]
 					interface = self.getInterface(connection)
-					if 'pipedProviders' in data:
-						for i in data['pipedProviders']:
-							if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
-								if interface == i['pipeElements'][0]['options']['subOptions']['interface']: 
-									skId = i['id']
-									enabled = i['enabled']
+					
+					for i in data:
+						dataSubOptions = ''
+						dataType = ''
+						dataInterface = ''
+						try:
+							dataSubOptions = i['pipeElements'][0]['options']['subOptions']
+							dataInterface = dataSubOptions['interface']
+							dataType = dataSubOptions['type']
+						except: pass
+
+						if dataType=='canbus-canboatjs':
+							if interface == dataInterface: 
+								skId = i['id']
+								enabled = i['enabled']
 					self.listMcp2515.Append([connection,oscillator,interrupt,interface,skId])
 					if skId and enabled: self.listMcp2515.SetItemBackgroundColour(self.listMcp2515.GetItemCount()-1,(0,191,255))
 			file.close()
 
-			if 'pipedProviders' in data:
-				for i in data['pipedProviders']:
-					if i['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs' and not 'canable' in i['pipeElements'][0]['options']['subOptions']['interface']:
-						interface = i['pipeElements'][0]['options']['subOptions']['interface']
-						skId = i['id']
-						exists = False
-						for ii in range(self.listMcp2515.GetItemCount()):
-							if interface == self.listMcp2515.GetItemText(ii, 3): exists = True
-						if not exists: self.listMcp2515.Append(['','','',interface,skId])	
+			for i in data:
+				dataSubOptions = ''
+				dataType = ''
+				dataInterface = ''
+				try:
+					dataSubOptions = i['pipeElements'][0]['options']['subOptions']
+					dataInterface = dataSubOptions['interface']
+					dataType = dataSubOptions['type']
+				except: pass
+
+				if dataType=='canbus-canboatjs' and not 'canable' in dataInterface:
+					interface = dataInterface
+					skId = i['id']
+					exists = False
+					for ii in range(self.listMcp2515.GetItemCount()):
+						if interface == self.listMcp2515.GetItemText(ii, 3): exists = True
+					if not exists: self.listMcp2515.Append(['','','',interface,skId])	
 
 	def getInterface(self,connection):
 		output = ''
