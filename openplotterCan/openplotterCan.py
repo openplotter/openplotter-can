@@ -70,21 +70,17 @@ class MyFrame(wx.Frame):
 		self.sk = wx.Panel(self.notebook)
 		self.canable = wx.Panel(self.notebook)
 		self.mcp2515 = wx.Panel(self.notebook)
-		self.nmea0183 = wx.Panel(self.notebook)
 		self.notebook.AddPage(self.sk, _('CAN-USB'))
 		self.notebook.AddPage(self.canable, _('CAN-USB / CANable'))
 		self.notebook.AddPage(self.mcp2515, _('MCP2515'))
-		self.notebook.AddPage(self.nmea0183, _('NMEA 0183'))
 		self.il = wx.ImageList(24, 24)
 		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-24.png", wx.BITMAP_TYPE_PNG))
 		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/usb.png", wx.BITMAP_TYPE_PNG))
 		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/chip.png", wx.BITMAP_TYPE_PNG))
-		img3 = self.il.Add(wx.Bitmap(self.currentdir+"/data/sk.png", wx.BITMAP_TYPE_PNG))
 		self.notebook.AssignImageList(self.il)
 		self.notebook.SetPageImage(0, img0)
 		self.notebook.SetPageImage(1, img1)
 		self.notebook.SetPageImage(2, img2)
-		self.notebook.SetPageImage(3, img3)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(self.toolbar1, 0, wx.EXPAND)
@@ -94,7 +90,6 @@ class MyFrame(wx.Frame):
 		self.pageSk()
 		self.pageCanable()
 		self.pageMcp2515()
-		self.pageNmea0183()
 
 		try:
 			if sys.argv[1]=='canable': self.notebook.ChangeSelection(1)
@@ -810,42 +805,6 @@ class MyFrame(wx.Frame):
 		dlg.Destroy()
 		self.onRefresh()
 		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
-
-		#####################################################
-
-	def pageNmea0183(self):
-		self.toolbar5 = wx.ToolBar(self.nmea0183, style=wx.TB_TEXT | wx.TB_HORIZONTAL)
-		self.skToNmea0183 = self.toolbar5.AddTool(501, 'SK → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
-		self.Bind(wx.EVT_TOOL, self.onSkToNmea0183, self.skToNmea0183)
-		self.toolbar5.AddSeparator()
-		self.skAisToNmea0183 = self.toolbar5.AddTool(502, 'NMEA 2000 AIS → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
-		self.Bind(wx.EVT_TOOL, self.onSkAisToNmea0183, self.skAisToNmea0183)
-
-		sizer = wx.BoxSizer(wx.VERTICAL)
-		sizer.Add(self.toolbar5, 0, wx.EXPAND, 0)
-		sizer.AddStretchSpacer(1)
-		self.nmea0183.SetSizer(sizer)
-
-	def onSkToNmea0183(self,e):
-		if self.platform.skPort: 
-			url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/plugins/sk-to-nmea0183'
-			webbrowser.open(url, new=2)
-		else: 
-			self.ShowStatusBarRED(_('Please install "Signal K Installer" OpenPlotter app'))
-			self.OnToolSettings()
-
-	def onSkAisToNmea0183(self,e):
-		if self.platform.skPort: 
-			if self.platform.isSKpluginInstalled('signalk-n2kais-to-nmea0183'):
-				url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/plugins/signalk-n2kais-to-nmea0183'
-			else: 
-				self.ShowStatusBarRED(_('Please install "signalk-n2kais-to-nmea0183" Signal K app'))
-				url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/appstore/apps'
-			webbrowser.open(url, new=2)
-		else: 
-			self.ShowStatusBarRED(_('Please install "Signal K Installer" OpenPlotter app'))
-			self.OnToolSettings()
-
 
 ################################################################################
 
