@@ -17,8 +17,8 @@
 
 import sys, os
 
-if sys.argv[2] == 'SPI0': connection = 'dtoverlay=mcp2515-can0'
-elif sys.argv[2] == 'SPI1': connection = 'dtoverlay=mcp2515-can1'
+if sys.argv[2] == 'SPI0 CE0': connection = 'dtoverlay=mcp2515-can0'
+elif sys.argv[2] == 'SPI0 CE1': connection = 'dtoverlay=mcp2515-can1'
 
 file = open('/boot/config.txt', 'r')
 file1 = open('config.txt', 'w')

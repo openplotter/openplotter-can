@@ -22,6 +22,7 @@ from openplotterSettings import conf
 from openplotterSettings import language
 from openplotterSettings import platform
 from openplotterSettings import selectConnections
+from openplotterSettings import gpio
 if os.path.dirname(os.path.abspath(__file__))[0:4] == '/usr':
 	from .version import version
 else:
@@ -646,20 +647,20 @@ class MyFrame(wx.Frame):
 				if 'dtoverlay=mcp2515' in line:
 					connection = ''
 					oscillator = ''
-					interrupt = ''
+					interrupt = 'GPIO '
 					skId = ''
 					enabled = False
 					line = line.rstrip()
 					lList = line.split(',')
 					for i in lList:
-						if 'dtoverlay=mcp2515-can0' in i: connection = 'SPI0'
-						elif 'dtoverlay=mcp2515-can1' in i: connection = 'SPI1'
+						if 'dtoverlay=mcp2515-can0' in i: connection = 'SPI0 CE0'
+						elif 'dtoverlay=mcp2515-can1' in i: connection = 'SPI0 CE1'
 						if 'oscillator' in i:
 							oList = i.split('=')
 							oscillator = oList[1]
 						if 'interrupt' in i:
 							iList = i.split('=')
-							interrupt = iList[1]
+							interrupt += iList[1]
 					interface = self.getInterface(connection)
 					
 					for i in data:
@@ -702,9 +703,9 @@ class MyFrame(wx.Frame):
 		output = ''
 		result = ''
 		try:
-			if connection == 'SPI0':
+			if connection == 'SPI0 CE0':
 				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.0"', shell=True).decode(sys.stdin.encoding)
-			elif connection == 'SPI1':
+			elif connection == 'SPI0 CE1':
 				output = subprocess.check_output('dmesg | grep -i "mcp251x spi0.1"', shell=True).decode(sys.stdin.encoding)
 		except:pass
 		if output:
@@ -763,18 +764,24 @@ class MyFrame(wx.Frame):
 	def onRemoveMcp2515(self,e):
 		selected = self.listMcp2515.GetFirstSelected()
 		if selected == -1: return
-		canConnection = self.listMcp2515.GetItemText(selected, 0)
-		canOscillator = self.listMcp2515.GetItemText(selected, 1)
-		canInterrupt = self.listMcp2515.GetItemText(selected, 2)
-		interfaces = 0
-		for i in range(self.listMcp2515.GetItemCount()):
-			if self.listMcp2515.GetItemText(i, 0): interfaces = interfaces + 1
-		interfaces = interfaces - 1
-		if interfaces < 1: interfaces = ''
-		else: interfaces = str(interfaces)
-		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp2515.py', 'disable', canConnection, canOscillator, canInterrupt, interfaces])
-		self.onRefresh()
-		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
+		dlg2 = wx.MessageDialog(None, _(
+			'OpenPlotter will reboot. Are you sure?'),
+			_('Question'), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+		if dlg2.ShowModal() == wx.ID_YES:
+			canConnection = self.listMcp2515.GetItemText(selected, 0)
+			canOscillator = self.listMcp2515.GetItemText(selected, 1)
+			canInterrupt = self.listMcp2515.GetItemText(selected, 2)
+			interfaces = 0
+			for i in range(self.listMcp2515.GetItemCount()):
+				if self.listMcp2515.GetItemText(i, 0): interfaces = interfaces + 1
+			interfaces = interfaces - 1
+			if interfaces < 1: interfaces = ''
+			else: interfaces = str(interfaces)
+			canInterrupt = canInterrupt.replace('GPIO ','')
+			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp2515.py', 'disable', canConnection, canOscillator, canInterrupt, interfaces])
+			os.system('shutdown -r now')
+		else:
+			dlg2.Destroy()
 
 	def onAddMcp2515(self,e):
 		dlg = addMcp2515()
@@ -798,13 +805,19 @@ class MyFrame(wx.Frame):
 					self.ShowStatusBarRED(_('This interrupt GPIO already exists'))
 					dlg.Destroy()
 					return
-			interfaces = interfaces + 1
-			if interfaces < 1: interfaces = ''
-			else: interfaces = str(interfaces)
-			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp2515.py', 'enable', canConnection, canOscillator, canInterrupt, interfaces])
+			dlg2 = wx.MessageDialog(None, _(
+				'OpenPlotter will reboot. Are you sure?'),
+				_('Question'), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+			if dlg2.ShowModal() == wx.ID_YES:
+				interfaces = interfaces + 1
+				if interfaces < 1: interfaces = ''
+				else: interfaces = str(interfaces)
+				canInterrupt = canInterrupt.replace('GPIO ','')
+				subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp2515.py', 'enable', canConnection, canOscillator, canInterrupt, interfaces])
+				os.system('shutdown -r now')
+			else:
+				dlg2.Destroy()	
 		dlg.Destroy()
-		self.onRefresh()
-		self.ShowStatusBarYELLOW(_('Changes will be applied after restarting'))
 
 ################################################################################
 
@@ -1098,8 +1111,8 @@ class addMcp2515(wx.Dialog):
 		wx.Dialog.__init__(self, None, title=title, size=(300, 260))
 		panel = wx.Panel(self)
 
-		canConnectionLabel = wx.StaticText(panel, label=_('Connection'))
-		self.canConnection = wx.Choice(panel, choices=('SPI0', 'SPI1'), style=wx.CB_READONLY)
+		canConnectionLabel = wx.StaticText(panel, label=_('Interface'))
+		self.canConnection = wx.Choice(panel, choices=('SPI0 CE0', 'SPI0 CE1'), style=wx.CB_READONLY)
 
 
 		canOscillatorLabel = wx.StaticText(panel, label=_('Oscillator'))
@@ -1107,7 +1120,10 @@ class addMcp2515(wx.Dialog):
 
 
 		canInterruptLabel = wx.StaticText(panel, label=_('Interrupt GPIO'))
-		self.canInterrupt = wx.TextCtrl(panel)
+		self.canInterrupt = wx.TextCtrl(panel, style=wx.CB_READONLY)
+
+		selectGpio =wx.Button(panel, label=_('Select'))
+		selectGpio.Bind(wx.EVT_BUTTON, self.onSelectGpio)
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK)
@@ -1121,8 +1137,8 @@ class addMcp2515(wx.Dialog):
 		hbox2.Add(self.canOscillator, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
 
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
-		hbox3.Add(canInterruptLabel, 0, wx.LEFT | wx.EXPAND, 10)
 		hbox3.Add(self.canInterrupt, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
+		hbox3.Add(selectGpio, 0, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.AddStretchSpacer(1)
@@ -1135,6 +1151,8 @@ class addMcp2515(wx.Dialog):
 		vbox.AddSpacer(10)
 		vbox.Add(hbox2, 0, wx.EXPAND, 0)
 		vbox.AddSpacer(10)
+		vbox.Add(canInterruptLabel, 0, wx.LEFT | wx.EXPAND, 10)
+		vbox.AddSpacer(5)
 		vbox.Add(hbox3, 0, wx.EXPAND, 0)
 		vbox.AddStretchSpacer(1)
 		vbox.Add(hbox, 0, wx.EXPAND, 0)
@@ -1144,6 +1162,13 @@ class addMcp2515(wx.Dialog):
 		self.panel = panel
 
 		self.Centre() 
+
+	def onSelectGpio(self,e):
+		dlg = gpio.GpioMap(['GPIO'],'0')
+		res = dlg.ShowModal()
+		if res == wx.ID_OK:
+			self.canInterrupt.SetValue(dlg.selected['BCM'])
+		dlg.Destroy()
 
 	def OnDelete(self,e):
 		self.EndModal(wx.ID_DELETE)
