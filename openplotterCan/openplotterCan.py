@@ -152,6 +152,7 @@ class MyFrame(wx.Frame):
 		self.listSKcan.InsertColumn(2, _('SK connection ID'), width=200)
 		self.listSKcan.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSKcanSelected)
 		self.listSKcan.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSKcanDeselected)
+		self.listSKcan.SetTextColour(wx.BLACK)
 
 		self.toolbar22 = wx.ToolBar(self.sk, style=wx.TB_TEXT)
 		self.SKcanTX = self.toolbar22.AddTool(2203, _('Open device TX PGNs'), wx.Bitmap(self.currentdir+"/data/openplotter-24.png"))
@@ -349,6 +350,7 @@ class MyFrame(wx.Frame):
 		self.listCanable.InsertColumn(2, _('SK connection ID'), width=200)
 		self.listCanable.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListCanableSelected)
 		self.listCanable.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListCanableDeselected)
+		self.listCanable.SetTextColour(wx.BLACK)
 
 		self.toolbar44 = wx.ToolBar(self.canable, style=wx.TB_TEXT)
 		self.addCanable = self.toolbar44.AddTool(4403, _('Add slcand device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
@@ -570,6 +572,7 @@ class MyFrame(wx.Frame):
 		self.listMcp2515.InsertColumn(4, _('SK connection ID'), width=150)
 		self.listMcp2515.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListlistMcp2515Selected)
 		self.listMcp2515.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListlistMcp2515Deselected)
+		self.listMcp2515.SetTextColour(wx.BLACK)
 
 		self.toolbar33 = wx.ToolBar(self.mcp2515, style=wx.TB_TEXT)
 		self.addMcp2515 = self.toolbar33.AddTool(3303, _('Add MCP2515 device'), wx.Bitmap(self.currentdir+"/data/chip.png"))
@@ -1141,7 +1144,7 @@ class addMcp2515(wx.Dialog):
 
 
 		canOscillatorLabel = wx.StaticText(panel, label=_('Oscillator'))
-		self.canOscillator = wx.Choice(panel, choices=('8000000', '16000000'), style=wx.CB_READONLY)
+		self.canOscillator = wx.Choice(panel, choices=('8000000', '12000000', '16000000'), style=wx.CB_READONLY)
 
 
 		canInterruptLabel = wx.StaticText(panel, label=_('Interrupt GPIO'))
