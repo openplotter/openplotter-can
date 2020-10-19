@@ -1,3 +1,12 @@
+openplotter-can (2.2.0-stable) bionic; urgency=medium
+
+  * Add 12000000 oscillators to mcp2515
+  * remove SK to NMEA 0183 references
+  * Add GPIO management to mcp2515
+  * Update translations
+
+ -- Sailoog <info@sailoog.com>  Mon, 19 Oct 2020 13:16:36 +0200
+
 openplotter-can (2.1.1-stable) bionic; urgency=medium
 
   * Fix error when using Signal K connection type FileStream
