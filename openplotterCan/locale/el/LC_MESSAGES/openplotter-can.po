@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
-"POT-Creation-Date: 2020-03-20 11:04+0100\n"
-"PO-Revision-Date: 2020-09-26 11:20\n"
+"POT-Creation-Date: 2020-10-09 17:20+0200\n"
+"PO-Revision-Date: 2020-10-19 13:13+0200\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -13,16 +13,16 @@ msgstr ""
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
 "X-Crowdin-Project: openplotter\n"
 "X-Crowdin-Project-ID: 289888\n"
 "X-Crowdin-Language: el\n"
 "X-Crowdin-File: openplotter-can.po\n"
 "X-Crowdin-File-ID: 10\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:28
 msgid "Adding openplotter-can-read service..."
-msgstr ""
+msgstr "Προσθήκη συμβατής openploter συσκευής..."
 
 #: canPostInstall.py:35 canPostInstall.py:41 canPreUninstall.py:34
 #: canPreUninstall.py:40
@@ -40,7 +40,7 @@ msgstr "Έκδοση ρυθμίσεων..."
 
 #: canPreUninstall.py:28
 msgid "Removing openplotter-can-read service..."
-msgstr ""
+msgstr "Αφαίρεση συμβατής openploter συσκευής..."
 
 #: canPreUninstall.py:37
 msgid "Removing version..."
@@ -48,29 +48,29 @@ msgstr "Αφαίρεση έκδοσης..."
 
 #: canUsbFirmware.py:51
 msgid "Please connect (or disconnect and reconnect) the CAN-USB adapter"
-msgstr ""
+msgstr "Παρακαλώ συνδέστε (η επανασύνδεστε) τo CAN-USB προσαρμογέα"
 
 #: canUsbFirmware.py:63
 msgid "Can not open serial device (CAN-USB) connected on: "
 msgstr ""
 
-#: openplotterCan.py:53
+#: openplotterCan.py:54
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: openplotterCan.py:56
+#: openplotterCan.py:57
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: openplotterCan.py:59
+#: openplotterCan.py:60
 msgid "CAN-USB Setup"
 msgstr "Ρύθμιση CAN-USB"
 
-#: openplotterCan.py:62
+#: openplotterCan.py:63
 msgid "SK → NMEA 2000"
 msgstr "SK → NMEA 2000"
 
-#: openplotterCan.py:65
+#: openplotterCan.py:66
 msgid "Refresh"
 msgstr "Ανανέωση"
 
@@ -86,197 +86,199 @@ msgstr "CAN-USB / CANable"
 msgid "MCP2515"
 msgstr "MCP2515"
 
-#: openplotterCan.py:77
-msgid "NMEA 0183"
-msgstr "NMEA 0183"
-
-#: openplotterCan.py:127
+#: openplotterCan.py:123
 msgid "This feature is only for Raspberry Pi"
 msgstr "Α΄θτη η λειτουργία είναι μόνο γία Raspberry Pi"
 
-#: openplotterCan.py:150 openplotterCan.py:347
+#: openplotterCan.py:146 openplotterCan.py:344
 msgid "Serial Port"
 msgstr "Σειριακή θύρα"
 
-#: openplotterCan.py:151
+#: openplotterCan.py:147
 msgid "Baud Rate"
 msgstr "Ρυθμός Baud"
 
-#: openplotterCan.py:152 openplotterCan.py:349 openplotterCan.py:570
+#: openplotterCan.py:148 openplotterCan.py:346 openplotterCan.py:568
 msgid "SK connection ID"
 msgstr "ID σύνδεσης SK"
 
-#: openplotterCan.py:157
+#: openplotterCan.py:154
 msgid "Open device TX PGNs"
-msgstr ""
+msgstr "Σύνδεση σε συσκευή TX PGNs"
 
-#: openplotterCan.py:161 openplotterCan.py:362 openplotterCan.py:583
+#: openplotterCan.py:158 openplotterCan.py:360 openplotterCan.py:582
 msgid "Add Connection"
 msgstr "Προσθήκη σύνδεσης"
 
-#: openplotterCan.py:163 openplotterCan.py:364 openplotterCan.py:585
+#: openplotterCan.py:160 openplotterCan.py:362 openplotterCan.py:584
 msgid "Edit Connection"
 msgstr "Επεξεργασία σύνδεσης"
 
-#: openplotterCan.py:165 openplotterCan.py:366 openplotterCan.py:587
+#: openplotterCan.py:162 openplotterCan.py:364 openplotterCan.py:586
 msgid "Remove Connection"
 msgstr "Κατάργηση σύνδεσης"
 
-#: openplotterCan.py:214 openplotterCan.py:533
+#: openplotterCan.py:211 openplotterCan.py:531
 msgid "You have to select a device"
 msgstr "Πρέπει να επιλέξετε μια συσκευή"
 
-#: openplotterCan.py:218
+#: openplotterCan.py:215
 msgid "You have to select a baud rate"
 msgstr "Πρέπει να επιλέξετε ρύθμηση baud"
 
-#: openplotterCan.py:223 openplotterCan.py:541
+#: openplotterCan.py:220 openplotterCan.py:539
 msgid "This device already exists"
 msgstr "Αυτός η συσκευή υπάρχει ήδη"
 
-#: openplotterCan.py:239 openplotterCan.py:479 openplotterCan.py:736
+#: openplotterCan.py:236 openplotterCan.py:477 openplotterCan.py:735
 msgid "Failed. Error creating connection in Signal K"
-msgstr ""
+msgstr "Απέτυχε. Σφάλμα δημιουργίας σύνδεσης σε Signal K"
 
-#: openplotterCan.py:242 openplotterCan.py:272 openplotterCan.py:482
-#: openplotterCan.py:738 openplotterCan.py:831 openplotterCan.py:843
+#: openplotterCan.py:239 openplotterCan.py:269 openplotterCan.py:480
+#: openplotterCan.py:737
 msgid "Please install \"Signal K Installer\" OpenPlotter app"
-msgstr ""
+msgstr "Παρακαλώ εγκαταστήστε τη \"Signal K installer\" OpenPlotter εφαρμ"
 
-#: openplotterCan.py:261 openplotterCan.py:501 openplotterCan.py:763
+#: openplotterCan.py:258 openplotterCan.py:499 openplotterCan.py:762
 msgid "Failed. Error removing connection in Signal K"
-msgstr ""
+msgstr "Απέτυχε. Σφάλμα αφαίρεσής σύνδεσης σε Signal K"
 
-#: openplotterCan.py:268
+#: openplotterCan.py:265
 msgid "Please install \"signalk-to-nmea2000\" Signal K app"
-msgstr ""
+msgstr "Παρακαλώ εγκαταστήστε \"signalk-πρός-nmea2000\" Signalk εφαρ"
 
-#: openplotterCan.py:281
+#: openplotterCan.py:278
 msgid "Disabling device and restarting Signal K server... "
 msgstr ""
 
-#: openplotterCan.py:285
+#: openplotterCan.py:282
 msgid "Enabling device and restarting Signal K server... "
 msgstr ""
 
-#: openplotterCan.py:317
+#: openplotterCan.py:314
 msgid "Restarting Signal K server... "
 msgstr "Επανεκινέιτε ο διακομιστής Signal K... "
 
-#: openplotterCan.py:323
+#: openplotterCan.py:320
 msgid "Signal K server restarted"
 msgstr "Ο Signal K διακομιστής επανεκκίνηθηκε"
 
-#: openplotterCan.py:348 openplotterCan.py:569
+#: openplotterCan.py:345 openplotterCan.py:567 openplotterCan.py:1114
 msgid "Interface"
 msgstr "Περιβάλλον εργασίας"
 
-#: openplotterCan.py:354
+#: openplotterCan.py:352
 msgid "Add slcand device"
 msgstr "Προσθήκη συσκευής slcand"
 
-#: openplotterCan.py:356
+#: openplotterCan.py:354
 msgid "Remove slcand device"
 msgstr "Αφαίρεση συσκευής slcand"
 
-#: openplotterCan.py:358 openplotterCan.py:579
+#: openplotterCan.py:356 openplotterCan.py:578
 msgid "Check device traffic"
 msgstr "Ελεγχός κυκλοφορίας συσκευής"
 
-#: openplotterCan.py:512 openplotterCan.py:544
+#: openplotterCan.py:510 openplotterCan.py:542
 msgid "Restarting CANable interfaces..."
-msgstr ""
+msgstr "Επανεκκινήση διεπαφών CANable..."
 
-#: openplotterCan.py:525 openplotterCan.py:559
+#: openplotterCan.py:523 openplotterCan.py:557
 msgid "CANable interfaces restarted"
-msgstr ""
+msgstr "Οι διεπαφές CANable επανεκκινήθηκαν"
 
-#: openplotterCan.py:566 openplotterCan.py:1139
+#: openplotterCan.py:564
 msgid "Connection"
 msgstr "Σύνδεση"
 
-#: openplotterCan.py:567 openplotterCan.py:1143
+#: openplotterCan.py:565 openplotterCan.py:1118
 msgid "Oscillator"
 msgstr "Ταλαντώτης"
 
-#: openplotterCan.py:568
+#: openplotterCan.py:566
 msgid "Interrupt"
 msgstr "Διακοπή"
 
-#: openplotterCan.py:575 openplotterCan.py:1134
+#: openplotterCan.py:574 openplotterCan.py:1109
 msgid "Add MCP2515 device"
-msgstr ""
+msgstr "Σύνδεση συσκευής MCP2515"
 
-#: openplotterCan.py:577
+#: openplotterCan.py:576
 msgid "Remove MCP2515 device"
+msgstr "Αποσύνδεση συσκευής MCP2515"
+
+#: openplotterCan.py:768 openplotterCan.py:809
+msgid "OpenPlotter will reboot. Are you sure?"
 msgstr ""
 
-#: openplotterCan.py:779 openplotterCan.py:809
-msgid "Changes will be applied after restarting"
+#: openplotterCan.py:769 openplotterCan.py:810
+msgid "Question"
 msgstr ""
 
-#: openplotterCan.py:789
+#: openplotterCan.py:794
 msgid "Fill in all fields"
 msgstr "Συμπληρώστε όλα τα πεδία"
 
-#: openplotterCan.py:796
+#: openplotterCan.py:801
 msgid "This connection already exists"
 msgstr "Η σύνδεση υπάρχει ήδη"
 
-#: openplotterCan.py:800
+#: openplotterCan.py:805
 msgid "This interrupt GPIO already exists"
 msgstr ""
 
-#: openplotterCan.py:839
-msgid "Please install \"signalk-n2kais-to-nmea0183\" Signal K app"
-msgstr ""
-
-#: openplotterCan.py:874
+#: openplotterCan.py:849
 msgid "Open device PGNs"
 msgstr ""
 
-#: openplotterCan.py:884
+#: openplotterCan.py:859
 msgid "TX PGN"
 msgstr ""
 
-#: openplotterCan.py:885
+#: openplotterCan.py:860
 msgid "info"
-msgstr ""
+msgstr "πληροφ"
 
-#: openplotterCan.py:890
+#: openplotterCan.py:865
 msgid "Apply"
-msgstr ""
+msgstr "Εφαρμογή"
 
-#: openplotterCan.py:892
+#: openplotterCan.py:867
 msgid "Close"
-msgstr ""
+msgstr "Κλείσιμο"
 
-#: openplotterCan.py:912
+#: openplotterCan.py:887
 msgid "Error connecting with device "
-msgstr ""
+msgstr "Σφάλμα σύνδεσης σε συσκευή "
 
-#: openplotterCan.py:950
+#: openplotterCan.py:925
 msgid "The list of enabled PGNs is empty, you may need to try a different baudrate or reset your device to 115200 bauds"
 msgstr ""
 
-#: openplotterCan.py:953
+#: openplotterCan.py:928
 msgid "open PGNs: "
 msgstr ""
 
-#: openplotterCan.py:954
+#: openplotterCan.py:929
 msgid "close PGNs: "
 msgstr ""
 
-#: openplotterCan.py:991
-msgid "You can not activate more than 30 PGNs\n\n"
+#: openplotterCan.py:966
+msgid ""
+"You can not activate more than 30 PGNs\n"
+"\n"
 msgstr ""
 
-#: openplotterCan.py:1104
+#: openplotterCan.py:1079
 msgid " enabled transmission PGNs (max. 30):"
 msgstr ""
 
-#: openplotterCan.py:1147
+#: openplotterCan.py:1122
 msgid "Interrupt GPIO"
+msgstr ""
+
+#: openplotterCan.py:1125
+msgid "Select"
 msgstr ""
 
 #: startup.py:44
@@ -285,5 +287,4 @@ msgstr ""
 
 #: startup.py:66 startup.py:67
 msgid "There is no Signal K connection for interface: "
-msgstr ""
-
+msgstr "Δέν υπάρχει σύνδεση στήν διεπαφή Signal K: "
