@@ -20,7 +20,13 @@ import sys, os
 if sys.argv[2] == 'SPI0 CE0': connection = 'dtoverlay=mcp2515-can0'
 elif sys.argv[2] == 'SPI0 CE1': connection = 'dtoverlay=mcp2515-can1'
 
-file = open('/boot/config.txt', 'r')
+config = '/boot/config.txt'
+boot = '/boot'
+try: file = open(config, 'r')
+except:
+	config = '/boot/firmware/config.txt'
+	boot = '/boot/firmware'
+	file = open(config, 'r')
 file1 = open('config.txt', 'w')
 exists = False
 while True:
@@ -35,7 +41,7 @@ if not exists and sys.argv[1]=='enable': file1.write(connection+',oscillator='+s
 file.close()
 file1.close()
 
-if os.system('diff config.txt /boot/config.txt > /dev/null'): os.system('mv config.txt /boot')
+if os.system('diff config.txt '+config+' > /dev/null'): os.system('mv config.txt '+boot)
 else: os.system('rm -f config.txt')
 
 os.system('rm -f /etc/network/interfaces.d/can*')
