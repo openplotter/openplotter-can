@@ -1,3 +1,12 @@
+openplotter-can (2.2.1-stable) bionic; urgency=medium
+
+  * Cosmetic changes
+  * Set required version of openplotter-signalk-installer and canboat packages
+  * Fix error in Ubuntu for Raspberry
+  * Update translations
+
+ -- Sailoog <info@sailoog.com>  Wed, 02 Dec 2020 20:06:11 +0100
+
 openplotter-can (2.2.0-stable) bionic; urgency=medium
 
   * Add 12000000 oscillators to mcp2515
