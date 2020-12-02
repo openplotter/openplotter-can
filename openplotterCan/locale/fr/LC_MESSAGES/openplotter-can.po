@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2020-10-09 17:20+0200\n"
-"PO-Revision-Date: 2020-10-19 13:12+0200\n"
+"PO-Revision-Date: 2020-12-02 20:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -209,11 +209,11 @@ msgstr "Retirer le périphérique MCP2515"
 
 #: openplotterCan.py:768 openplotterCan.py:809
 msgid "OpenPlotter will reboot. Are you sure?"
-msgstr ""
+msgstr "OpenPlotter va redémarrer. D'accord?"
 
 #: openplotterCan.py:769 openplotterCan.py:810
 msgid "Question"
-msgstr ""
+msgstr "Question"
 
 #: openplotterCan.py:794
 msgid "Fill in all fields"
@@ -281,7 +281,7 @@ msgstr "Interrompre GPIO"
 
 #: openplotterCan.py:1125
 msgid "Select"
-msgstr ""
+msgstr "Sélectionner"
 
 #: startup.py:44
 msgid "Checking CAN devices..."

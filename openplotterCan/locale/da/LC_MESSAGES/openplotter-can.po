@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2020-10-09 17:20+0200\n"
-"PO-Revision-Date: 2020-10-19 13:13+0200\n"
+"PO-Revision-Date: 2020-12-02 20:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: Danish\n"
 "Language: da\n"
@@ -209,11 +209,11 @@ msgstr "Fjern enhed MCP2515"
 
 #: openplotterCan.py:768 openplotterCan.py:809
 msgid "OpenPlotter will reboot. Are you sure?"
-msgstr ""
+msgstr "OpenPlotter genstarter. Er du sikker?"
 
 #: openplotterCan.py:769 openplotterCan.py:810
 msgid "Question"
-msgstr ""
+msgstr "Spørgsmål"
 
 #: openplotterCan.py:794
 msgid "Fill in all fields"
@@ -277,11 +277,11 @@ msgstr " aktiveret transmissions PGN'er (maks. 30):"
 
 #: openplotterCan.py:1122
 msgid "Interrupt GPIO"
-msgstr "Afbryd GPIO"
+msgstr "GPIO Interrupt"
 
 #: openplotterCan.py:1125
 msgid "Select"
-msgstr ""
+msgstr "Vælg"
 
 #: startup.py:44
 msgid "Checking CAN devices..."

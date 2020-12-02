@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter-can\n"
-"POT-Creation-Date: 2020-10-09 17:20+0200\n"
-"PO-Revision-Date: 2020-10-19 13:12+0200\n"
+"POT-Creation-Date: 2020-11-12 19:52+0100\n"
+"PO-Revision-Date: 2020-12-02 20:02+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -67,18 +67,6 @@ msgstr ""
 
 #: openplotterCan.py:66
 msgid "Refresh"
-msgstr ""
-
-#: openplotterCan.py:74
-msgid "CAN-USB"
-msgstr ""
-
-#: openplotterCan.py:75
-msgid "CAN-USB / CANable"
-msgstr ""
-
-#: openplotterCan.py:76
-msgid "MCP2515"
 msgstr ""
 
 #: openplotterCan.py:123

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2020-10-09 17:20+0200\n"
-"PO-Revision-Date: 2020-10-19 13:12+0200\n"
+"PO-Revision-Date: 2020-12-02 20:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -209,11 +209,11 @@ msgstr "Ta bort MCP2515 enhet"
 
 #: openplotterCan.py:768 openplotterCan.py:809
 msgid "OpenPlotter will reboot. Are you sure?"
-msgstr ""
+msgstr "OpenPlotter startar om. Är du säker?"
 
 #: openplotterCan.py:769 openplotterCan.py:810
 msgid "Question"
-msgstr ""
+msgstr "Fråga"
 
 #: openplotterCan.py:794
 msgid "Fill in all fields"
@@ -281,7 +281,7 @@ msgstr "Avbrotts GPIO"
 
 #: openplotterCan.py:1125
 msgid "Select"
-msgstr ""
+msgstr "Välj"
 
 #: startup.py:44
 msgid "Checking CAN devices..."
@@ -289,4 +289,4 @@ msgstr "Kontrollerar CAN enheter..."
 
 #: startup.py:66 startup.py:67
 msgid "There is no Signal K connection for interface: "
-msgstr ""
+msgstr "Kopplingen mot Signal K saknas för interface: "
