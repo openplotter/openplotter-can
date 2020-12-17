@@ -355,6 +355,8 @@ class MyFrame(wx.Frame):
 		self.Bind(wx.EVT_TOOL, self.onRemoveCanable, self.removeCanable)
 		self.checkCanable = self.toolbar44.AddTool(4405, _('Check device traffic'), wx.Bitmap(self.currentdir+"/data/check.png"))
 		self.Bind(wx.EVT_TOOL, self.onCheckCanable, self.checkCanable)
+		self.restartCanable = self.toolbar44.AddTool(4406, _('Restart slcand device'), wx.Bitmap(self.currentdir+"/data/restart.png"))
+		self.Bind(wx.EVT_TOOL, self.onRestartCanable, self.restartCanable)
 
 		self.toolbar4 = wx.ToolBar(self.canable, style=wx.TB_TEXT | wx.TB_VERTICAL)
 		self.addCanableCon = self.toolbar4.AddTool(402, _('Add Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
@@ -389,6 +391,7 @@ class MyFrame(wx.Frame):
 		else: self.toolbar4.EnableTool(402,True)
 		if device: 
 			self.toolbar44.EnableTool(4404,True)
+			self.toolbar44.EnableTool(4406,True)
 			if interface: self.toolbar44.EnableTool(4405,True)
 
 	def onListCanableDeselected(self,e=0):
@@ -396,6 +399,7 @@ class MyFrame(wx.Frame):
 		self.toolbar4.EnableTool(402,False)
 		self.toolbar44.EnableTool(4404,False)
 		self.toolbar44.EnableTool(4405,False)
+		self.toolbar44.EnableTool(4406,False)
 		self.toolbar4.EnableTool(405,False)
 
 	def readCanable(self):
@@ -507,7 +511,7 @@ class MyFrame(wx.Frame):
 	def onRemoveCanable(self,e):
 		selected = self.listCanable.GetFirstSelected()
 		if selected == -1: return
-		self.ShowStatusBarYELLOW(_('Restarting CANable interfaces...'))
+		self.ShowStatusBarYELLOW(_('Remove CANable interface...'))
 		devicesNew = []
 		device = self.listCanable.GetItemText(selected, 0)
 		interface = self.listCanable.GetItemText(selected, 1)
@@ -517,6 +521,23 @@ class MyFrame(wx.Frame):
 		for i in devices:
 			if device != i[0]: devicesNew.append(i)
 		self.conf.set('CAN', 'canable', str(devicesNew))
+		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'removeCanable', device, interface])
+		self.restart_SK(0)
+		self.onRefresh()
+		self.ShowStatusBarGREEN(_('CANable interfaces restarted'))
+
+	def onRestartCanable(self,e):
+		selected = self.listCanable.GetFirstSelected()
+		if selected == -1: return
+		self.ShowStatusBarYELLOW(_('Restarting CANable interfaces...'))
+		devicesNew = []
+		device = self.listCanable.GetItemText(selected, 0)
+		interface = self.listCanable.GetItemText(selected, 1)
+		items = self.conf.get('CAN', 'canable')
+		try: devices = eval(items)
+		except: devices = []
+		for i in devices:
+			if device != i[0]: devicesNew.append(i)
 		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'removeCanable', device, interface])
 		self.restart_SK(0)
 		self.onRefresh()
