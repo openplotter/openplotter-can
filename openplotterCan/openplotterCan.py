@@ -670,41 +670,42 @@ class MyFrame(wx.Frame):
 			while True:
 				line = file.readline()
 				if not line: break
-				if ('dtoverlay=mcp2515' in line) and (line[0:1] != '#'):
-					connection = ''
-					oscillator = ''
-					interrupt = 'GPIO '
-					skId = ''
-					enabled = False
-					line = line.rstrip()
-					lList = line.split(',')
-					for i in lList:
-						if 'dtoverlay=mcp2515-can0' in i: connection = 'SPI0 CE0'
-						elif 'dtoverlay=mcp2515-can1' in i: connection = 'SPI0 CE1'
-						if 'oscillator' in i:
-							oList = i.split('=')
-							oscillator = oList[1]
-						if 'interrupt' in i:
-							iList = i.split('=')
-							interrupt += iList[1]
-					interface = self.getInterface(connection)
-					
-					for i in data:
-						dataSubOptions = ''
-						dataType = ''
-						dataInterface = ''
-						try:
-							dataSubOptions = i['pipeElements'][0]['options']['subOptions']
-							dataInterface = dataSubOptions['interface']
-							dataType = dataSubOptions['type']
-						except: pass
+				if line.strip()[0:1] != '#':
+					if ('dtoverlay=mcp2515' in line):
+						connection = ''
+						oscillator = ''
+						interrupt = 'GPIO '
+						skId = ''
+						enabled = False
+						line = line.rstrip()
+						lList = line.split(',')
+						for i in lList:
+							if 'dtoverlay=mcp2515-can0' in i: connection = 'SPI0 CE0'
+							elif 'dtoverlay=mcp2515-can1' in i: connection = 'SPI0 CE1'
+							if 'oscillator' in i:
+								oList = i.split('=')
+								oscillator = oList[1]
+							if 'interrupt' in i:
+								iList = i.split('=')
+								interrupt += iList[1]
+						interface = self.getInterface(connection)
+						
+						for i in data:
+							dataSubOptions = ''
+							dataType = ''
+							dataInterface = ''
+							try:
+								dataSubOptions = i['pipeElements'][0]['options']['subOptions']
+								dataInterface = dataSubOptions['interface']
+								dataType = dataSubOptions['type']
+							except: pass
 
-						if dataType=='canbus-canboatjs':
-							if interface == dataInterface: 
-								skId = i['id']
-								enabled = i['enabled']
-					self.listMcp2515.Append([connection,oscillator,interrupt,interface,skId])
-					if skId and enabled: self.listMcp2515.SetItemBackgroundColour(self.listMcp2515.GetItemCount()-1,(0,191,255))
+							if dataType=='canbus-canboatjs':
+								if interface == dataInterface: 
+									skId = i['id']
+									enabled = i['enabled']
+						self.listMcp2515.Append([connection,oscillator,interrupt,interface,skId])
+						if skId and enabled: self.listMcp2515.SetItemBackgroundColour(self.listMcp2515.GetItemCount()-1,(0,191,255))
 			file.close()
 
 			for i in data:
@@ -933,43 +934,44 @@ class MyFrame(wx.Frame):
 			while True:
 				line = file.readline()
 				if not line: break
-				if ('dtoverlay=mcp251xfd' in line) and (line[0:1] != '#'):
-					connection = ''
-					oscillator = ''
-					interrupt = 'GPIO '
-					skId = ''
-					enabled = False
-					line = line.rstrip()
-					lList = line.split(',')
-					for i in lList:
-						if 'spi0-0' in i: connection = 'SPI0 CE0'
-						elif 'spi0-1' in i: connection = 'SPI0 CE1'
-						elif 'spi1-0' in i: connection = 'SPI1 CE0'
-						elif 'spi1-1' in i: connection = 'SPI1 CE1'
-						#if 'oscillator' in i:
-						#	oList = i.split('=')
-						#	oscillator = oList[1]
-						if 'interrupt' in i:
-							iList = i.split('=')
-							interrupt += iList[1]
-					interface = self.getInterfaceMcp251xfd(connection)
-					
-					for i in data:
-						dataSubOptions = ''
-						dataType = ''
-						dataInterface = ''
-						try:
-							dataSubOptions = i['pipeElements'][0]['options']['subOptions']
-							dataInterface = dataSubOptions['interface']
-							dataType = dataSubOptions['type']
-						except: pass
+				if line.strip()[0:1] != '#':
+					if 'dtoverlay=mcp251xfd' in line:
+						connection = ''
+						oscillator = ''
+						interrupt = 'GPIO '
+						skId = ''
+						enabled = False
+						line = line.rstrip()
+						lList = line.split(',')
+						for i in lList:
+							if 'spi0-0' in i: connection = 'SPI0 CE0'
+							elif 'spi0-1' in i: connection = 'SPI0 CE1'
+							elif 'spi1-0' in i: connection = 'SPI1 CE0'
+							elif 'spi1-1' in i: connection = 'SPI1 CE1'
+							#if 'oscillator' in i:
+							#	oList = i.split('=')
+							#	oscillator = oList[1]
+							if 'interrupt' in i:
+								iList = i.split('=')
+								interrupt += iList[1]
+						interface = self.getInterfaceMcp251xfd(connection)
+						
+						for i in data:
+							dataSubOptions = ''
+							dataType = ''
+							dataInterface = ''
+							try:
+								dataSubOptions = i['pipeElements'][0]['options']['subOptions']
+								dataInterface = dataSubOptions['interface']
+								dataType = dataSubOptions['type']
+							except: pass
 
-						if dataType=='canbus-canboatjs':
-							if interface == dataInterface: 
-								skId = i['id']
-								enabled = i['enabled']
-					self.listMcp251xfd.Append([connection,interrupt,interface,skId])
-					if skId and enabled: self.listMcp251xfd.SetItemBackgroundColour(self.listMcp251xfd.GetItemCount()-1,(0,191,255))
+							if dataType=='canbus-canboatjs':
+								if interface == dataInterface: 
+									skId = i['id']
+									enabled = i['enabled']
+						self.listMcp251xfd.Append([connection,interrupt,interface,skId])
+						if skId and enabled: self.listMcp251xfd.SetItemBackgroundColour(self.listMcp251xfd.GetItemCount()-1,(0,191,255))
 			file.close()
 
 			for i in data:
@@ -1085,7 +1087,8 @@ class MyFrame(wx.Frame):
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			canConnection = dlg.canConnection.GetStringSelection()
-			canInterrupt = dlg.canInterrupt.GetStringSelection()
+			canInterrupt = dlg.canInterrupt.GetValue()			
+			#canInterrupt = dlg.canInterrupt.GetStringSelection()
 			if not canConnection or not canInterrupt:
 				self.ShowStatusBarRED(_('Fill in all fields'))
 				dlg.Destroy()
@@ -1482,7 +1485,12 @@ class addMcp251xfd(wx.Dialog):
 		self.canConnection = wx.Choice(panel, choices=('SPI0 CE0', 'SPI0 CE1','SPI1 CE0', 'SPI1 CE1'), style=wx.CB_READONLY)
 
 		canInterruptLabel = wx.StaticText(panel, label=_('Interrupt GPIO'))
-		self.canInterrupt = wx.Choice(panel, choices=('16', '24', '25'), style=wx.CB_READONLY)
+		self.canInterrupt = wx.TextCtrl(panel, style=wx.CB_READONLY)
+		
+		#self.canInterrupt = wx.Choice(panel, choices=('GPIO 16', 'GPIO 22','GPIO 24', 'GPIO 25'), style=wx.CB_READONLY)
+
+		selectGpio =wx.Button(panel, label=_('Select'))
+		selectGpio.Bind(wx.EVT_BUTTON, self.onSelectGpio)
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK)
@@ -1493,6 +1501,7 @@ class addMcp251xfd(wx.Dialog):
 
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox3.Add(self.canInterrupt, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
+		hbox3.Add(selectGpio, 0, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.AddStretchSpacer(1)
@@ -1514,6 +1523,13 @@ class addMcp251xfd(wx.Dialog):
 		self.panel = panel
 
 		self.Centre() 
+
+	def onSelectGpio(self,e):
+		dlg = gpio.GpioMap(['GPIO'],'0')
+		res = dlg.ShowModal()
+		if res == wx.ID_OK:
+			self.canInterrupt.SetValue(dlg.selected['BCM'])
+		dlg.Destroy()
 
 	def OnDelete(self,e):
 		self.EndModal(wx.ID_DELETE)
