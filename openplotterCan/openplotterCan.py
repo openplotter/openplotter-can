@@ -1044,7 +1044,7 @@ class MyFrame(wx.Frame):
 	def onCheckMcp251xfd(self,e):
 		selected = self.listMcp251xfd.GetFirstSelected()
 		if selected == -1: return
-		interface = self.listMcp251xfd.GetItemText(selected, 3)
+		interface = self.listMcp251xfd.GetItemText(selected, 2)
 		if interface: subprocess.Popen(['x-terminal-emulator','-e', 'candump', interface])
 
 	def onRemoveMcp251xfdSkCon(self,e):
