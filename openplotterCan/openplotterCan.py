@@ -349,13 +349,13 @@ class MyFrame(wx.Frame):
 		self.listCanable.SetTextColour(wx.BLACK)
 
 		self.toolbar44 = wx.ToolBar(self.canable, style=wx.TB_TEXT)
-		self.addCanable = self.toolbar44.AddTool(4403, _('Add slcand device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
+		self.addCanable = self.toolbar44.AddTool(4403, _('Add device'), wx.Bitmap(self.currentdir+"/data/usb.png"))
 		self.Bind(wx.EVT_TOOL, self.onAddCanable, self.addCanable)
-		self.removeCanable = self.toolbar44.AddTool(4404, _('Remove slcand device'), wx.Bitmap(self.currentdir+"/data/cancel.png"))
+		self.removeCanable = self.toolbar44.AddTool(4404, _('Remove device'), wx.Bitmap(self.currentdir+"/data/cancel.png"))
 		self.Bind(wx.EVT_TOOL, self.onRemoveCanable, self.removeCanable)
 		self.checkCanable = self.toolbar44.AddTool(4405, _('Check device traffic'), wx.Bitmap(self.currentdir+"/data/check.png"))
 		self.Bind(wx.EVT_TOOL, self.onCheckCanable, self.checkCanable)
-		self.restartCanable = self.toolbar44.AddTool(4406, _('Restart slcand device'), wx.Bitmap(self.currentdir+"/data/restart.png"))
+		self.restartCanable = self.toolbar44.AddTool(4406, _('Restart device'), wx.Bitmap(self.currentdir+"/data/restart.png"))
 		self.Bind(wx.EVT_TOOL, self.onRestartCanable, self.restartCanable)
 
 		self.toolbar4 = wx.ToolBar(self.canable, style=wx.TB_TEXT | wx.TB_VERTICAL)
@@ -511,7 +511,7 @@ class MyFrame(wx.Frame):
 	def onRemoveCanable(self,e):
 		selected = self.listCanable.GetFirstSelected()
 		if selected == -1: return
-		self.ShowStatusBarYELLOW(_('Remove CANable interface...'))
+		self.ShowStatusBarYELLOW(_('Remove slcand interface...'))
 		devicesNew = []
 		device = self.listCanable.GetItemText(selected, 0)
 		interface = self.listCanable.GetItemText(selected, 1)
@@ -524,12 +524,12 @@ class MyFrame(wx.Frame):
 		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'removeCanable', device, interface])
 		self.restart_SK(0)
 		self.onRefresh()
-		self.ShowStatusBarGREEN(_('CANable interfaces restarted'))
+		self.ShowStatusBarGREEN(_('slcand interfaces restarted'))
 
 	def onRestartCanable(self,e):
 		selected = self.listCanable.GetFirstSelected()
 		if selected == -1: return
-		self.ShowStatusBarYELLOW(_('Restarting CANable interfaces...'))
+		self.ShowStatusBarYELLOW(_('Restarting slcand interfaces...'))
 		devicesNew = []
 		device = self.listCanable.GetItemText(selected, 0)
 		interface = self.listCanable.GetItemText(selected, 1)
@@ -541,7 +541,7 @@ class MyFrame(wx.Frame):
 		subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'removeCanable', device, interface])
 		self.restart_SK(0)
 		self.onRefresh()
-		self.ShowStatusBarGREEN(_('CANable interfaces restarted'))
+		self.ShowStatusBarGREEN(_('slcand interfaces restarted'))
 
 	def onAddCanable(self,e):
 		dlg = selectConnections.AddPort('', True, '921600', False)
@@ -560,7 +560,7 @@ class MyFrame(wx.Frame):
 					self.ShowStatusBarRED(_('This device already exists'))
 					dlg.Destroy()
 					return
-			self.ShowStatusBarYELLOW(_('Restarting CANable interfaces...'))
+			self.ShowStatusBarYELLOW(_('Restarting slcand interfaces...'))
 			c = 0
 			while True:
 				interface = 'canable'+str(c)
@@ -575,7 +575,7 @@ class MyFrame(wx.Frame):
 			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/service.py', 'addCanable', device, interface])
 			self.restart_SK(0)
 			self.onRefresh()
-			self.ShowStatusBarGREEN(_('CANable interfaces restarted'))
+			self.ShowStatusBarGREEN(_('slcand interfaces restarted'))
 		dlg.Destroy()
 
 		#####################################################
