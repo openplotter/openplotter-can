@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
-"POT-Creation-Date: 2020-10-09 17:20+0200\n"
-"PO-Revision-Date: 2020-12-02 20:03+0100\n"
+"POT-Creation-Date: 2021-01-17 13:43+0100\n"
+"PO-Revision-Date: 2021-03-04 19:57+0100\n"
 "Last-Translator: \n"
 "Language-Team: Danish\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -74,18 +74,6 @@ msgstr "SK → NMEA 2000"
 msgid "Refresh"
 msgstr "Opdater"
 
-#: openplotterCan.py:74
-msgid "CAN-USB"
-msgstr "CAN-USB"
-
-#: openplotterCan.py:75
-msgid "CAN-USB / CANable"
-msgstr "CAN-USB / CANable"
-
-#: openplotterCan.py:76
-msgid "MCP2515"
-msgstr "MCP2515"
-
 #: openplotterCan.py:123
 msgid "This feature is only for Raspberry Pi"
 msgstr "Denne funktion er kun til Raspberry Pi"
@@ -98,7 +86,7 @@ msgstr "Seriel Port"
 msgid "Baud Rate"
 msgstr "Baud-hastighed"
 
-#: openplotterCan.py:148 openplotterCan.py:346 openplotterCan.py:568
+#: openplotterCan.py:148 openplotterCan.py:346 openplotterCan.py:589
 msgid "SK connection ID"
 msgstr "SK-forbindelses-ID"
 
@@ -106,19 +94,19 @@ msgstr "SK-forbindelses-ID"
 msgid "Open device TX PGNs"
 msgstr "Åbn enhed TX PGN'er"
 
-#: openplotterCan.py:158 openplotterCan.py:360 openplotterCan.py:582
+#: openplotterCan.py:158 openplotterCan.py:362 openplotterCan.py:603
 msgid "Add Connection"
 msgstr "Tilføj forbindelse"
 
-#: openplotterCan.py:160 openplotterCan.py:362 openplotterCan.py:584
+#: openplotterCan.py:160 openplotterCan.py:364 openplotterCan.py:605
 msgid "Edit Connection"
 msgstr "Rediger forbindelse"
 
-#: openplotterCan.py:162 openplotterCan.py:364 openplotterCan.py:586
+#: openplotterCan.py:162 openplotterCan.py:366 openplotterCan.py:607
 msgid "Remove Connection"
 msgstr "Fjern forbindelse"
 
-#: openplotterCan.py:211 openplotterCan.py:531
+#: openplotterCan.py:211 openplotterCan.py:552
 msgid "You have to select a device"
 msgstr "Vælge en enhed"
 
@@ -126,20 +114,20 @@ msgstr "Vælge en enhed"
 msgid "You have to select a baud rate"
 msgstr "Vælge en baud hastighed"
 
-#: openplotterCan.py:220 openplotterCan.py:539
+#: openplotterCan.py:220 openplotterCan.py:560
 msgid "This device already exists"
 msgstr "Denne enhed findes allerede"
 
-#: openplotterCan.py:236 openplotterCan.py:477 openplotterCan.py:735
+#: openplotterCan.py:236 openplotterCan.py:481 openplotterCan.py:757
 msgid "Failed. Error creating connection in Signal K"
 msgstr "Mislykket. Fejl ved oprettelse af forbindelse i signal K"
 
-#: openplotterCan.py:239 openplotterCan.py:269 openplotterCan.py:480
-#: openplotterCan.py:737
+#: openplotterCan.py:239 openplotterCan.py:269 openplotterCan.py:484
+#: openplotterCan.py:759
 msgid "Please install \"Signal K Installer\" OpenPlotter app"
 msgstr "Installer venligst \"Signal K Installer\" OpenPlotter appen"
 
-#: openplotterCan.py:258 openplotterCan.py:499 openplotterCan.py:762
+#: openplotterCan.py:258 openplotterCan.py:503 openplotterCan.py:784
 msgid "Failed. Error removing connection in Signal K"
 msgstr "Mislykket. Kan ikke fjerne forbindelse i signal K"
 
@@ -163,107 +151,115 @@ msgstr "Genstarter Signal K-serveren... "
 msgid "Signal K server restarted"
 msgstr "Signal K-serveren blev genstartet"
 
-#: openplotterCan.py:345 openplotterCan.py:567 openplotterCan.py:1114
+#: openplotterCan.py:345 openplotterCan.py:588 openplotterCan.py:1136
 msgid "Interface"
 msgstr "Interface"
 
 #: openplotterCan.py:352
-msgid "Add slcand device"
-msgstr "Tilføj slcand enhed"
+msgid "Add device"
+msgstr ""
 
 #: openplotterCan.py:354
-msgid "Remove slcand device"
-msgstr "Fjern slcand enhed"
+msgid "Remove device"
+msgstr ""
 
-#: openplotterCan.py:356 openplotterCan.py:578
+#: openplotterCan.py:356 openplotterCan.py:599
 msgid "Check device traffic"
 msgstr "Kontroller enhedstrafik"
 
-#: openplotterCan.py:510 openplotterCan.py:542
-msgid "Restarting CANable interfaces..."
-msgstr "Genstarter CANable-interfaces..."
+#: openplotterCan.py:358
+msgid "Restart device"
+msgstr ""
 
-#: openplotterCan.py:523 openplotterCan.py:557
-msgid "CANable interfaces restarted"
-msgstr "CANable interfaces genstartet"
+#: openplotterCan.py:514
+msgid "Remove slcand interface..."
+msgstr ""
 
-#: openplotterCan.py:564
+#: openplotterCan.py:527 openplotterCan.py:544 openplotterCan.py:578
+msgid "slcand interfaces restarted"
+msgstr ""
+
+#: openplotterCan.py:532 openplotterCan.py:563
+msgid "Restarting slcand interfaces..."
+msgstr ""
+
+#: openplotterCan.py:585
 msgid "Connection"
 msgstr "Forbindelse"
 
-#: openplotterCan.py:565 openplotterCan.py:1118
+#: openplotterCan.py:586 openplotterCan.py:1140
 msgid "Oscillator"
 msgstr "Oscillator"
 
-#: openplotterCan.py:566
+#: openplotterCan.py:587
 msgid "Interrupt"
 msgstr "Interrupt"
 
-#: openplotterCan.py:574 openplotterCan.py:1109
+#: openplotterCan.py:595 openplotterCan.py:1131
 msgid "Add MCP2515 device"
 msgstr "Tilføj MCP2515-enhed"
 
-#: openplotterCan.py:576
+#: openplotterCan.py:597
 msgid "Remove MCP2515 device"
 msgstr "Fjern enhed MCP2515"
 
-#: openplotterCan.py:768 openplotterCan.py:809
+#: openplotterCan.py:790 openplotterCan.py:831
 msgid "OpenPlotter will reboot. Are you sure?"
 msgstr "OpenPlotter genstarter. Er du sikker?"
 
-#: openplotterCan.py:769 openplotterCan.py:810
+#: openplotterCan.py:791 openplotterCan.py:832
 msgid "Question"
 msgstr "Spørgsmål"
 
-#: openplotterCan.py:794
+#: openplotterCan.py:816
 msgid "Fill in all fields"
 msgstr "Udfyld alle felter"
 
-#: openplotterCan.py:801
+#: openplotterCan.py:823
 msgid "This connection already exists"
 msgstr "Denne forbindelse findes allerede"
 
-#: openplotterCan.py:805
+#: openplotterCan.py:827
 msgid "This interrupt GPIO already exists"
 msgstr "Dette GPIO interrupt findes allerede"
 
-#: openplotterCan.py:849
+#: openplotterCan.py:871
 msgid "Open device PGNs"
 msgstr "Åbn enhed TX PGN'er"
 
-#: openplotterCan.py:859
+#: openplotterCan.py:881
 msgid "TX PGN"
 msgstr "TX PGN"
 
-#: openplotterCan.py:860
+#: openplotterCan.py:882
 msgid "info"
 msgstr "info"
 
-#: openplotterCan.py:865
+#: openplotterCan.py:887
 msgid "Apply"
 msgstr "Anvend"
 
-#: openplotterCan.py:867
+#: openplotterCan.py:889
 msgid "Close"
 msgstr "Luk"
 
-#: openplotterCan.py:887
+#: openplotterCan.py:909
 msgid "Error connecting with device "
 msgstr "Forbindelse til enheden fejler "
 
-#: openplotterCan.py:925
+#: openplotterCan.py:947
 msgid "The list of enabled PGNs is empty, you may need to try a different baudrate or reset your device to 115200 bauds"
 msgstr "Listen over aktiverede PGN'er er tom, du skal muligvis prøve en anden baudrate eller nulstille din enhed til 115200 bauds"
 
-#: openplotterCan.py:928
+#: openplotterCan.py:950
 msgid "open PGNs: "
 msgstr "åben PGN'er: "
 
-#: openplotterCan.py:929
+#: openplotterCan.py:951
 msgid "close PGNs: "
 msgstr "luk PGN'er: "
 
-#: openplotterCan.py:966
+#: openplotterCan.py:988
 msgid ""
 "You can not activate more than 30 PGNs\n"
 "\n"
@@ -271,15 +267,15 @@ msgstr ""
 "Du kan ikke aktivere mere end 30 PGN'er\n"
 "\n"
 
-#: openplotterCan.py:1079
+#: openplotterCan.py:1101
 msgid " enabled transmission PGNs (max. 30):"
 msgstr " aktiveret transmissions PGN'er (maks. 30):"
 
-#: openplotterCan.py:1122
+#: openplotterCan.py:1144
 msgid "Interrupt GPIO"
 msgstr "GPIO Interrupt"
 
-#: openplotterCan.py:1125
+#: openplotterCan.py:1147
 msgid "Select"
 msgstr "Vælg"
 
