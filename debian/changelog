@@ -1,6 +1,7 @@
 openplotter-can (2.2.2-stable) bionic; urgency=medium
 
   * Canable restart button
+  * Update translations
 
  -- Sailoog <info@sailoog.com>  Mon, 14 Dec 2020 19:16:35 +0100
 
