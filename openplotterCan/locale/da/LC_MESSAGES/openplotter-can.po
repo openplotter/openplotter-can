@@ -2,23 +2,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2021-01-17 13:43+0100\n"
-"PO-Revision-Date: 2021-03-04 19:57+0100\n"
+"PO-Revision-Date: 2021-11-14 19:14\n"
 "Last-Translator: \n"
 "Language-Team: Danish\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
 "X-Crowdin-Project: openplotter\n"
 "X-Crowdin-Project-ID: 289888\n"
 "X-Crowdin-Language: da\n"
 "X-Crowdin-File: openplotter-can.po\n"
 "X-Crowdin-File-ID: 10\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:28
 msgid "Adding openplotter-can-read service..."
@@ -157,11 +157,11 @@ msgstr "Interface"
 
 #: openplotterCan.py:352
 msgid "Add device"
-msgstr ""
+msgstr "Tilføj enhed"
 
 #: openplotterCan.py:354
 msgid "Remove device"
-msgstr ""
+msgstr "Fjern enheden"
 
 #: openplotterCan.py:356 openplotterCan.py:599
 msgid "Check device traffic"
@@ -169,19 +169,19 @@ msgstr "Kontroller enhedstrafik"
 
 #: openplotterCan.py:358
 msgid "Restart device"
-msgstr ""
+msgstr "Genstart enheden"
 
 #: openplotterCan.py:514
 msgid "Remove slcand interface..."
-msgstr ""
+msgstr "Fjern slcand grænseflade..."
 
 #: openplotterCan.py:527 openplotterCan.py:544 openplotterCan.py:578
 msgid "slcand interfaces restarted"
-msgstr ""
+msgstr "slcand interface genstartet"
 
 #: openplotterCan.py:532 openplotterCan.py:563
 msgid "Restarting slcand interfaces..."
-msgstr ""
+msgstr "Genstarter slcand interface..."
 
 #: openplotterCan.py:585
 msgid "Connection"
@@ -260,12 +260,8 @@ msgid "close PGNs: "
 msgstr "luk PGN'er: "
 
 #: openplotterCan.py:988
-msgid ""
-"You can not activate more than 30 PGNs\n"
-"\n"
-msgstr ""
-"Du kan ikke aktivere mere end 30 PGN'er\n"
-"\n"
+msgid "You can not activate more than 30 PGNs\n\n"
+msgstr "Du kan ikke aktivere mere end 30 PGN'er\n\n"
 
 #: openplotterCan.py:1101
 msgid " enabled transmission PGNs (max. 30):"
@@ -286,3 +282,4 @@ msgstr "Kontrollerer CAN-enheder..."
 #: startup.py:66 startup.py:67
 msgid "There is no Signal K connection for interface: "
 msgstr "Der er ikke en signal K-forbindelse til interfacet: "
+

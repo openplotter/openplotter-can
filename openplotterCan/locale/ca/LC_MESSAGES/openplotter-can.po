@@ -2,27 +2,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2021-01-17 13:43+0100\n"
-"PO-Revision-Date: 2021-03-04 19:57+0100\n"
+"PO-Revision-Date: 2021-11-25 18:05\n"
 "Last-Translator: \n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
 "X-Crowdin-Project: openplotter\n"
 "X-Crowdin-Project-ID: 289888\n"
 "X-Crowdin-Language: ca\n"
 "X-Crowdin-File: openplotter-can.po\n"
 "X-Crowdin-File-ID: 10\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:28
 msgid "Adding openplotter-can-read service..."
-msgstr ""
+msgstr "Afegint servei openplotter-can-read..."
 
 #: canPostInstall.py:35 canPostInstall.py:41 canPreUninstall.py:34
 #: canPreUninstall.py:40
@@ -40,7 +40,7 @@ msgstr "Establint la versió..."
 
 #: canPreUninstall.py:28
 msgid "Removing openplotter-can-read service..."
-msgstr ""
+msgstr "Eliminant servei openplotter-can-read..."
 
 #: canPreUninstall.py:37
 msgid "Removing version..."
@@ -52,7 +52,7 @@ msgstr "Si us plau conecta (o desconecta i torna a conectar) l'adaptador CAN-USB
 
 #: canUsbFirmware.py:63
 msgid "Can not open serial device (CAN-USB) connected on: "
-msgstr ""
+msgstr "No es pot obrir el dispositiu sèrie (CAN-USB) connectat a: "
 
 #: openplotterCan.py:54
 msgid "Help"
@@ -64,15 +64,15 @@ msgstr "Configuració"
 
 #: openplotterCan.py:60
 msgid "CAN-USB Setup"
-msgstr ""
+msgstr "Configuració CAN-USB"
 
 #: openplotterCan.py:63
 msgid "SK → NMEA 2000"
-msgstr ""
+msgstr "SK → NMEA 2000"
 
 #: openplotterCan.py:66
 msgid "Refresh"
-msgstr "Actualitzar"
+msgstr "Actualitza"
 
 #: openplotterCan.py:123
 msgid "This feature is only for Raspberry Pi"
@@ -84,15 +84,15 @@ msgstr "Port sèrie"
 
 #: openplotterCan.py:147
 msgid "Baud Rate"
-msgstr ""
+msgstr "Velocitat de bauds"
 
 #: openplotterCan.py:148 openplotterCan.py:346 openplotterCan.py:589
 msgid "SK connection ID"
-msgstr ""
+msgstr "ID de connexió SK"
 
 #: openplotterCan.py:154
 msgid "Open device TX PGNs"
-msgstr ""
+msgstr "Obrir dispositiu TX PGNs"
 
 #: openplotterCan.py:158 openplotterCan.py:362 openplotterCan.py:603
 msgid "Add Connection"
@@ -112,7 +112,7 @@ msgstr "Has de seleccionar un dispositiu"
 
 #: openplotterCan.py:215
 msgid "You have to select a baud rate"
-msgstr ""
+msgstr "Has de seleccionar la velocitat de bauds"
 
 #: openplotterCan.py:220 openplotterCan.py:560
 msgid "This device already exists"
@@ -120,28 +120,28 @@ msgstr "Aquest dispositiu ja existeix"
 
 #: openplotterCan.py:236 openplotterCan.py:481 openplotterCan.py:757
 msgid "Failed. Error creating connection in Signal K"
-msgstr ""
+msgstr "Error. Error en crear la connexió a Signal K"
 
 #: openplotterCan.py:239 openplotterCan.py:269 openplotterCan.py:484
 #: openplotterCan.py:759
 msgid "Please install \"Signal K Installer\" OpenPlotter app"
-msgstr ""
+msgstr "Si us plau instal·la l'aplicació d'OpenPlotter \"Instal·lador de SignalK\""
 
 #: openplotterCan.py:258 openplotterCan.py:503 openplotterCan.py:784
 msgid "Failed. Error removing connection in Signal K"
-msgstr ""
+msgstr "Error. Error al eliminar la connexió a Signal K"
 
 #: openplotterCan.py:265
 msgid "Please install \"signalk-to-nmea2000\" Signal K app"
-msgstr ""
+msgstr "Si us plau, instal·la l'aplicació de Signal K \" signalk-to-nmea2000\""
 
 #: openplotterCan.py:278
 msgid "Disabling device and restarting Signal K server... "
-msgstr ""
+msgstr "Deshabilitant dispositiu i reiniciant servidor Signal K... "
 
 #: openplotterCan.py:282
 msgid "Enabling device and restarting Signal K server... "
-msgstr ""
+msgstr "Activant el dispositiu i reiniciant el servidor Signal K... "
 
 #: openplotterCan.py:314
 msgid "Restarting Signal K server... "
@@ -157,59 +157,59 @@ msgstr "Interfície"
 
 #: openplotterCan.py:352
 msgid "Add device"
-msgstr ""
+msgstr "Afegeix un dispositiu"
 
 #: openplotterCan.py:354
 msgid "Remove device"
-msgstr ""
+msgstr "Elimina el dispositiu"
 
 #: openplotterCan.py:356 openplotterCan.py:599
 msgid "Check device traffic"
-msgstr ""
+msgstr "Comprova el tràfic del dispositiu"
 
 #: openplotterCan.py:358
 msgid "Restart device"
-msgstr ""
+msgstr "Reinicia el dispositiu"
 
 #: openplotterCan.py:514
 msgid "Remove slcand interface..."
-msgstr ""
+msgstr "Eliminar interfície de slcand..."
 
 #: openplotterCan.py:527 openplotterCan.py:544 openplotterCan.py:578
 msgid "slcand interfaces restarted"
-msgstr ""
+msgstr "interfícies slcand reiniciades"
 
 #: openplotterCan.py:532 openplotterCan.py:563
 msgid "Restarting slcand interfaces..."
-msgstr ""
+msgstr "Reiniciant interfície de slcand..."
 
 #: openplotterCan.py:585
 msgid "Connection"
-msgstr ""
+msgstr "Connexió"
 
 #: openplotterCan.py:586 openplotterCan.py:1140
 msgid "Oscillator"
-msgstr ""
+msgstr "Oscil·lador"
 
 #: openplotterCan.py:587
 msgid "Interrupt"
-msgstr ""
+msgstr "Interrupció"
 
 #: openplotterCan.py:595 openplotterCan.py:1131
 msgid "Add MCP2515 device"
-msgstr ""
+msgstr "Afegir dispositiu MCP2515"
 
 #: openplotterCan.py:597
 msgid "Remove MCP2515 device"
-msgstr ""
+msgstr "Eliminar dispositiu MCP2515"
 
 #: openplotterCan.py:790 openplotterCan.py:831
 msgid "OpenPlotter will reboot. Are you sure?"
-msgstr ""
+msgstr "OpenPlotter es reiniciarà. ¿Estàs segur?"
 
 #: openplotterCan.py:791 openplotterCan.py:832
 msgid "Question"
-msgstr ""
+msgstr "Pregunta"
 
 #: openplotterCan.py:816
 msgid "Fill in all fields"
@@ -221,15 +221,15 @@ msgstr "Aquesta connexió ja existeix"
 
 #: openplotterCan.py:827
 msgid "This interrupt GPIO already exists"
-msgstr ""
+msgstr "Aquesta interrupció GPIO ja existeix"
 
 #: openplotterCan.py:871
 msgid "Open device PGNs"
-msgstr ""
+msgstr "Obrir dispositiu PGNs"
 
 #: openplotterCan.py:881
 msgid "TX PGN"
-msgstr ""
+msgstr "TX PGN"
 
 #: openplotterCan.py:882
 msgid "info"
@@ -245,37 +245,35 @@ msgstr "Tanca"
 
 #: openplotterCan.py:909
 msgid "Error connecting with device "
-msgstr ""
+msgstr "Error connectant amb el dispositiu "
 
 #: openplotterCan.py:947
 msgid "The list of enabled PGNs is empty, you may need to try a different baudrate or reset your device to 115200 bauds"
-msgstr ""
+msgstr "La llista de PGNs habilitats és buida, és possible que necessiti provar una velocitat de bauds diferent o restablir el seu dispositiu a 115200 bauds"
 
 #: openplotterCan.py:950
 msgid "open PGNs: "
-msgstr ""
+msgstr "obre PGNs: "
 
 #: openplotterCan.py:951
 msgid "close PGNs: "
-msgstr ""
+msgstr "tanca PGNs: "
 
 #: openplotterCan.py:988
-msgid ""
-"You can not activate more than 30 PGNs\n"
-"\n"
-msgstr ""
+msgid "You can not activate more than 30 PGNs\n\n"
+msgstr "No es poden activar més de 30 PGNs\n\n"
 
 #: openplotterCan.py:1101
 msgid " enabled transmission PGNs (max. 30):"
-msgstr ""
+msgstr " habilitada la transmissió de PGNs (máx. 30):"
 
 #: openplotterCan.py:1144
 msgid "Interrupt GPIO"
-msgstr ""
+msgstr "Interrupció GPIO"
 
 #: openplotterCan.py:1147
 msgid "Select"
-msgstr ""
+msgstr "Selecciona"
 
 #: startup.py:44
 msgid "Checking CAN devices..."
@@ -284,3 +282,4 @@ msgstr "Comprovant dispositius CAN..."
 #: startup.py:66 startup.py:67
 msgid "There is no Signal K connection for interface: "
 msgstr "No hi ha connexió Signal K per a la interfície: "
+
