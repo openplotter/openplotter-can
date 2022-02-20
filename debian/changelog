@@ -1,3 +1,9 @@
+openplotter-can (3.0.0-stable) bullseye; urgency=medium
+
+  * beta
+
+ -- Sailoog <info@sailoog.com>  Mon, 20 Feb 2022 19:16:35 +0100
+
 openplotter-can (2.2.2-stable) bionic; urgency=medium
 
   * Canable restart button
