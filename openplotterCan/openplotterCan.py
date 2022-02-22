@@ -1045,8 +1045,9 @@ class openPGNs(wx.Dialog):
 		if bytesToRead>0:
 			buffer=self.ser.read(bytesToRead)
 			for i in buffer:
-				self.parse(i)			
-
+				try: self.parse(i)			
+				except: pass
+				
 	def parse(self, b):
 		if self.Zustand == 6: # zu Beginn auf 0x10 warten
 			if b == 0x10:
