@@ -1,12 +1,13 @@
-openplotter-can (2.2.3-stable) bionic; urgency=medium
+openplotter-can (3.1.0-beta) bullseye; urgency=medium
 
-  * Add MCP2517fd/ MCP2518fd
+  * beta
 
- -- Sailoog <info@sailoog.com>  Sat, 30 Jan 2021 12:36:21 +0100
+ -- Sailoog <info@sailoog.com>  Mon, 20 Feb 2022 19:16:35 +0100
 
 openplotter-can (2.2.2-stable) bionic; urgency=medium
 
   * Canable restart button
+  * Update translations
 
  -- Sailoog <info@sailoog.com>  Mon, 14 Dec 2020 19:16:35 +0100
 

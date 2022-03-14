@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# This file is part of Openplotter.
-# Copyright (C) 2015 by Sailoog <https://github.com/openplotter/openplotter-can>
+# This file is part of OpenPlotter.
+# Copyright (C) 2022 by Sailoog <https://github.com/openplotter/openplotter-can>
 #
 # Openplotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
 import os, subprocess
 from openplotterSettings import conf
 from openplotterSettings import language
+from openplotterSettings import platform
 from .version import version
 
 def main():
@@ -24,6 +25,7 @@ def main():
 	currentdir = os.path.dirname(os.path.abspath(__file__))
 	currentLanguage = conf2.get('GENERAL', 'lang')
 	language.Language(currentdir,'openplotter-can',currentLanguage)
+	platform2 = platform.Platform()
 
 	print(_('Adding openplotter-can-read service...'))
 	try:
@@ -32,6 +34,19 @@ def main():
 		fo.close()
 		subprocess.call(['systemctl', 'daemon-reload'])
 		subprocess.call(['systemctl', 'enable', 'openplotter-can-read.service'])
+		print(_('DONE'))
+	except Exception as e: print(_('FAILED: ')+str(e))
+
+	print(_('Installing/Updating "Signal K to NMEA 2000" plugin...'))
+	try:
+		if platform2.skDir:
+			subprocess.call(['npm', 'i', '--verbose', 'signalk-to-nmea2000'], cwd = platform2.skDir)
+			subprocess.call(['chown', '-R', conf2.user, platform2.skDir])
+			subprocess.call(['systemctl', 'stop', 'signalk.service'])
+			subprocess.call(['systemctl', 'stop', 'signalk.socket'])
+			subprocess.call(['systemctl', 'start', 'signalk.socket'])
+			subprocess.call(['systemctl', 'start', 'signalk.service'])
+		else: print(_('Failed. Please, install Signal K server.'))
 		print(_('DONE'))
 	except Exception as e: print(_('FAILED: ')+str(e))
 
