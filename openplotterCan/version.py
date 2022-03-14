@@ -1,3 +1,3 @@
-version = '3.1.0'
-codeName = 'STOPmaremortum'
-state = 'beta'
+version = '2.2.3'
+codeName = 'Open Arms'
+state = 'stable'
