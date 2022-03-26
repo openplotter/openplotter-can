@@ -26,6 +26,7 @@ setup (
 	author="Sailoog",
 	author_email='info@sailoog.com',
 	url='https://github.com/openplotter/openplotter-can',
+	install_requires=['serial','pyudev'],
 	packages=['openplotterCan'],
 	classifiers = ['Natural Language :: English',
 	'Operating System :: POSIX :: Linux',

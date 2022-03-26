@@ -10,6 +10,6 @@ X-Python3-Version: >= 3.2
 Package: openplotter-can
 Architecture: all
 Multi-Arch: foreign
-Depends: ${misc:Depends}, ${python3:Depends}, openplotter-settings (>=2.5.0), openplotter-signalk-installer (>=2.3.0), canboat (>=1.3.0.1), python3-pyudev, can-utils, python3-serial
+Depends: ${misc:Depends}, ${python3:Depends}, openplotter-settings (>=2.5.0), openplotter-signalk-installer (>=2.3.0), canboat (>=1.3.0.1), can-utils
 Description: OpenPlotter app to manage CAN BUS adapters
  OpenPlotter app to manage CAN BUS adapters

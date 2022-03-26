@@ -1,3 +1,9 @@
+openplotter-can (3.1.1-beta) bullseye; urgency=medium
+
+  * Add MCP2517fd/ MCP2518fd
+ 
+ -- e-sailing <e.minus.sailing@gmail.com>  Mon, 14 Mar 2022 10:09:19 +0100
+
 openplotter-can (3.1.0-beta) bullseye; urgency=medium
 
   * beta
