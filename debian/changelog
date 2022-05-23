@@ -1,4 +1,4 @@
-openplotter-can (3.2.2-beta) bullseye; urgency=medium
+openplotter-can (3.2.3-beta) bullseye; urgency=medium
 
   * Add MCP2517fd/ MCP2518fd by e-sailing <e.minus.sailing@gmail.com>
  
