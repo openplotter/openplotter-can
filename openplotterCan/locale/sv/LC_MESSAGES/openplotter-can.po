@@ -1,40 +1,48 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
-"POT-Creation-Date: 2021-01-17 13:43+0100\n"
-"PO-Revision-Date: 2021-10-31 11:21\n"
+"POT-Creation-Date: 2022-05-23 20:39+0200\n"
+"PO-Revision-Date: 2022-06-01 21:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
 "X-Crowdin-Project: openplotter\n"
 "X-Crowdin-Project-ID: 289888\n"
 "X-Crowdin-Language: sv-SE\n"
 "X-Crowdin-File: openplotter-can.po\n"
 "X-Crowdin-File-ID: 10\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: canPostInstall.py:28
+#: canPostInstall.py:30
 msgid "Adding openplotter-can-read service..."
-msgstr "Lägg till openplotter-can-read service..."
+msgstr "Lägger till openplotter-can-read tjänsten..."
 
-#: canPostInstall.py:35 canPostInstall.py:41 canPreUninstall.py:34
-#: canPreUninstall.py:40
+#: canPostInstall.py:37 canPostInstall.py:50 canPostInstall.py:56
+#: canPreUninstall.py:34 canPreUninstall.py:40
 msgid "DONE"
-msgstr "Klar"
+msgstr "KLAR"
 
-#: canPostInstall.py:36 canPostInstall.py:42 canPreUninstall.py:35
-#: canPreUninstall.py:41
+#: canPostInstall.py:38 canPostInstall.py:51 canPostInstall.py:57
+#: canPreUninstall.py:35 canPreUninstall.py:41
 msgid "FAILED: "
-msgstr "Misslyckade: "
+msgstr "MISSLYCKADES: "
 
-#: canPostInstall.py:38
+#: canPostInstall.py:40
+msgid "Installing/Updating \"Signal K to NMEA 2000\" plugin..."
+msgstr "Installerar/Uppdaterar \"Signal K till NMEA 2000\" plugin..."
+
+#: canPostInstall.py:49
+msgid "Failed. Please, install Signal K server."
+msgstr "Misslyckades. Vänligen installera Signal K-servern."
+
+#: canPostInstall.py:53
 msgid "Setting version..."
 msgstr "Ställer in version..."
 
@@ -52,7 +60,15 @@ msgstr "Var vänlig anslut (eller koppla in / koppla ur) CAN-USB adaptern"
 
 #: canUsbFirmware.py:63
 msgid "Can not open serial device (CAN-USB) connected on: "
-msgstr "Kan inte starta serie enhet (CAN-USB) ansluten på: "
+msgstr "Kan inte öppna seriell enhet (CAN-USB) ansluten på: "
+
+#: data/openplotter-can.desktop:3
+msgid "CAN Bus"
+msgstr "CAN Buss"
+
+#: data/openplotter-can.desktop:5
+msgid "openplotter-can"
+msgstr "openplotter-can"
 
 #: openplotterCan.py:54
 msgid "Help"
@@ -74,204 +90,225 @@ msgstr "SK → NMEA 2000"
 msgid "Refresh"
 msgstr "Uppdatera"
 
-#: openplotterCan.py:123
+#: openplotterCan.py:127
 msgid "This feature is only for Raspberry Pi"
 msgstr "Denna funktion fungerar endast med Raspberry Pi"
 
-#: openplotterCan.py:146 openplotterCan.py:344
+#: openplotterCan.py:151 openplotterCan.py:349
 msgid "Serial Port"
 msgstr "Serieport"
 
-#: openplotterCan.py:147
+#: openplotterCan.py:152
 msgid "Baud Rate"
 msgstr "Hastighet"
 
-#: openplotterCan.py:148 openplotterCan.py:346 openplotterCan.py:589
+#: openplotterCan.py:153 openplotterCan.py:351 openplotterCan.py:594
+#: openplotterCan.py:858
 msgid "SK connection ID"
 msgstr "SK förbindelse ID"
 
-#: openplotterCan.py:154
+#: openplotterCan.py:159
 msgid "Open device TX PGNs"
 msgstr "Öppna enhets TX PGNs"
 
-#: openplotterCan.py:158 openplotterCan.py:362 openplotterCan.py:603
+#: openplotterCan.py:163 openplotterCan.py:367 openplotterCan.py:608
+#: openplotterCan.py:872
 msgid "Add Connection"
 msgstr "Lägg till anslutning"
 
-#: openplotterCan.py:160 openplotterCan.py:364 openplotterCan.py:605
+#: openplotterCan.py:165 openplotterCan.py:369 openplotterCan.py:610
+#: openplotterCan.py:874
 msgid "Edit Connection"
 msgstr "Redigera anslutning"
 
-#: openplotterCan.py:162 openplotterCan.py:366 openplotterCan.py:607
+#: openplotterCan.py:167 openplotterCan.py:371 openplotterCan.py:612
+#: openplotterCan.py:876
 msgid "Remove Connection"
 msgstr "Ta bort anslutning"
 
-#: openplotterCan.py:211 openplotterCan.py:552
+#: openplotterCan.py:216 openplotterCan.py:557
 msgid "You have to select a device"
 msgstr "Du måste välja en enhet"
 
-#: openplotterCan.py:215
+#: openplotterCan.py:220
 msgid "You have to select a baud rate"
 msgstr "Du måste välja en anslutningshastighet"
 
-#: openplotterCan.py:220 openplotterCan.py:560
+#: openplotterCan.py:225 openplotterCan.py:565
 msgid "This device already exists"
 msgstr "Enheten finns redan"
 
-#: openplotterCan.py:236 openplotterCan.py:481 openplotterCan.py:757
+#: openplotterCan.py:241 openplotterCan.py:486 openplotterCan.py:763
+#: openplotterCan.py:1033
 msgid "Failed. Error creating connection in Signal K"
 msgstr "Misslyckades. Fel vid skapande av anslutning i Signal K"
 
-#: openplotterCan.py:239 openplotterCan.py:269 openplotterCan.py:484
-#: openplotterCan.py:759
+#: openplotterCan.py:244 openplotterCan.py:274 openplotterCan.py:489
+#: openplotterCan.py:765 openplotterCan.py:1035
 msgid "Please install \"Signal K Installer\" OpenPlotter app"
 msgstr "Vänligen installera \"Signal K Installer\" OpenPlotter app"
 
-#: openplotterCan.py:258 openplotterCan.py:503 openplotterCan.py:784
+#: openplotterCan.py:263 openplotterCan.py:508 openplotterCan.py:790
+#: openplotterCan.py:1060
 msgid "Failed. Error removing connection in Signal K"
 msgstr "Misslyckades. Fel vid borttagning av anslutning i Signal K"
 
-#: openplotterCan.py:265
+#: openplotterCan.py:270
 msgid "Please install \"signalk-to-nmea2000\" Signal K app"
 msgstr "Vänligen installera \"signalk-to-nmea2000\" Signal K app"
 
-#: openplotterCan.py:278
+#: openplotterCan.py:283
 msgid "Disabling device and restarting Signal K server... "
 msgstr "Inaktivera enhet och starta om Signal K server... "
 
-#: openplotterCan.py:282
+#: openplotterCan.py:287
 msgid "Enabling device and restarting Signal K server... "
 msgstr "Aktivera enhet och starta om Signal K server... "
 
-#: openplotterCan.py:314
+#: openplotterCan.py:319
 msgid "Restarting Signal K server... "
 msgstr "Startar om Signal K server... "
 
-#: openplotterCan.py:320
+#: openplotterCan.py:325
 msgid "Signal K server restarted"
 msgstr "Signal K server omstartad"
 
-#: openplotterCan.py:345 openplotterCan.py:588 openplotterCan.py:1136
+#: openplotterCan.py:350 openplotterCan.py:593 openplotterCan.py:857
+#: openplotterCan.py:1415 openplotterCan.py:1486
 msgid "Interface"
 msgstr "Gränssnitt"
 
-#: openplotterCan.py:352
+#: openplotterCan.py:357
 msgid "Add device"
-msgstr ""
+msgstr "Lägg till enhet"
 
-#: openplotterCan.py:354
+#: openplotterCan.py:359
 msgid "Remove device"
-msgstr ""
+msgstr "Ta bort enhet"
 
-#: openplotterCan.py:356 openplotterCan.py:599
+#: openplotterCan.py:361 openplotterCan.py:604 openplotterCan.py:868
 msgid "Check device traffic"
 msgstr "Kontrollera enhetstrafik"
 
-#: openplotterCan.py:358
+#: openplotterCan.py:363
 msgid "Restart device"
-msgstr ""
+msgstr "Starta om enhet"
 
-#: openplotterCan.py:514
+#: openplotterCan.py:519
 msgid "Remove slcand interface..."
-msgstr ""
+msgstr "Ta bort slcand-gränssnitt..."
 
-#: openplotterCan.py:527 openplotterCan.py:544 openplotterCan.py:578
+#: openplotterCan.py:532 openplotterCan.py:549 openplotterCan.py:583
 msgid "slcand interfaces restarted"
-msgstr ""
+msgstr "slcand-gränssnitt startas om"
 
-#: openplotterCan.py:532 openplotterCan.py:563
+#: openplotterCan.py:537 openplotterCan.py:568
 msgid "Restarting slcand interfaces..."
-msgstr ""
+msgstr "Startar om slcand-gränssnitt..."
 
-#: openplotterCan.py:585
+#: openplotterCan.py:590 openplotterCan.py:854
 msgid "Connection"
 msgstr "Anslutning"
 
-#: openplotterCan.py:586 openplotterCan.py:1140
+#: openplotterCan.py:591 openplotterCan.py:1419
 msgid "Oscillator"
 msgstr "Oscillator"
 
-#: openplotterCan.py:587
+#: openplotterCan.py:592 openplotterCan.py:856
 msgid "Interrupt"
 msgstr "Interrupt"
 
-#: openplotterCan.py:595 openplotterCan.py:1131
+#: openplotterCan.py:600 openplotterCan.py:1410
 msgid "Add MCP2515 device"
 msgstr "Lägg till MCP2515 enhet"
 
-#: openplotterCan.py:597
+#: openplotterCan.py:602
 msgid "Remove MCP2515 device"
 msgstr "Ta bort MCP2515 enhet"
 
-#: openplotterCan.py:790 openplotterCan.py:831
+#: openplotterCan.py:796 openplotterCan.py:837 openplotterCan.py:1066
+#: openplotterCan.py:1109
 msgid "OpenPlotter will reboot. Are you sure?"
 msgstr "OpenPlotter startar om. Är du säker?"
 
-#: openplotterCan.py:791 openplotterCan.py:832
+#: openplotterCan.py:797 openplotterCan.py:838 openplotterCan.py:1067
+#: openplotterCan.py:1110
 msgid "Question"
 msgstr "Fråga"
 
-#: openplotterCan.py:816
+#: openplotterCan.py:822 openplotterCan.py:1094
 msgid "Fill in all fields"
 msgstr "Fyll i alla rutor"
 
-#: openplotterCan.py:823
+#: openplotterCan.py:829 openplotterCan.py:1101
 msgid "This connection already exists"
 msgstr "Denna anslutning finns redan"
 
-#: openplotterCan.py:827
+#: openplotterCan.py:833 openplotterCan.py:1105
 msgid "This interrupt GPIO already exists"
 msgstr "Denna interrupt GPIO finns redan"
 
-#: openplotterCan.py:871
+#: openplotterCan.py:864 openplotterCan.py:1481
+msgid "Add MCP251xfd device"
+msgstr "Lägg till MCP251xfd enhet"
+
+#: openplotterCan.py:866
+msgid "Remove MCP251xfd device"
+msgstr "Ta bort MCP251xfd enhet"
+
+#: openplotterCan.py:1149
 msgid "Open device PGNs"
 msgstr "Öppna enhetens PGNs"
 
-#: openplotterCan.py:881
+#: openplotterCan.py:1159
 msgid "TX PGN"
 msgstr "TX PGN"
 
-#: openplotterCan.py:882
+#: openplotterCan.py:1160
 msgid "info"
 msgstr "information"
 
-#: openplotterCan.py:887
+#: openplotterCan.py:1165
 msgid "Apply"
 msgstr "Använd"
 
-#: openplotterCan.py:889
+#: openplotterCan.py:1167
 msgid "Close"
 msgstr "Stäng"
 
-#: openplotterCan.py:909
+#: openplotterCan.py:1187
 msgid "Error connecting with device "
 msgstr "Error vid anslutning av enhet "
 
-#: openplotterCan.py:947
+#: openplotterCan.py:1225
 msgid "The list of enabled PGNs is empty, you may need to try a different baudrate or reset your device to 115200 bauds"
 msgstr "Listan med anslutna PGNs är tom, proven en annan hastighet eller sätt hastigheten till 115200 bauds"
 
-#: openplotterCan.py:950
+#: openplotterCan.py:1228
 msgid "open PGNs: "
 msgstr "öppna PGNs: "
 
-#: openplotterCan.py:951
+#: openplotterCan.py:1229
 msgid "close PGNs: "
 msgstr "stäng PGNs: "
 
-#: openplotterCan.py:988
-msgid "You can not activate more than 30 PGNs\n\n"
-msgstr "Det går inte att aktivera mer än 30 PGNs\n\n"
+#: openplotterCan.py:1266
+msgid ""
+"You can not activate more than 30 PGNs\n"
+"\n"
+msgstr ""
+"Det går inte att aktivera mer än 30 PGNs\n"
+"\n"
 
-#: openplotterCan.py:1101
+#: openplotterCan.py:1380
 msgid " enabled transmission PGNs (max. 30):"
 msgstr " aktiverade sändar PGNs ( max 30):"
 
-#: openplotterCan.py:1144
+#: openplotterCan.py:1423 openplotterCan.py:1489
 msgid "Interrupt GPIO"
 msgstr "Avbrotts GPIO"
 
-#: openplotterCan.py:1147
+#: openplotterCan.py:1426 openplotterCan.py:1494
 msgid "Select"
 msgstr "Välj"
 
@@ -282,4 +319,3 @@ msgstr "Kontrollerar CAN enheter..."
 #: startup.py:66 startup.py:67
 msgid "There is no Signal K connection for interface: "
 msgstr "Kopplingen mot Signal K saknas för interface: "
-
