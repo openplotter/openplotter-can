@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# This file is part of Openplotter.
-# Copyright (C) 2019 by Sailoog <https://github.com/openplotter/openplotter-can>
+# This file is part of OpenPlotter.
+# Copyright (C) 2022 by Sailoog <https://github.com/openplotter/openplotter-can>
 #                  
 # Openplotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ setup (
 	author="Sailoog",
 	author_email='info@sailoog.com',
 	url='https://github.com/openplotter/openplotter-can',
+	install_requires=['pyudev'],
 	packages=['openplotterCan'],
 	classifiers = ['Natural Language :: English',
 	'Operating System :: POSIX :: Linux',

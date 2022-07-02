@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# This file is part of OpenPlotter.
-# Copyright (C) 2022 by Sailoog <https://github.com/openplotter/openplotter-can>
+# This file is part of Openplotter.
+# Copyright (C) 2019 by Sailoog <https://github.com/openplotter/openplotter-can>
 #                     
 # Openplotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,8 +17,14 @@
 
 import sys, os
 
-if sys.argv[2] == 'SPI0 CE0': connection = 'dtoverlay=mcp2515-can0'
-elif sys.argv[2] == 'SPI0 CE1': connection = 'dtoverlay=mcp2515-can1'
+base = 'dtoverlay=mcp251xfd,'
+connection = base
+if sys.argv[2] == 'SPI0 CE0': connection += 'spi0-0'
+elif sys.argv[2] == 'SPI0 CE1': connection += 'spi0-1'
+elif sys.argv[2] == 'SPI1 CE0': connection += 'spi1-0'
+elif sys.argv[2] == 'SPI1 CE1': connection += 'spi1-1'
+#print(sys.argv[2])
+#print(connection)
 
 config = '/boot/config.txt'
 boot = '/boot'
@@ -29,15 +35,26 @@ except:
 	file = open(config, 'r')
 file1 = open('config.txt', 'w')
 exists = False
+
+canCount = 0
 while True:
 	line = file.readline()
 	if not line: break
-	if connection in line:
-		exists = True
-		if sys.argv[1]=='enable':
-			file1.write(connection+',oscillator='+sys.argv[3]+',interrupt='+sys.argv[4]+'\n')
+	if line.strip()[0:1] != '#':
+		if base in line: canCount+=1
+		if connection in line:
+			#print(line)
+			exists = True
+			if sys.argv[1]=='enable':
+				file1.write(connection+',interrupt='+sys.argv[3]+'\n')
+			else: canCount-=1
+		else: file1.write(line)
 	else: file1.write(line)
-if not exists and sys.argv[1]=='enable': file1.write(connection+',oscillator='+sys.argv[3]+',interrupt='+sys.argv[4]+'\n')
+
+if not exists and sys.argv[1]=='enable': 
+	file1.write(connection+',interrupt='+sys.argv[3]+'\n')
+	canCount+=1
+
 file.close()
 file1.close()
 
@@ -45,8 +62,8 @@ if os.system('diff config.txt '+config+' > /dev/null'): os.system('mv config.txt
 else: os.system('rm -f config.txt')
 
 os.system('rm -f /etc/network/interfaces.d/can*')
-if sys.argv[5]:
-	for i in range(int(sys.argv[5])):
+if canCount>0:
+	for i in range(canCount):
 		can = 'can'+str(i)
 		interfaceFile = '/etc/network/interfaces.d/'+can
 		file = open(interfaceFile, 'w')

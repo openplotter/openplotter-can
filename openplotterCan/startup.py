@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# This file is part of Openplotter.
-# Copyright (C) 2019 by Sailoog <https://github.com/openplotter/openplotter-can>
+# This file is part of OpenPlotter.
+# Copyright (C) 2022 by Sailoog <https://github.com/openplotter/openplotter-can>
 #                     
 # Openplotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ class Check():
 				if not red: red = _('There is no Signal K connection for interface: ')+ i
 				else: red += '\n'+_('There is no Signal K connection for interface: ')+ i
 			else:
-				if not green: green = i
-				else: green += ' | ' + i
+				if not black: black = i
+				else: black += ' | ' + i
 
 		return {'green': green,'black': black,'red': red}
