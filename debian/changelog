@@ -1,3 +1,11 @@
+openplotter-can (3.2.5-stable) bullseye; urgency=medium
+
+  * Add support for MCP251XFD chips
+  * Fix errors
+  * Update translations
+
+ -- Sailoog <info@sailoog.com>  Sat, 02 Jul 2022 19:24:46 +0200
+
 openplotter-can (3.2.4-beta) bullseye; urgency=medium
 
   * Add MCP2517fd/ MCP2518fd by e-sailing <e.minus.sailing@gmail.com>
