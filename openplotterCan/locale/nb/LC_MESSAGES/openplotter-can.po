@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2022-05-23 20:39+0200\n"
-"PO-Revision-Date: 2022-06-01 21:23+0200\n"
+"PO-Revision-Date: 2022-07-02 19:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
@@ -36,11 +36,11 @@ msgstr "MISLYKKET: "
 
 #: canPostInstall.py:40
 msgid "Installing/Updating \"Signal K to NMEA 2000\" plugin..."
-msgstr ""
+msgstr "Installering / oppdatering av \"Signal K til NMEA 2000\"-plugin..."
 
 #: canPostInstall.py:49
 msgid "Failed. Please, install Signal K server."
-msgstr ""
+msgstr "Mislykket. Vennligst installer Signal K-server."
 
 #: canPostInstall.py:53
 msgid "Setting version..."
@@ -64,11 +64,11 @@ msgstr "Kan ikke åpne seriell enhet (CAN-USB) som er koblet på: "
 
 #: data/openplotter-can.desktop:3
 msgid "CAN Bus"
-msgstr ""
+msgstr "CAN-Bus"
 
 #: data/openplotter-can.desktop:5
 msgid "openplotter-can"
-msgstr ""
+msgstr "Openplotter-Can"
 
 #: openplotterCan.py:54
 msgid "Help"
@@ -250,11 +250,11 @@ msgstr "Denne avbrudds-GPIOen finnes allerede"
 
 #: openplotterCan.py:864 openplotterCan.py:1481
 msgid "Add MCP251xfd device"
-msgstr ""
+msgstr "Legg til MCP251xfd-enhet"
 
 #: openplotterCan.py:866
 msgid "Remove MCP251xfd device"
-msgstr ""
+msgstr "Fjern MCP251xfd-enhet"
 
 #: openplotterCan.py:1149
 msgid "Open device PGNs"
