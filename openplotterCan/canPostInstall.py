@@ -30,7 +30,7 @@ def main():
 	print(_('Adding openplotter-can-read service...'))
 	try:
 		fo = open('/etc/systemd/system/openplotter-can-read.service', "w")
-		fo.write( '[Service]\nExecStart=openplotter-can-read\nStandardOutput=syslog\nStandardError=syslog\nWorkingDirectory=/home/'+conf2.user+'\nUser=root\n[Install]\nWantedBy=multi-user.target')
+		fo.write( '[Service]\nExecStart=openplotter-can-read\nStandardOutput=journal\nStandardError=journal\nWorkingDirectory=/home/'+conf2.user+'\nUser=root\n[Install]\nWantedBy=multi-user.target')
 		fo.close()
 		subprocess.call(['systemctl', 'daemon-reload'])
 		subprocess.call(['systemctl', 'enable', 'openplotter-can-read.service'])
