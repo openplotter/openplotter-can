@@ -123,8 +123,8 @@ class MyFrame(wx.Frame):
 
 	def onTabChange(self, event):
 		try:
-			if self.notebook.GetSelection() == 2 and not self.platform.isRPI:
-				self.ShowStatusBarRED(_('This feature is only for Raspberry Pi'))
+			if self.notebook.GetSelection() == 2 or self.notebook.GetSelection() == 3: 
+				if not self.platform.isRPI: self.ShowStatusBarRED(_('This feature is only for Raspberry Pi'))
 			else: self.SetStatusText('')
 		except:pass
 

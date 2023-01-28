@@ -63,10 +63,21 @@ class Check():
 					if ii['pipeElements'][0]['options']['subOptions']['type']=='canbus-canboatjs':
 						if i == ii['pipeElements'][0]['options']['subOptions']['interface']: exists = True
 			if not exists: 
-				if not red: red = _('There is no Signal K connection for interface: ')+ i
-				else: red += '\n'+_('There is no Signal K connection for interface: ')+ i
+				msg =  _('There is no Signal K connection for interface: ')+ i
+				if not red: red = msg
+				else: red+= '\n    '+msg
 			else:
 				if not black: black = i
 				else: black += ' | ' + i
+
+		if platform2.isRPI:
+			if platform2.isInstalled('raspi-config'):
+				for i in self.canList:
+					if 'can' in i and 'canable' not in i:
+						output = subprocess.check_output('raspi-config nonint get_spi', shell=True).decode(sys.stdin.encoding)
+						if '1' in output:
+							msg =_('Please enable SPI interface in Preferences -> Raspberry Pi configuration -> Interfaces.')
+							if not red: red = msg
+							else: red+= '\n    '+msg
 
 		return {'green': green,'black': black,'red': red}
