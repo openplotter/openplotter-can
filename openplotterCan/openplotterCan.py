@@ -833,6 +833,11 @@ class MyFrame(wx.Frame):
 					self.ShowStatusBarRED(_('This interrupt GPIO already exists'))
 					dlg.Destroy()
 					return
+			for i in range(self.listMcp251xfd.GetItemCount()):
+				if self.listMcp251xfd.GetItemText(i, 0) == canConnection:
+					self.ShowStatusBarRED(_('This connection already exists'))
+					dlg.Destroy()
+					return
 			dlg2 = wx.MessageDialog(None, _(
 				'OpenPlotter will reboot. Are you sure?'),
 				_('Question'), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
@@ -1093,6 +1098,11 @@ class MyFrame(wx.Frame):
 					return
 				if self.listMcp251xfd.GetItemText(i, 2) == canInterrupt:
 					self.ShowStatusBarRED(_('This interrupt GPIO already exists'))
+					dlg.Destroy()
+					return
+			for i in range(self.listMcp2515.GetItemCount()):
+				if self.listMcp2515.GetItemText(i, 0) == canConnection:
+					self.ShowStatusBarRED(_('This connection already exists'))
 					dlg.Destroy()
 					return
 			dlg2 = wx.MessageDialog(None, _(
