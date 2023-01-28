@@ -852,10 +852,10 @@ class MyFrame(wx.Frame):
 	def pageMcp251xfd(self):
 		self.listMcp251xfd = wx.ListCtrl(self.mcp251xfd, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
 		self.listMcp251xfd.InsertColumn(0, _('Connection'), width=110)
-		#self.listMcp251xfd.InsertColumn(1, _('Oscillator'), width=110)
-		self.listMcp251xfd.InsertColumn(1, _('Interrupt'), width=110)
-		self.listMcp251xfd.InsertColumn(2, _('Interface'), width=110)
-		self.listMcp251xfd.InsertColumn(3, _('SK connection ID'), width=260)
+		self.listMcp251xfd.InsertColumn(1, _('Oscillator'), width=110)
+		self.listMcp251xfd.InsertColumn(2, _('Interrupt'), width=110)
+		self.listMcp251xfd.InsertColumn(3, _('Interface'), width=110)
+		self.listMcp251xfd.InsertColumn(4, _('SK connection ID'), width=260)
 		self.listMcp251xfd.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListlistMcp251xfdSelected)
 		self.listMcp251xfd.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListlistMcp251xfdDeselected)
 		self.listMcp251xfd.SetTextColour(wx.BLACK)
@@ -895,9 +895,9 @@ class MyFrame(wx.Frame):
 		selected = self.listMcp251xfd.GetFirstSelected()
 		if selected == -1: return
 		self.onListlistMcp251xfdDeselected()
-		skId = self.listMcp251xfd.GetItemText(selected, 3)
+		skId = self.listMcp251xfd.GetItemText(selected, 4)
 		connection = self.listMcp251xfd.GetItemText(selected, 0)
-		interface = self.listMcp251xfd.GetItemText(selected, 2)
+		interface = self.listMcp251xfd.GetItemText(selected, 3)
 		if skId:
 			self.toolbar5.EnableTool(501,True)
 			self.toolbar5.EnableTool(505,True)
@@ -949,9 +949,9 @@ class MyFrame(wx.Frame):
 							elif 'spi0-1' in i: connection = 'SPI0 CE1'
 							elif 'spi1-0' in i: connection = 'SPI1 CE0'
 							elif 'spi1-1' in i: connection = 'SPI1 CE1'
-							#if 'oscillator' in i:
-							#	oList = i.split('=')
-							#	oscillator = oList[1]
+							if 'oscillator' in i:
+								oList = i.split('=')
+								oscillator = oList[1]
 							if 'interrupt' in i:
 								iList = i.split('=')
 								interrupt += iList[1]
@@ -971,7 +971,7 @@ class MyFrame(wx.Frame):
 								if interface == dataInterface: 
 									skId = i['id']
 									enabled = i['enabled']
-						self.listMcp251xfd.Append([connection,interrupt,interface,skId])
+						self.listMcp251xfd.Append([connection,oscillator,interrupt,interface,skId])
 						if skId and enabled: self.listMcp251xfd.SetItemBackgroundColour(self.listMcp251xfd.GetItemCount()-1,(0,191,255))
 			file.close()
 
@@ -991,7 +991,7 @@ class MyFrame(wx.Frame):
 					exists = False
 					for ii in range(self.listMcp251xfd.GetItemCount()):
 						if interface == self.listMcp251xfd.GetItemText(ii, 3): exists = True
-					if not exists: self.listMcp251xfd.Append(['','',interface,skId])	
+					if not exists: self.listMcp251xfd.Append(['','','',interface,skId])	
 
 	def getInterfaceMcp251xfd(self,connection):
 		output = ''
@@ -1017,7 +1017,7 @@ class MyFrame(wx.Frame):
 		if self.platform.skPort: 
 			selected = self.listMcp251xfd.GetFirstSelected()
 			if selected == -1: return
-			interface = self.listMcp251xfd.GetItemText(selected, 2)
+			interface = self.listMcp251xfd.GetItemText(selected, 3)
 			ID = interface
 			from openplotterSignalkInstaller import editSettings
 			skSettings = editSettings.EditSettings()
@@ -1038,20 +1038,20 @@ class MyFrame(wx.Frame):
 	def onEditMcp251xfdSkCon(self,e):
 		selected = self.listMcp251xfd.GetFirstSelected()
 		if selected == -1: return
-		skId = self.listMcp251xfd.GetItemText(selected, 3)
+		skId = self.listMcp251xfd.GetItemText(selected, 4)
 		url = self.platform.http+'localhost:'+self.platform.skPort+'/admin/#/serverConfiguration/connections/'+skId
 		webbrowser.open(url, new=2)
 
 	def onCheckMcp251xfd(self,e):
 		selected = self.listMcp251xfd.GetFirstSelected()
 		if selected == -1: return
-		interface = self.listMcp251xfd.GetItemText(selected, 2)
+		interface = self.listMcp251xfd.GetItemText(selected, 3)
 		if interface: subprocess.Popen(['x-terminal-emulator','-e', 'candump', interface])
 
 	def onRemoveMcp251xfdSkCon(self,e):
 		selected = self.listMcp251xfd.GetFirstSelected()
 		if selected == -1: return
-		skId = self.listMcp251xfd.GetItemText(selected, 3)
+		skId = self.listMcp251xfd.GetItemText(selected, 4)
 		from openplotterSignalkInstaller import editSettings
 		skSettings = editSettings.EditSettings()
 		if skSettings.removeConnection(skId): 
@@ -1067,18 +1067,10 @@ class MyFrame(wx.Frame):
 			_('Question'), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
 		if dlg2.ShowModal() == wx.ID_YES:
 			canConnection = self.listMcp251xfd.GetItemText(selected, 0)
-			canOscillator = 'empty'
-			#canOscillator = self.listMcp251xfd.GetItemText(selected, 1)
-			canInterrupt = self.listMcp251xfd.GetItemText(selected, 1)
-			interfaces = 0
-			for i in range(self.listMcp251xfd.GetItemCount()):
-				if self.listMcp251xfd.GetItemText(i, 0): interfaces = interfaces + 1
-			interfaces = interfaces - 1
-			if interfaces < 1: interfaces = ''
-			else: interfaces = str(interfaces)
+			canOscillator = self.listMcp251xfd.GetItemText(selected, 1)
+			canInterrupt = self.listMcp251xfd.GetItemText(selected, 2)
 			canInterrupt = canInterrupt.replace('GPIO ','')
-			#print([self.platform.admin, 'python3', self.currentdir+'/mcp251xfd.py', 'disable', canConnection, canInterrupt, interfaces])
-			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp251xfd.py', 'disable', canConnection, canInterrupt, interfaces])
+			subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp251xfd.py', 'disable', canConnection, canInterrupt, canOscillator])
 			os.system('shutdown -r now')
 		else:
 			dlg2.Destroy()
@@ -1088,15 +1080,13 @@ class MyFrame(wx.Frame):
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			canConnection = dlg.canConnection.GetStringSelection()
+			canOscillator = dlg.canOscillator.GetStringSelection()
 			canInterrupt = dlg.canInterrupt.GetValue()			
-			#canInterrupt = dlg.canInterrupt.GetStringSelection()
-			if not canConnection or not canInterrupt:
+			if not canConnection or not canInterrupt or not canOscillator:
 				self.ShowStatusBarRED(_('Fill in all fields'))
 				dlg.Destroy()
 				return
-			interfaces = 0
 			for i in range(self.listMcp251xfd.GetItemCount()):
-				if self.listMcp251xfd.GetItemText(i, 0): interfaces = interfaces +1
 				if self.listMcp251xfd.GetItemText(i, 0) == canConnection:
 					self.ShowStatusBarRED(_('This connection already exists'))
 					dlg.Destroy()
@@ -1109,11 +1099,8 @@ class MyFrame(wx.Frame):
 				'OpenPlotter will reboot. Are you sure?'),
 				_('Question'), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
 			if dlg2.ShowModal() == wx.ID_YES:
-				interfaces = interfaces + 1
-				if interfaces < 1: interfaces = ''
-				else: interfaces = str(interfaces)
 				canInterrupt = canInterrupt.replace('GPIO ','')
-				subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp251xfd.py', 'enable', canConnection, canInterrupt, interfaces])
+				subprocess.call([self.platform.admin, 'python3', self.currentdir+'/mcp251xfd.py', 'enable', canConnection, canInterrupt, canOscillator])
 				os.system('shutdown -r now')
 			else:
 				dlg2.Destroy()	
@@ -1415,10 +1402,8 @@ class addMcp2515(wx.Dialog):
 		canConnectionLabel = wx.StaticText(panel, label=_('Interface'))
 		self.canConnection = wx.Choice(panel, choices=('SPI0 CE0', 'SPI0 CE1'), style=wx.CB_READONLY)
 
-
 		canOscillatorLabel = wx.StaticText(panel, label=_('Oscillator'))
-		self.canOscillator = wx.Choice(panel, choices=('8000000', '12000000', '16000000'), style=wx.CB_READONLY)
-
+		self.canOscillator = wx.Choice(panel, choices=('8000000', '12000000', '16000000', '20000000', '40000000'), style=wx.CB_READONLY)
 
 		canInterruptLabel = wx.StaticText(panel, label=_('Interrupt GPIO'))
 		self.canInterrupt = wx.TextCtrl(panel, style=wx.CB_READONLY)
@@ -1486,10 +1471,11 @@ class addMcp251xfd(wx.Dialog):
 		canConnectionLabel = wx.StaticText(panel, label=_('Interface'))
 		self.canConnection = wx.Choice(panel, choices=('SPI0 CE0', 'SPI0 CE1','SPI1 CE0', 'SPI1 CE1'), style=wx.CB_READONLY)
 
+		canOscillatorLabel = wx.StaticText(panel, label=_('Oscillator'))
+		self.canOscillator = wx.Choice(panel, choices=('8000000', '12000000', '16000000', '20000000', '40000000'), style=wx.CB_READONLY)
+
 		canInterruptLabel = wx.StaticText(panel, label=_('Interrupt GPIO'))
 		self.canInterrupt = wx.TextCtrl(panel, style=wx.CB_READONLY)
-		
-		#self.canInterrupt = wx.Choice(panel, choices=('GPIO 16', 'GPIO 22','GPIO 24', 'GPIO 25'), style=wx.CB_READONLY)
 
 		selectGpio =wx.Button(panel, label=_('Select'))
 		selectGpio.Bind(wx.EVT_BUTTON, self.onSelectGpio)
@@ -1500,6 +1486,10 @@ class addMcp251xfd(wx.Dialog):
 		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox1.Add(canConnectionLabel, 0, wx.LEFT | wx.EXPAND, 10)
 		hbox1.Add(self.canConnection, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
+
+		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox2.Add(canOscillatorLabel, 0, wx.LEFT | wx.EXPAND, 10)
+		hbox2.Add(self.canOscillator, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
 
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox3.Add(self.canInterrupt, 1, wx.LEFT |  wx.RIGHT | wx.EXPAND, 10)
@@ -1513,6 +1503,8 @@ class addMcp251xfd(wx.Dialog):
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.AddSpacer(10)
 		vbox.Add(hbox1, 0, wx.EXPAND, 0)
+		vbox.AddSpacer(10)
+		vbox.Add(hbox2, 0, wx.EXPAND, 0)
 		vbox.AddSpacer(10)
 		vbox.Add(canInterruptLabel, 0, wx.LEFT | wx.EXPAND, 10)
 		vbox.AddSpacer(5)

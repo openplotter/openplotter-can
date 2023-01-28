@@ -23,8 +23,6 @@ if sys.argv[2] == 'SPI0 CE0': connection += 'spi0-0'
 elif sys.argv[2] == 'SPI0 CE1': connection += 'spi0-1'
 elif sys.argv[2] == 'SPI1 CE0': connection += 'spi1-0'
 elif sys.argv[2] == 'SPI1 CE1': connection += 'spi1-1'
-#print(sys.argv[2])
-#print(connection)
 
 config = '/boot/config.txt'
 boot = '/boot'
@@ -46,13 +44,13 @@ while True:
 			#print(line)
 			exists = True
 			if sys.argv[1]=='enable':
-				file1.write(connection+',interrupt='+sys.argv[3]+'\n')
+				file1.write(connection+',oscillator='+sys.argv[4]+',interrupt='+sys.argv[3]+'\n')
 			else: canCount-=1
 		else: file1.write(line)
 	else: file1.write(line)
 
 if not exists and sys.argv[1]=='enable': 
-	file1.write(connection+',interrupt='+sys.argv[3]+'\n')
+	file1.write(connection+',oscillator='+sys.argv[4]+',interrupt='+sys.argv[3]+'\n')
 	canCount+=1
 
 file.close()
