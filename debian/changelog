@@ -1,3 +1,13 @@
+openplotter-can (3.2.14-stable) bullseye; urgency=medium
+
+  * Add oscillator to mcp25xfd
+  * Check SPI interface
+  * Add mcp25xfd to GPIO detection
+  * Fix errors
+  * Update translations
+
+ -- Sailoog <info@sailoog.com>  Wed, 28 Dec 2022 15:02:17 +0100
+
 openplotter-can (3.2.5-stable) bullseye; urgency=medium
 
   * Add support for MCP251XFD chips
