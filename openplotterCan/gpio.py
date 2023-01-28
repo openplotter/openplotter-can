@@ -26,8 +26,14 @@ class Gpio:
 
 	def usedGpios(self):
 		if self.platform.isRPI:
-			connection = []
-			interrupt0 = []
+			self.gpio = gpio.Gpio()
+			gpioMap = self.gpio.gpioMap
+			mcp2515 = []
+			interruptMcp25150 = []
+			interruptMcp2515 = []
+			mcp251xfd = []
+			interruptMcp251xfd0 = []
+			interruptMcp251xfd = []
 			try: file = open('/boot/config.txt', 'r')
 			except: file = open('/boot/firmware/config.txt', 'r')
 			while True:
@@ -37,36 +43,58 @@ class Gpio:
 					line = line.rstrip()
 					lList = line.split(',')
 					for i in lList:
-						if 'dtoverlay=mcp2515-can0' in i: connection.append('24')
-						if 'dtoverlay=mcp2515-can1' in i: connection.append('26')
+						if 'dtoverlay=mcp2515-can0' in i: mcp2515.append('24')
+						if 'dtoverlay=mcp2515-can1' in i: mcp2515.append('26')
 						if 'interrupt' in i:
 							iList = i.split('=')
-							interrupt0.append('GPIO '+iList[1])
-			if interrupt0:
-				self.gpio = gpio.Gpio()
-				gpioMap = self.gpio.gpioMap
-				interrupt = []
-				for i in interrupt0:
-					for ii in gpioMap:
-						if i == ii['BCM']: interrupt.append(ii['physical'])
+							interruptMcp25150.append('GPIO '+iList[1])
+				if 'dtoverlay=mcp251xfd' in line:
+					line = line.rstrip()
+					lList = line.split(',')
+					for i in lList:
+						if 'spi0-0' in i: mcp251xfd.append('24')
+						if 'spi0-1' in i: mcp251xfd.append('26')
+						if 'spi1-0' in i: mcp251xfd.append('12')
+						if 'spi1-1' in i: mcp251xfd.append('11')
+						if 'interrupt' in i:
+							iList = i.split('=')
+							interruptMcp251xfd0.append('GPIO '+iList[1])
 
-			if connection and interrupt:
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'1'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'6'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'9'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'14'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'17'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'19'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'20'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'21'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'23'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'25'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'30'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'34'})
-				self.used.append({'app':'CAN', 'id':'MCP2515', 'physical':'39'})
-				for i in connection:
+			if interruptMcp25150:
+				for i in interruptMcp25150:
+					for ii in gpioMap:
+						if i == ii['BCM']: interruptMcp2515.append(ii['physical'])
+			if interruptMcp251xfd0:
+				for i in interruptMcp251xfd0:
+					for ii in gpioMap:
+						if i == ii['BCM']: interruptMcp251xfd.append(ii['physical'])
+
+			if mcp2515 or mcp251xfd:
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'1'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'6'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'9'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'14'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'17'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'20'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'25'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'30'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'34'})
+				self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'39'})
+				if '24' in mcp2515 or '26' in mcp2515 or '24' in mcp251xfd or '26' in mcp251xfd:
+					self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'19'})
+					self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'21'})
+					self.used.append({'app':'CAN', 'id':'MCP2515/MCP251xfd', 'physical':'23'})
+				if '12' in mcp251xfd or '11' in mcp251xfd:
+					self.used.append({'app':'CAN', 'id':'MCP251xfd', 'physical':'35'})
+					self.used.append({'app':'CAN', 'id':'MCP251xfd', 'physical':'38'})
+					self.used.append({'app':'CAN', 'id':'MCP251xfd', 'physical':'40'})
+				for i in mcp2515:
 					self.used.append({'app':'CAN', 'id': 'MCP2515', 'physical':i})
-				for i in interrupt:
+				for i in interruptMcp2515:
 					self.used.append({'app':'CAN', 'id': 'MCP2515', 'physical':i})
+				for i in mcp251xfd:
+					self.used.append({'app':'CAN', 'id': 'MCP251xfd', 'physical':i})
+				for i in interruptMcp251xfd:
+					self.used.append({'app':'CAN', 'id': 'MCP251xfd', 'physical':i})
 
 		return self.used
