@@ -17,18 +17,29 @@
 import subprocess, configparser, time
 
 def main():
-	exists = False
 	data_conf = configparser.ConfigParser()
 	conf_file = '.openplotter/openplotter.conf'
 	data_conf.read(conf_file)
 	items = data_conf.get('CAN', 'canable')
 	try: devices = eval(items)
 	except: devices = []
+	exists = False
 	for i in devices:
-		exists = True
-		subprocess.Popen(['slcand','-o','-s5','-S','921600',i[0],i[1]])
-		time.sleep(1)
-		subprocess.Popen(['ip', 'link', 'set', i[1], 'up'])
+		c = 0
+		while True:
+			process = subprocess.Popen(['slcand','-o','-s5','-S','921600',i[0],i[1]], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+			out, err = process.communicate()
+			if err:
+				if c >= 5: break
+				else:
+					time.sleep(5)
+					c = c+1
+			else:
+				time.sleep(1)
+				subprocess.Popen(['ip', 'link', 'set', i[1], 'up'])
+				time.sleep(1)
+				exists = True
+				break
 	while exists:
 		time.sleep(10)
 
