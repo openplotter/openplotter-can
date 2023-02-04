@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
 "POT-Creation-Date: 2023-01-28 19:11+0100\n"
-"PO-Revision-Date: 2023-01-28 19:15+0100\n"
+"PO-Revision-Date: 2023-02-04 21:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -22,21 +22,21 @@ msgstr ""
 
 #: canPostInstall.py:30
 msgid "Adding openplotter-can-read service..."
-msgstr "Añadiendo servicio openplotter-can-read..."
+msgstr "Añadiendo servicio \"openplotter-can-read\"..."
 
 #: canPostInstall.py:37 canPostInstall.py:50 canPostInstall.py:56
 #: canPreUninstall.py:34 canPreUninstall.py:40
 msgid "DONE"
-msgstr "HECHO"
+msgstr "Hecho"
 
 #: canPostInstall.py:38 canPostInstall.py:51 canPostInstall.py:57
 #: canPreUninstall.py:35 canPreUninstall.py:41
 msgid "FAILED: "
-msgstr "ERROR: "
+msgstr "FALLIDO: "
 
 #: canPostInstall.py:40
 msgid "Installing/Updating \"Signal K to NMEA 2000\" plugin..."
-msgstr "Instalando/Actualizando el plugin \"Signal K to NMEA 2000\"..."
+msgstr "Instalando/Actualizando el plugin \"Signal K to NMEA 2000\" ..."
 
 #: canPostInstall.py:49
 msgid "Failed. Please, install Signal K server."
@@ -324,4 +324,4 @@ msgstr "No hay conexión Signal K para la interfaz: "
 
 #: startup.py:79
 msgid "Please enable SPI interface in Preferences -> Raspberry Pi configuration -> Interfaces."
-msgstr ""
+msgstr "Por favor, habilite la interfaz I2C en Preferencias -> Configuración Raspberry Pi -> Interfaces."
