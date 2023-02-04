@@ -1,3 +1,10 @@
+openplotter-can (3.2.21-stable) bullseye; urgency=medium
+
+  * Fix error in slcan when the device is not ready yet at startup
+  * Update translations
+
+ -- Sailoog <info@sailoog.com>  Sat, 04 Feb 2023 19:44:39 +0100
+
 openplotter-can (3.2.14-stable) bullseye; urgency=medium
 
   * Add oscillator to mcp25xfd
