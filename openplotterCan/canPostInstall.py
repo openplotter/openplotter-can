@@ -27,6 +27,17 @@ def main():
 	language.Language(currentdir,'openplotter-can',currentLanguage)
 	platform2 = platform.Platform()
 
+	print(_('Installing canboat...'))
+	try:
+		os.chdir('/tmp')
+		os.system('rm -rf canboat')
+		os.system('git clone https://github.com/canboat/canboat.git')
+		os.chdir('canboat')
+		os.system('make')
+		os.system('make install')
+		print(_('DONE'))
+	except Exception as e: print(_('FAILED: ')+str(e))
+
 	print(_('Adding openplotter-can-read service...'))
 	try:
 		fo = open('/etc/systemd/system/openplotter-can-read.service', "w")
