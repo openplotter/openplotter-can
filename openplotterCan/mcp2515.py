@@ -20,12 +20,12 @@ import sys, os
 if sys.argv[2] == 'SPI0 CE0': connection = 'dtoverlay=mcp2515-can0'
 elif sys.argv[2] == 'SPI0 CE1': connection = 'dtoverlay=mcp2515-can1'
 
-config = '/boot/config.txt'
-boot = '/boot'
+config = '/boot/firmware/config.txt'
+boot = '/boot/firmware'
 try: file = open(config, 'r')
 except:
-	config = '/boot/firmware/config.txt'
-	boot = '/boot/firmware'
+	config = '/boot/config.txt'
+	boot = '/boot'
 	file = open(config, 'r')
 file1 = open('config.txt', 'w')
 exists = False
