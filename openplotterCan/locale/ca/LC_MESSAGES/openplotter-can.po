@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
-"POT-Creation-Date: 2023-01-28 19:11+0100\n"
-"PO-Revision-Date: 2023-02-04 21:02+0100\n"
+"POT-Creation-Date: 2024-05-20 11:42+0200\n"
+"PO-Revision-Date: 2024-06-13 11:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
@@ -21,28 +21,32 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:30
-msgid "Adding openplotter-can-read service..."
-msgstr "Afegint servei openplotter-can-read..."
+msgid "Installing canboat..."
+msgstr "Instal·lant canboat..."
 
-#: canPostInstall.py:37 canPostInstall.py:50 canPostInstall.py:56
-#: canPreUninstall.py:34 canPreUninstall.py:40
+#: canPostInstall.py:38 canPostInstall.py:48 canPostInstall.py:61
+#: canPostInstall.py:67 canPreUninstall.py:34 canPreUninstall.py:40
 msgid "DONE"
 msgstr "FET"
 
-#: canPostInstall.py:38 canPostInstall.py:51 canPostInstall.py:57
-#: canPreUninstall.py:35 canPreUninstall.py:41
+#: canPostInstall.py:39 canPostInstall.py:49 canPostInstall.py:62
+#: canPostInstall.py:68 canPreUninstall.py:35 canPreUninstall.py:41
 msgid "FAILED: "
 msgstr "ERROR: "
 
-#: canPostInstall.py:40
+#: canPostInstall.py:41
+msgid "Adding openplotter-can-read service..."
+msgstr "Afegint servei openplotter-can-read..."
+
+#: canPostInstall.py:51
 msgid "Installing/Updating \"Signal K to NMEA 2000\" plugin..."
 msgstr "Instal·lant/Actualitzant el plugin \"Signal K to NMEA 2000\"..."
 
-#: canPostInstall.py:49
+#: canPostInstall.py:60
 msgid "Failed. Please, install Signal K server."
 msgstr "Error. Si us plau, instal·la el servidor Signal K."
 
-#: canPostInstall.py:53
+#: canPostInstall.py:64
 msgid "Setting version..."
 msgstr "Establint la versió..."
 
@@ -324,4 +328,4 @@ msgstr "No hi ha connexió Signal K per a la interfície: "
 
 #: startup.py:79
 msgid "Please enable SPI interface in Preferences -> Raspberry Pi configuration -> Interfaces."
-msgstr ""
+msgstr "Si us plau activa la interfície SPI a Preferències -> Configuració de Raspberry Pi -> Interfícies."

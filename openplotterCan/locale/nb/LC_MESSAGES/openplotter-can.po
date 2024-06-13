@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
-"POT-Creation-Date: 2023-01-28 19:11+0100\n"
-"PO-Revision-Date: 2023-02-04 21:01+0100\n"
+"POT-Creation-Date: 2024-05-20 11:42+0200\n"
+"PO-Revision-Date: 2024-06-13 11:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
@@ -21,28 +21,32 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:30
-msgid "Adding openplotter-can-read service..."
-msgstr "Legger til openplotter-can-read-tjeneste..."
+msgid "Installing canboat..."
+msgstr ""
 
-#: canPostInstall.py:37 canPostInstall.py:50 canPostInstall.py:56
-#: canPreUninstall.py:34 canPreUninstall.py:40
+#: canPostInstall.py:38 canPostInstall.py:48 canPostInstall.py:61
+#: canPostInstall.py:67 canPreUninstall.py:34 canPreUninstall.py:40
 msgid "DONE"
 msgstr "FERDIG"
 
-#: canPostInstall.py:38 canPostInstall.py:51 canPostInstall.py:57
-#: canPreUninstall.py:35 canPreUninstall.py:41
+#: canPostInstall.py:39 canPostInstall.py:49 canPostInstall.py:62
+#: canPostInstall.py:68 canPreUninstall.py:35 canPreUninstall.py:41
 msgid "FAILED: "
 msgstr "MISLYKKET: "
 
-#: canPostInstall.py:40
+#: canPostInstall.py:41
+msgid "Adding openplotter-can-read service..."
+msgstr "Legger til openplotter-can-read-tjeneste..."
+
+#: canPostInstall.py:51
 msgid "Installing/Updating \"Signal K to NMEA 2000\" plugin..."
 msgstr "Installering / oppdatering av \"Signal K til NMEA 2000\"-plugin..."
 
-#: canPostInstall.py:49
+#: canPostInstall.py:60
 msgid "Failed. Please, install Signal K server."
 msgstr "Mislykket. Vennligst installer Signal K-server."
 
-#: canPostInstall.py:53
+#: canPostInstall.py:64
 msgid "Setting version..."
 msgstr "Angir versjon..."
 
