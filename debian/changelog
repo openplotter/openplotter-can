@@ -1,3 +1,15 @@
+openplotter-can (4.1.0-stable) bookworm; urgency=medium
+
+  * stable
+
+ -- Sailoog <info@sailoog.com>  Thu, 13 Jun 2024 11:51:02 +0200
+
+openplotter-can (4.0.4-beta) bookworm; urgency=medium
+
+  * beta
+
+ -- Sailoog <info@sailoog.com>  Sat, 14 Oct 2023 13:24:20 +0200
+
 openplotter-can (3.2.21-stable) bullseye; urgency=medium
 
   * Fix error in slcan when the device is not ready yet at startup
