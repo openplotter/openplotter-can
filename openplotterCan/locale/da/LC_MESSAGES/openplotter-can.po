@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
-"POT-Creation-Date: 2023-01-28 19:11+0100\n"
-"PO-Revision-Date: 2023-02-04 21:02+0100\n"
+"POT-Creation-Date: 2024-05-20 11:42+0200\n"
+"PO-Revision-Date: 2024-06-13 11:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: Danish\n"
 "Language: da\n"
@@ -21,28 +21,32 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:30
-msgid "Adding openplotter-can-read service..."
-msgstr "Tilføjer openplotter-CAN-read-tjeneste..."
+msgid "Installing canboat..."
+msgstr ""
 
-#: canPostInstall.py:37 canPostInstall.py:50 canPostInstall.py:56
-#: canPreUninstall.py:34 canPreUninstall.py:40
+#: canPostInstall.py:38 canPostInstall.py:48 canPostInstall.py:61
+#: canPostInstall.py:67 canPreUninstall.py:34 canPreUninstall.py:40
 msgid "DONE"
 msgstr "UDFØRT"
 
-#: canPostInstall.py:38 canPostInstall.py:51 canPostInstall.py:57
-#: canPreUninstall.py:35 canPreUninstall.py:41
+#: canPostInstall.py:39 canPostInstall.py:49 canPostInstall.py:62
+#: canPostInstall.py:68 canPreUninstall.py:35 canPreUninstall.py:41
 msgid "FAILED: "
 msgstr "MISLYKKET: "
 
-#: canPostInstall.py:40
+#: canPostInstall.py:41
+msgid "Adding openplotter-can-read service..."
+msgstr "Tilføjer openplotter-CAN-read-tjeneste..."
+
+#: canPostInstall.py:51
 msgid "Installing/Updating \"Signal K to NMEA 2000\" plugin..."
-msgstr ""
+msgstr "Installerer / Opdaterer \"Signal K til NMEA 2000\" plugin..."
 
-#: canPostInstall.py:49
+#: canPostInstall.py:60
 msgid "Failed. Please, install Signal K server."
-msgstr ""
+msgstr "Mislykket. Installer venligst Signal-K server."
 
-#: canPostInstall.py:53
+#: canPostInstall.py:64
 msgid "Setting version..."
 msgstr "Indstiller version..."
 
@@ -64,11 +68,11 @@ msgstr "Kan ikke åbne seriel enhed (CAN-USB) tilsluttet til: "
 
 #: data/openplotter-can.desktop:3
 msgid "CAN Bus"
-msgstr ""
+msgstr "CAN-Bus"
 
 #: data/openplotter-can.desktop:5
 msgid "openplotter-can"
-msgstr ""
+msgstr "openplotter-can"
 
 #: openplotterCan.py:54
 msgid "Help"
@@ -252,11 +256,11 @@ msgstr "Dette GPIO interrupt findes allerede"
 
 #: openplotterCan.py:869 openplotterCan.py:1476
 msgid "Add MCP251xfd device"
-msgstr ""
+msgstr "Tilføj MCP251xfd enhed"
 
 #: openplotterCan.py:871
 msgid "Remove MCP251xfd device"
-msgstr ""
+msgstr "Fjern MCP251xfd enhed"
 
 #: openplotterCan.py:1146
 msgid "Open device PGNs"
@@ -324,4 +328,4 @@ msgstr "Der er ikke en signal K-forbindelse til interfacet: "
 
 #: startup.py:79
 msgid "Please enable SPI interface in Preferences -> Raspberry Pi configuration -> Interfaces."
-msgstr ""
+msgstr "Aktiver venligst SPI grænseflade i Indstillinger -> Raspberry Pi-konfiguration -> Grænseflader."

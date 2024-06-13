@@ -34,8 +34,8 @@ class Gpio:
 			mcp251xfd = []
 			interruptMcp251xfd0 = []
 			interruptMcp251xfd = []
-			try: file = open('/boot/config.txt', 'r')
-			except: file = open('/boot/firmware/config.txt', 'r')
+			try: file = open('/boot/firmware/config.txt', 'r')
+			except: file = open('/boot/config.txt', 'r')
 			while True:
 				line = file.readline()
 				if not line: break

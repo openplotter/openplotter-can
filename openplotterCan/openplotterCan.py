@@ -666,8 +666,8 @@ class MyFrame(wx.Frame):
 			else:
 				data = []
 				
-			try: file = open('/boot/config.txt', 'r')
-			except: file = open('/boot/firmware/config.txt', 'r')
+			try: file = open('/boot/firmware/config.txt', 'r')
+			except: file = open('/boot/config.txt', 'r')
 			while True:
 				line = file.readline()
 				if not line: break
@@ -860,7 +860,7 @@ class MyFrame(wx.Frame):
 		self.listMcp251xfd.InsertColumn(1, _('Oscillator'), width=110)
 		self.listMcp251xfd.InsertColumn(2, _('Interrupt'), width=110)
 		self.listMcp251xfd.InsertColumn(3, _('Interface'), width=110)
-		self.listMcp251xfd.InsertColumn(4, _('SK connection ID'), width=260)
+		self.listMcp251xfd.InsertColumn(4, _('SK connection ID'), width=150)
 		self.listMcp251xfd.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListlistMcp251xfdSelected)
 		self.listMcp251xfd.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListlistMcp251xfdDeselected)
 		self.listMcp251xfd.SetTextColour(wx.BLACK)
@@ -934,9 +934,9 @@ class MyFrame(wx.Frame):
 				data = data['pipedProviders']
 			else:
 				data = []
-				
-			try: file = open('/boot/config.txt', 'r')
-			except: file = open('/boot/firmware/config.txt', 'r')
+
+			try: file = open('/boot/firmware/config.txt', 'r')
+			except: file = open('/boot/config.txt', 'r')
 			while True:
 				line = file.readline()
 				if not line: break

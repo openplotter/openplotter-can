@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openplotter\n"
-"POT-Creation-Date: 2023-01-28 19:11+0100\n"
-"PO-Revision-Date: 2023-02-04 21:01+0100\n"
+"POT-Creation-Date: 2024-05-20 11:42+0200\n"
+"PO-Revision-Date: 2024-06-13 11:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -21,30 +21,34 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: canPostInstall.py:30
-msgid "Adding openplotter-can-read service..."
-msgstr "Openplotter-can-read service wordt toegevoegd..."
+msgid "Installing canboat..."
+msgstr "Canboat installeren..."
 
-#: canPostInstall.py:37 canPostInstall.py:50 canPostInstall.py:56
-#: canPreUninstall.py:34 canPreUninstall.py:40
+#: canPostInstall.py:38 canPostInstall.py:48 canPostInstall.py:61
+#: canPostInstall.py:67 canPreUninstall.py:34 canPreUninstall.py:40
 msgid "DONE"
 msgstr "KLAAR"
 
-#: canPostInstall.py:38 canPostInstall.py:51 canPostInstall.py:57
-#: canPreUninstall.py:35 canPreUninstall.py:41
+#: canPostInstall.py:39 canPostInstall.py:49 canPostInstall.py:62
+#: canPostInstall.py:68 canPreUninstall.py:35 canPreUninstall.py:41
 msgid "FAILED: "
 msgstr "MISLUKT: "
 
-#: canPostInstall.py:40
+#: canPostInstall.py:41
+msgid "Adding openplotter-can-read service..."
+msgstr "Openplotter-can-read service wordt toegevoegd..."
+
+#: canPostInstall.py:51
 msgid "Installing/Updating \"Signal K to NMEA 2000\" plugin..."
-msgstr ""
+msgstr "Installeren/bijwerken van \"Signal K naar NMEA 2000\" plugin..."
 
-#: canPostInstall.py:49
+#: canPostInstall.py:60
 msgid "Failed. Please, install Signal K server."
-msgstr ""
+msgstr "Mislukt. Installeer de Signal K server."
 
-#: canPostInstall.py:53
+#: canPostInstall.py:64
 msgid "Setting version..."
-msgstr ""
+msgstr "Versie instellen..."
 
 #: canPreUninstall.py:28
 msgid "Removing openplotter-can-read service..."
@@ -52,7 +56,7 @@ msgstr "Openplotter-can-read service wordt verwijderd..."
 
 #: canPreUninstall.py:37
 msgid "Removing version..."
-msgstr ""
+msgstr "Versie verwijderen..."
 
 #: canUsbFirmware.py:51
 msgid "Please connect (or disconnect and reconnect) the CAN-USB adapter"
@@ -64,11 +68,11 @@ msgstr "Kan seriële apparaat (CAN-USB) niet openen: "
 
 #: data/openplotter-can.desktop:3
 msgid "CAN Bus"
-msgstr ""
+msgstr "CAN Bus"
 
 #: data/openplotter-can.desktop:5
 msgid "openplotter-can"
-msgstr ""
+msgstr "openplotter-can"
 
 #: openplotterCan.py:54
 msgid "Help"
@@ -180,31 +184,31 @@ msgstr "Interface"
 
 #: openplotterCan.py:357
 msgid "Add device"
-msgstr ""
+msgstr "Voeg apparaat toe"
 
 #: openplotterCan.py:359
 msgid "Remove device"
-msgstr ""
+msgstr "Apparaat verwijderen"
 
 #: openplotterCan.py:361 openplotterCan.py:604 openplotterCan.py:873
 msgid "Check device traffic"
-msgstr ""
+msgstr "Controleer apparaatverkeer"
 
 #: openplotterCan.py:363
 msgid "Restart device"
-msgstr ""
+msgstr "Apparaat herstarten"
 
 #: openplotterCan.py:519
 msgid "Remove slcand interface..."
-msgstr ""
+msgstr "Verwijder slcand interface..."
 
 #: openplotterCan.py:532 openplotterCan.py:549 openplotterCan.py:583
 msgid "slcand interfaces restarted"
-msgstr ""
+msgstr "slcand interface herstarten"
 
 #: openplotterCan.py:537 openplotterCan.py:568
 msgid "Restarting slcand interfaces..."
-msgstr ""
+msgstr "Slcand interfaces herstarten..."
 
 #: openplotterCan.py:590 openplotterCan.py:859
 msgid "Connection"
@@ -225,17 +229,17 @@ msgstr "MCP2515 apparaat toevoegen"
 
 #: openplotterCan.py:602
 msgid "Remove MCP2515 device"
-msgstr ""
+msgstr "Verwijder MCP2515 apparaat"
 
 #: openplotterCan.py:796 openplotterCan.py:842 openplotterCan.py:1071
 #: openplotterCan.py:1109
 msgid "OpenPlotter will reboot. Are you sure?"
-msgstr ""
+msgstr "OpenPlotter zal opnieuw opstarten. Weet u het zeker?"
 
 #: openplotterCan.py:797 openplotterCan.py:843 openplotterCan.py:1072
 #: openplotterCan.py:1110
 msgid "Question"
-msgstr ""
+msgstr "Vraag"
 
 #: openplotterCan.py:822 openplotterCan.py:1091
 msgid "Fill in all fields"
@@ -252,11 +256,11 @@ msgstr "Deze interrupt GPIO bestaat al"
 
 #: openplotterCan.py:869 openplotterCan.py:1476
 msgid "Add MCP251xfd device"
-msgstr ""
+msgstr "Voeg MCP2515 apparaat toe"
 
 #: openplotterCan.py:871
 msgid "Remove MCP251xfd device"
-msgstr ""
+msgstr "Verwijder MCP2515 xfd apparaat"
 
 #: openplotterCan.py:1146
 msgid "Open device PGNs"
@@ -314,7 +318,7 @@ msgstr "Interrupt GPIO"
 
 #: openplotterCan.py:1421 openplotterCan.py:1490
 msgid "Select"
-msgstr ""
+msgstr "Selecteer"
 
 #: startup.py:44
 msgid "Checking CAN devices..."
@@ -322,8 +326,8 @@ msgstr "CAN-apparaten controleren..."
 
 #: startup.py:66
 msgid "There is no Signal K connection for interface: "
-msgstr ""
+msgstr "Er is geen Signal K verbinding voor interface: "
 
 #: startup.py:79
 msgid "Please enable SPI interface in Preferences -> Raspberry Pi configuration -> Interfaces."
-msgstr ""
+msgstr "Activeer de SPI interface in Voorkeuren -> Raspberry Pi configuratie -> Interfaces."
