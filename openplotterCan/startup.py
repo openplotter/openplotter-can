@@ -39,8 +39,7 @@ class Check():
 		data = ujson.loads(output)
 		self.canList = []
 		for i in data:
-			if 'canable' in i['ifname']: self.canList.append(i['ifname'])
-			elif 'can' in i['ifname']: self.canList.append(i['ifname'])
+			if i.get('link_type') == 'can': self.canList.append(i['ifname'])
 		if self.canList: self.initialMessage = _('Checking CAN devices...')
 		else: self.initialMessage = ''
 
